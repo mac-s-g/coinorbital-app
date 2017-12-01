@@ -3,14 +3,14 @@ import {
     createStore
 } from 'redux'
 
-import Reducer from './../reducers'
-import Middleware from './middleware'
+import reducer from './../reducers'
+import middleware from './middleware'
 
 
 export default function configureStore(initial_state) {
   return createStore(
-    Reducer,
+    reducer,
     initial_state,
-    applyMiddleware(...Middleware)
+    applyMiddleware(...middleware)
   );
 };
