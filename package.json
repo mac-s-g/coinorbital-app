@@ -1,24 +1,23 @@
 {
   "name": "crypto-portfolio",
-  "description": "tracking crypto portfolio",
+  "description": "web tools to track cypto investments over time",
   "version": "0.0.0",
   "main": "dist/main.js",
-  "files": [
-    "dist/"
-  ],
+  "files": ["dist/"],
   "dependencies": {
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.19.3",
+    "polished": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-redux": "^5.0.0-alpha.8",
-    "recharts": "^1.0.0-beta.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "2.2.12",
-    "semantic-ui-react": "0.76.0",
+    "semantic-ui-react": "0.77.1",
     "styled-components": "^2.2.2"
   },
   "devDependencies": {
@@ -48,7 +47,8 @@
   },
   "peerDependencies": {},
   "scripts": {
-    "build": "webpack --config webpack/webpack.config.js -p --display-error-details --progress --optimize-minimize",
+    "build":
+      "webpack --config webpack/webpack.config.js -p --display-error-details --progress --optimize-minimize",
     "dev:hot": "webpack-dev-server --config webpack/webpack.config-dev.js"
   },
   "repository": {},
@@ -56,5 +56,5 @@
   "bugs": {},
   "license": "MIT",
   "homepage": "",
-  "author": "Mac Gainor"
+  "author": "Mac Gainor, Michael Ferrell"
 }

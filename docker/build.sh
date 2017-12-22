@@ -20,6 +20,6 @@ docker run \
     -v $(pwd)/webpack:/react/webpack \
     --name=crypto-portfolio \
     -e NODE_ENV=$NODE_ENV \
-    --publish 3600:3600 \
+    --publish 3700:3700 \
     --entrypoint=/react/docker/entrypoints/build.sh \
     -t crypto-portfolio

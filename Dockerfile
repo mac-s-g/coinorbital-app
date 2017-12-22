@@ -1,5 +1,5 @@
 FROM node:8.1.2-slim
-MAINTAINER Mac Gainor <mac.gainor@gmail.com>
+MAINTAINER Mac Gainor, Michael Ferrell <mac.gainor@gmail.com>
 
 # install the node modules at container build time
 ADD package.json /tmp/package.json
@@ -10,6 +10,6 @@ RUN mkdir -p /react && cp -a /tmp/node_modules /react
 ADD . /react
 WORKDIR /react
 
-EXPOSE 3600
+EXPOSE 3700
 ENTRYPOINT ["/react/entrypoints/build.sh"]
 

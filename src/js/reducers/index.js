@@ -1,9 +1,13 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "redux"
+import { routerReducer } from "react-router-redux"
 
-import exampleReducer from './exampleReducer'
+import accountReducer from "./accountReducer"
+import modalReducer from "./modalReducer"
 
 const reducer = combineReducers({
-  exampleReducer
+  accounts: accountReducer,
+  modals: modalReducer,
+  router: routerReducer
 })
 
 export default reducer
