@@ -3,8 +3,11 @@
   "description": "web tools to track cypto investments over time",
   "version": "0.0.0",
   "main": "dist/main.js",
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
   "dependencies": {
+    "cabinet-storage": "^0.0.1",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.19.3",
@@ -47,8 +50,7 @@
   },
   "peerDependencies": {},
   "scripts": {
-    "build":
-      "webpack --config webpack/webpack.config.js -p --display-error-details --progress --optimize-minimize",
+    "build": "webpack --config webpack/webpack.config.js -p --display-error-details --progress --optimize-minimize",
     "dev:hot": "webpack-dev-server --config webpack/webpack.config-dev.js"
   },
   "repository": {},
