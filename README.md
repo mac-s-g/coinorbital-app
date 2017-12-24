@@ -2,8 +2,8 @@
 
 web tools to track cypto investments over time
 
-### Contribute
-#### Development Server
+### How to Contribute
+#### Run the Development Server
 The `npm run dev:hot` script starts a dev server with hot reloading enabled.
 ```bash
 # make sure you have the latest source code
