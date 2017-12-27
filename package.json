@@ -7,7 +7,7 @@
     "dist/"
   ],
   "dependencies": {
-    "cabinet-storage": "^0.0.1",
+    "cabinet-storage": "0.0.5",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.19.3",
