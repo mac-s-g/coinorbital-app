@@ -1,6 +1,6 @@
 import { CLOSE_ALL_MODALS, NEW_TRANSACTION_MODAL } from "./../actions"
 
-let default_state = {
+const default_state = {
   new_transaction: false
 }
 

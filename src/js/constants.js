@@ -8,7 +8,7 @@ export const theme = {
     dash_sidebar: "#f5f5f5",
     dash_content: "#fff",
     logo: "rgb(255, 165, 0)",
-    red: "#dd0000"
+    red: "#dd4444"
   },
   dash_nav_height: "4em"
 }

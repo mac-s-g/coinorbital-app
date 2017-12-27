@@ -1,7 +1,7 @@
 import {} from "./../actions"
 
-let default_state = {
-  accounts: {}
+const default_state = {
+  by_symbol: {}
 }
 
 export default (state = default_state, action) => {

@@ -15,8 +15,16 @@ export default class extends Component {
     currency: null
   }
 
+  componentDidMount() {
+    const { coins, fetchCoins } = this.props
+    if (!coins.list.length) {
+      fetchCoins()
+    }
+  }
+
   render() {
-    const { closeModal, createTransaction } = this.props
+    const { closeModal, createTransaction, coins } = this.props
+    const coins_by_symbol = { ...coins.by_symbol }
     return (
       <Modal open size="tiny" onClose={closeModal}>
         <Modal.Header>Record a Transaction</Modal.Header>
