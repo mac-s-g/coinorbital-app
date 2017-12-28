@@ -80,8 +80,8 @@ export default ({ children, navigateTo, requestNewTransaction }) => (
     <Grid as={SidebarGrid}>
       <Grid.Column {...grid_width.sidebar} as={SidebarGridColumn}>
         <Sidebar>
-          <SidebarItem onClick={e => navigateTo()} label="Overview" />
-          <SidebarItem label="Coin Watch List" />
+          <SidebarItem onClick={e => navigateTo('/dashboard')} label="Overview" />
+          <SidebarItem onClick={e => navigateTo('/dashboard/watch-list')} label="Coin Watch List" />
           <SidebarItem
             onClick={requestNewTransaction}
             label="Record a Transaction"

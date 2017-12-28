@@ -4,7 +4,7 @@ import { Header } from "semantic-ui-react"
 
 import { theme } from "./../../constants"
 
-const MainContainer = Styled.div`
+const MainComponent = Styled.div`
   background-color: ${theme.colors.dash_content};
   width: 100%;
   padding: 3em 2em;
@@ -14,7 +14,7 @@ const PageContent = Styled.div`
 `
 
 export default ({ header, subHeader, children }) => (
-  <MainContainer>
+  <MainComponent>
     {header ? (
       <Header
         as="h1"
@@ -23,5 +23,5 @@ export default ({ header, subHeader, children }) => (
       />
     ) : null}
     <PageContent>{children}</PageContent>
-  </MainContainer>
+  </MainComponent>
 )

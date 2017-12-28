@@ -36,7 +36,6 @@ const index = props => (
           render={routeProps => <Home {...routeProps} {...props} />}
         />
         <Route
-          exact
           path="/dashboard"
           render={routeProps => <Dashboard {...routeProps} {...props} />}
         />
