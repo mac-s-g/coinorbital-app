@@ -12,14 +12,16 @@ import "semantic-ui-css/semantic.min.css"
 import {
   closeAllModals,
   createTransaction,
-  newTransactionModal
+  newTransactionModal,
+  fetchCoins
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
   navigateTo: location => dispatch(push(location)),
   requestNewTransaction: () => dispatch(newTransactionModal()),
   closeModal: () => dispatch(closeAllModals()),
-  createTransaction: payload => dispatch(createTransaction(payload))
+  createTransaction: payload => dispatch(createTransaction(payload)),
+  fetchCoins: () => dispatch(fetchCoins())
 })
 
 const mapStateToProps = state => ({ ...state })

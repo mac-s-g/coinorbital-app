@@ -15,3 +15,12 @@ export {
   //dispatcher calls
   createTransaction
 } from "./Transactions"
+
+export {
+  //action constants
+  REQUEST_COINS,
+  RECEIVE_COINS,
+  RECEIVE_COINS_ERROR,
+  //dispatcher calls
+  fetchCoins
+} from "./Coins"
