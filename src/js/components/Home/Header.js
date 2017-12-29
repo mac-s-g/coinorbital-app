@@ -2,7 +2,7 @@ import React from "react"
 import Styled from "styled-components"
 import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
 
-import { project_info, theme } from "./../../constants"
+import { project_info, theme, links } from "./../../constants"
 
 const HeaderContainer = Styled.div`
   padding: 1em 0em;
@@ -14,10 +14,6 @@ const HeaderContent = Styled.div`
 const HeaderLabel = Styled.div`
   font-size: 36px;
   margin-bottom: 0.33em;
-`
-const IconContainer = Styled.div`
-  padding: 0.33em !important;
-  cursor: pointer;
 `
 const MenuContainer = Styled.div`
   border-color: ${theme.colors.inverted} !important;
@@ -36,7 +32,13 @@ export default ({ navigateTo }) => (
         <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
           Dashboard
         </Menu.Item>
-        <Menu.Item position="right" as={IconContainer}>
+        <Menu.Item
+          position="right"
+          as="a"
+          href={links.github}
+          target="_blank"
+          style={{ padding: "0.33em" }}
+        >
           <Icon name="github" size="big" />
         </Menu.Item>
       </Menu>

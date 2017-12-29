@@ -13,3 +13,6 @@ export const theme = {
   dash_nav_height: "4em"
 }
 
+export const links = {
+  github: "https://github.com/mac-s-g/crypto-portfolio"
+}

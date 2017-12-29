@@ -33,9 +33,15 @@ export default props => (
       <Container text>
         <SegmentHeader>Visualize your Value</SegmentHeader>
         <SegmentContent>
-          Track the value of your crypto portfolio by logging snapshots of your
-          transactions. Transactions are plotted against market data to help you
-          measure your value over time.
+          Cryptocurrencty trading involves constant price fluctuations.
+          To help make the right decision at the right time, we equip you
+          with tools to analyze the market.
+        </SegmentContent>
+        <SegmentContent>
+          Track the value of your crypto portfolio by logging
+          snapshots of your transactions.
+          Transactions are plotted against market prices
+          to help you measure your value over time.
         </SegmentContent>
         <Button
           as="a"
@@ -49,7 +55,7 @@ export default props => (
         <SegmentContent>
           <i>{project_info.name}</i> doesn't get in your way. User activity and
           profile information is all stored locally. We don't store, process, or
-          share any data that you use to track your coins.
+          share <strong>any</strong> data that you use to track your coins.
         </SegmentContent>
       </Container>
     </Segment>
