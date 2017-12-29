@@ -49,7 +49,8 @@ export default () => (
               {project_info.name}
             </Header>
             <p>
-              Aggregate coins and visualize your value in a volatile market.
+              Aggregate investments and visualize your value in a volatile
+              market.
             </p>
           </Grid.Column>
           <Grid.Column {...grid_width.gutter} />

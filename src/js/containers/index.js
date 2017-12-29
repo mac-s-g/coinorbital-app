@@ -33,11 +33,11 @@ const index = props => (
         <Route
           exact
           path="/"
-          render={routeProps => <Home {...routeProps} {...props} />}
+          render={routeProps => <Home {...props} {...routeProps} />}
         />
         <Route
           path="/dashboard"
-          render={routeProps => <Dashboard {...routeProps} {...props} />}
+          render={routeProps => <Dashboard {...props} {...routeProps} />}
         />
       </Switch>
     </ConnectedRouter>
