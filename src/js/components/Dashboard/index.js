@@ -23,17 +23,17 @@ export default props => (
         <Route
           exact
           path="/dashboard"
-          render={routeProps => <Overview {...props} />}
+          render={routeProps => <Overview {...props} {...routeProps} />}
         />
         <Route
           exact
           path="/dashboard/account"
-          render={routeProps => <AccountView {...props} />}
+          render={routeProps => <AccountView {...props} {...routeProps} />}
         />
         <Route
           exact
           path="/dashboard/watch-list"
-          render={routeProps => <WatchList {...props} />}
+          render={routeProps => <WatchList {...props} {...routeProps} />}
         />
       </Switch>
     </Sidebar>
