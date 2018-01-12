@@ -13,15 +13,21 @@ import {
   closeAllModals,
   createTransaction,
   newTransactionModal,
-  fetchCoins
+  addToWatchListModal,
+  addToWatchList,
+  fetchCoins,
+  fetchWatchList
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
   navigateTo: location => dispatch(push(location)),
   requestNewTransaction: () => dispatch(newTransactionModal()),
+  requestAddToWatchList: () => dispatch(addToWatchListModal()),
+  addToWatchList: coin => dispatch(addToWatchList(coin)),
   closeModal: () => dispatch(closeAllModals()),
   createTransaction: payload => dispatch(createTransaction(payload)),
-  fetchCoins: () => dispatch(fetchCoins())
+  fetchCoins: () => dispatch(fetchCoins()),
+  fetchWatchList: () => dispatch(fetchWatchList())
 })
 
 const mapStateToProps = state => ({ ...state })

@@ -9,15 +9,20 @@ const changeCoin = val => {
   console.log(val)
 }
 
-export default ({ closeModal, createTransaction, ...props }) => (
+export default ({ closeModal, addToWatchList, ...props }) => (
   <Modal open size="tiny" onClose={closeModal}>
-    <Modal.Header>Record a Transaction</Modal.Header>
+    <Modal.Header>Add to Watch List</Modal.Header>
     <Modal.Content>
       <CoinDropdown onChange={changeCoin} {...props} />
     </Modal.Content>
     <Modal.Actions>
       <Cancel onClick={closeModal} />
-      <Submit onClick={closeModal} />
+      <Submit
+        onClick={() => {
+          addToWatchList({ symbol: "btc" })
+          closeModal()
+        }}
+      />
     </Modal.Actions>
   </Modal>
 )
