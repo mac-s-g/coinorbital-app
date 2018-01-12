@@ -7,6 +7,7 @@ export default props => (
     fluid
     search
     selection
+    loading={props.loading}
     options={props.options}
     onChange={(e, value) => {
       props.onChange(value.value)

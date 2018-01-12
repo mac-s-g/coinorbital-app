@@ -7,6 +7,7 @@ import Overview from "./Overview"
 import AccountView from "./AccountView"
 import WatchList from "./WatchList"
 import NewTransaction from "./Modal/NewTransaction"
+import AddToWatchList from "./Modal/AddToWatchList"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
@@ -38,5 +39,6 @@ export default props => (
       </Switch>
     </Sidebar>
     {props.modals.new_transaction ? <NewTransaction {...props} /> : null}
+    {props.modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
   </div>
 )
