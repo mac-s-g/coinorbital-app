@@ -62,13 +62,13 @@ const SidebarCaret = Styled.i`
 
 const grid_width = {
   sidebar: {
-    largeScreen: 4,
+    largeScreen: 3,
     computer: 5,
     tablet: 6,
     mobile: 16
   },
   content: {
-    largeScreen: 12,
+    largeScreen: 13,
     computer: 11,
     tablet: 10,
     mobile: 16
@@ -80,8 +80,14 @@ export default ({ children, navigateTo, requestNewTransaction }) => (
     <Grid as={SidebarGrid}>
       <Grid.Column {...grid_width.sidebar} as={SidebarGridColumn}>
         <Sidebar>
-          <SidebarItem onClick={e => navigateTo('/dashboard')} label="Overview" />
-          <SidebarItem onClick={e => navigateTo('/dashboard/watch-list')} label="Coin Watch List" />
+          <SidebarItem
+            onClick={e => navigateTo("/dashboard")}
+            label="Overview"
+          />
+          <SidebarItem
+            onClick={e => navigateTo("/dashboard/watch-list")}
+            label="Coin Watch List"
+          />
           <SidebarItem
             onClick={requestNewTransaction}
             label="Record a Transaction"

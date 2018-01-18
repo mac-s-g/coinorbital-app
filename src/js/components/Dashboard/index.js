@@ -5,7 +5,7 @@ import Header from "./Header"
 import Sidebar from "./Sidebar"
 import Overview from "./Overview"
 import AccountView from "./AccountView"
-import WatchList from "./WatchList"
+import WatchList from "./WatchList/"
 import NewTransaction from "./Modal/NewTransaction"
 import AddToWatchList from "./Modal/AddToWatchList"
 

@@ -8,7 +8,7 @@
   ],
   "dependencies": {
     "axios": "^0.17.1",
-    "cabinet-storage": "0.0.5",
+    "cabinet-storage": "^0.2.0",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.19.3",
@@ -18,7 +18,7 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-redux": "^5.0.0-alpha.8",
-    "react-smooth-draggable-list": "0.2.1",
+    "react-smooth-draggable-list": "0.2.5",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "2.2.12",

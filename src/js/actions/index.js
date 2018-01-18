@@ -31,7 +31,9 @@ export {
   //action constants
   RECEIVE_WATCH_LIST,
   ADD_TO_WATCH_LIST,
+  REORDER_WATCH_LIST,
   //dispatcher calls
   fetchWatchList,
-  addToWatchList
+  addToWatchList,
+  reorderWatchList
 } from "./WatchList"

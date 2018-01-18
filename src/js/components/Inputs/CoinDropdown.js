@@ -4,20 +4,20 @@ import SearchDropdown from "./../Inputs/SearchDropdown"
 import formatCoinOptions from "./../../helpers/formatCoinOptions"
 
 export default class extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const { coins, fetchCoins } = this.props
-    if (!coins.list.length) {
+    if (!coins.fetching_coins && !coins.list.length) {
       fetchCoins()
     }
   }
 
   render() {
-    const coins_by_symbol = { ...this.props.coins.by_symbol }
+    const { coins, exclude } = this.props
     return (
       <SearchDropdown
         placeholder="Search Currencies"
         loading={this.props.coins.fetching_coins}
-        options={formatCoinOptions(coins_by_symbol)}
+        options={formatCoinOptions(coins.by_symbol, exclude)}
         {...this.props}
       />
     )

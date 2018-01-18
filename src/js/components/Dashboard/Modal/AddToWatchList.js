@@ -1,28 +1,39 @@
-import React from "react"
+import React, { Component } from "react"
 import { Modal } from "semantic-ui-react"
 import Submit from "./../../Buttons/Submit"
 import Cancel from "./../../Buttons/Cancel"
 import CoinDropdown from "./../../Inputs/CoinDropdown"
 
-const changeCoin = val => {
-  console.log("val")
-  console.log(val)
-}
+export default class extends Component {
+  state = { selected: false }
 
-export default ({ closeModal, addToWatchList, ...props }) => (
-  <Modal open size="tiny" onClose={closeModal}>
-    <Modal.Header>Add to Watch List</Modal.Header>
-    <Modal.Content>
-      <CoinDropdown onChange={changeCoin} {...props} />
-    </Modal.Content>
-    <Modal.Actions>
-      <Cancel onClick={closeModal} />
-      <Submit
-        onClick={() => {
-          addToWatchList({ symbol: "btc" })
-          closeModal()
-        }}
-      />
-    </Modal.Actions>
-  </Modal>
-)
+  selectCoin = coin => this.setState({ selected: coin })
+
+  render() {
+    const { closeModal, addToWatchList, coins, watchList } = this.props
+    const { selected } = this.state
+
+    return (
+      <Modal open size="tiny" onClose={closeModal}>
+        <Modal.Header>Add to Watch List</Modal.Header>
+        <Modal.Content>
+          <CoinDropdown
+            onChange={this.selectCoin}
+            exclude={watchList.ranked}
+            {...this.props}
+          />
+        </Modal.Content>
+        <Modal.Actions>
+          <Cancel onClick={closeModal} />
+          <Submit
+            disabled={selected === false}
+            onClick={() => {
+              addToWatchList(selected)
+              closeModal()
+            }}
+          />
+        </Modal.Actions>
+      </Modal>
+    )
+  }
+}

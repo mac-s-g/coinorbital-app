@@ -19,7 +19,6 @@ export default (state = default_state, action) => {
         fetch_coins_error: false
       }
     case RECEIVE_COINS:
-      console.log("payload: ", coinsBySymbol(payload))
       return {
         ...state,
         list: [...payload],
