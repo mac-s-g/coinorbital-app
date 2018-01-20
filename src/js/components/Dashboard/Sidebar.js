@@ -56,7 +56,7 @@ const SidebarCaret = Styled.i`
   position: absolute;
   left: 10px;
   width: 0 !important;
-  opacity: 0 !important;
+  opacity: ${({ selected }) => (selected ? 1 : 0)} !important;
   color: ${theme.colors.inverted};
 `
 
@@ -75,17 +75,26 @@ const grid_width = {
   }
 }
 
-export default ({ children, navigateTo, requestNewTransaction }) => (
+const selected = (router, path) =>
+  router.location && router.location.pathname === path
+
+export default ({ router, children, navigateTo, requestNewTransaction }) => (
   <SidebarContainer>
     <Grid as={SidebarGrid}>
       <Grid.Column {...grid_width.sidebar} as={SidebarGridColumn}>
         <Sidebar>
           <SidebarItem
-            onClick={e => navigateTo("/dashboard")}
+            selected={selected(router, "/dashboard")}
+            onClick={e =>
+              !selected(router, "/dashboard") ? navigateTo("/dashboard") : null}
             label="Overview"
           />
           <SidebarItem
-            onClick={e => navigateTo("/dashboard/watch-list")}
+            selected={selected(router, "/dashboard/watch-list")}
+            onClick={e =>
+              !selected(router, "/dashboard/watch-list")
+                ? navigateTo("/dashboard/watch-list")
+                : null}
             label="Coin Watch List"
           />
           <SidebarItem
@@ -104,7 +113,7 @@ export default ({ children, navigateTo, requestNewTransaction }) => (
 
 const SidebarItem = props => (
   <SidebarButton {...props}>
-    <Icon as={SidebarCaret} name="angle right" />
+    <Icon as={SidebarCaret} selected={props.selected} name="angle right" />
     {props.label}
   </SidebarButton>
 )
