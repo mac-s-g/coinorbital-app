@@ -13,6 +13,7 @@ export default ({ closeModal, createTransaction, ...props }) => (
   <Modal open size="tiny" onClose={closeModal}>
     <Modal.Header>Record a Transaction</Modal.Header>
     <Modal.Content>
+      <Modal.Description as="p">i don't do anything yet.</Modal.Description>
       <CoinDropdown onChange={changeCoin} {...props} />
     </Modal.Content>
     <Modal.Actions>
