@@ -10,7 +10,7 @@ export const theme = {
     well_gray: "#f5f5f5",
     well_border: "#bbb",
     dash_content: "#fff",
-    logo: "#86bbd8",
+    logo: "#FAA916",
     red: "#dd4444",
     green: "#2ecc40"
   },
@@ -20,3 +20,13 @@ export const theme = {
 export const links = {
   github: "https://github.com/mac-s-g/crypto-portfolio"
 }
+
+/*
+{
+  gold: "#faa916",
+  white: "#fdfdff",
+  grey: "#aaaaaa",
+  red: "#dd4444",
+  blue: "#335577"
+}
+*/
