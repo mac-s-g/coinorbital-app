@@ -10,8 +10,9 @@ export const theme = {
     well_gray: "#f5f5f5",
     well_border: "#bbb",
     dash_content: "#fff",
-    logo: "rgb(255, 165, 0)",
-    red: "#dd4444"
+    logo: "#86bbd8",
+    red: "#dd4444",
+    green: "#2ecc40"
   },
   dash_nav_height: "4em"
 }

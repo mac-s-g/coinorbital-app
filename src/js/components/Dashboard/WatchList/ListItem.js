@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Container, Icon, Image, Statistic } from "semantic-ui-react"
+import { rgba } from "polished"
 
 import formatNumber from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
@@ -28,7 +29,7 @@ const Rank = Styled.div`
   display: inline-block;
   font-style: italic;
   font-weight: bold;
-  color: #aaa;
+  color: ${theme.colors.gray};
   margin-top: 0.2em;
 `
 
@@ -45,7 +46,7 @@ const Name = Styled.div`
   & :nth-child(2) {
     font-weight: bold;
     font-size: 10px;
-    color: #aaa;
+    color: ${theme.colors.gray};
   }
 `
 
@@ -54,7 +55,34 @@ const CurrencyIcon = Styled.div`
 `
 
 const Price = Styled.div`
-  width: 160px;
+  width: 170px;
+  @media (max-width: 861px) {
+    display: none !important;
+  }
+`
+
+const Deltas = Styled.div`
+  width: 140px;
+  @media (max-width: 991px) {
+    display: none !important;
+  }
+`
+
+const DeltaBadge = Styled.div`
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  display: inline-block;
+  padding: 4px;
+  /*color: ${({ color }) => color};*/
+  color: white;
+  font-weight: bold;
+  border: 1px solid ${({ color }) => color};
+  /*box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);*/
+  background-color: ${({ color }) => rgba(color, 0.6)};
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 10px;
 `
 
 const Controls = Styled.div`
@@ -66,9 +94,19 @@ const Controls = Styled.div`
 
 export default class extends Component {
   state = { moveCursor: false }
+  calculateDeltaColor = delta => {
+    if (delta > 0) {
+      return theme.colors.green
+    } else if (delta < 0) {
+      return theme.colors.red
+    } else {
+      return theme.colors.gray
+    }
+  }
   render() {
     const { coin, rank, requestCoinInfo, removeFromWatchList } = this.props
     const { moveCursor } = this.state
+
     return (
       <ItemContainer
         onMouseDown={e => this.setState({ moveCursor: true })}
@@ -89,6 +127,26 @@ export default class extends Component {
             <Statistic.Label>USD</Statistic.Label>
           </Statistic>
         </Price>
+        <Deltas>
+          <DeltaBadge
+            circular
+            color={this.calculateDeltaColor(coin.percent_change_1h)}
+          >
+            1h
+          </DeltaBadge>
+          <DeltaBadge
+            circular
+            color={this.calculateDeltaColor(coin.percent_change_24h)}
+          >
+            1d
+          </DeltaBadge>
+          <DeltaBadge
+            circular
+            color={this.calculateDeltaColor(coin.percent_change_7d)}
+          >
+            7d
+          </DeltaBadge>
+        </Deltas>
         <Controls>
           <Icon
             size="large"
