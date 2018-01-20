@@ -29,7 +29,7 @@ const Rank = Styled.div`
   font-style: italic;
   font-weight: bold;
   color: #aaa;
-  margin-top: 0.15em;
+  margin-top: 0.2em;
 `
 
 const Name = Styled.div`
