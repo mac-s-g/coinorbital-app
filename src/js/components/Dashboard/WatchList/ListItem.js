@@ -62,13 +62,13 @@ const Price = Styled.div`
 `
 
 const Deltas = Styled.div`
-  width: 140px;
+  width: 142px;
   @media (max-width: 1016px) {
     display: none !important;
   }
 `
 
-const DeltaBadge = Styled.div`
+const DeltaStat = Styled.div`
   display: inline-block;
   color: ${({ color }) => color};
   font-weight: bold;
@@ -129,27 +129,27 @@ export default class extends Component {
           </Statistic>
         </Price>
         <Deltas>
-          <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_1h)}>
+          <DeltaStat color={this.calculateDeltaColor(coin.percent_change_1h)}>
             <Icon
               name={this.calculateIconName(coin.percent_change_7d)}
               size="small"
             />
             1h
-          </DeltaBadge>
-          <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_24h)}>
+          </DeltaStat>
+          <DeltaStat color={this.calculateDeltaColor(coin.percent_change_24h)}>
             <Icon
               name={this.calculateIconName(coin.percent_change_24h)}
               size="small"
             />
             1d
-          </DeltaBadge>
-          <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_7d)}>
+          </DeltaStat>
+          <DeltaStat color={this.calculateDeltaColor(coin.percent_change_7d)}>
             <Icon
               name={this.calculateIconName(coin.percent_change_7d)}
               size="small"
             />
             7d
-          </DeltaBadge>
+          </DeltaStat>
         </Deltas>
         <Controls>
           <Icon

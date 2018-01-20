@@ -102,7 +102,7 @@ export default ({ router, children, navigateTo, requestNewTransaction }) => (
             label="Record a Transaction"
           />
         </Sidebar>
-        <Divider horizontal>Accounts</Divider>
+        <Divider horizontal>My Wallets</Divider>
       </Grid.Column>
       <Grid.Column {...grid_width.content} as={SidebarGridColumn}>
         <ContentContainer>{children}</ContentContainer>
