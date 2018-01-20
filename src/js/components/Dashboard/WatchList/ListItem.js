@@ -55,32 +55,26 @@ const CurrencyIcon = Styled.div`
 `
 
 const Price = Styled.div`
-  width: 170px;
-  @media (max-width: 861px) {
+  width: 180px;
+  @media (max-width: 876px) {
     display: none !important;
   }
 `
 
 const Deltas = Styled.div`
   width: 140px;
-  @media (max-width: 991px) {
+  @media (max-width: 1016px) {
     display: none !important;
   }
 `
 
 const DeltaBadge = Styled.div`
-  height: 30px;
-  width: 30px;
-  border-radius: 32px;
   display: inline-block;
-  padding: 3px;
   color: ${({ color }) => color};
   font-weight: bold;
-  border: 1.5px solid ${({ color }) => color};
-  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
   text-align: center;
-  vertical-align: middle;
-  margin-right: 10px;
+  vertical-align: top;
+  margin-right: 14px;
 `
 
 const Controls = Styled.div`
@@ -99,6 +93,15 @@ export default class extends Component {
       return theme.colors.red
     } else {
       return theme.colors.gray
+    }
+  }
+  calculateIconName = delta => {
+    if (delta > 0) {
+      return "up arrow"
+    } else if (delta < 0) {
+      return "down arrow"
+    } else {
+      return "ban"
     }
   }
   render() {
@@ -127,12 +130,24 @@ export default class extends Component {
         </Price>
         <Deltas>
           <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_1h)}>
+            <Icon
+              name={this.calculateIconName(coin.percent_change_7d)}
+              size="small"
+            />
             1h
           </DeltaBadge>
           <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_24h)}>
+            <Icon
+              name={this.calculateIconName(coin.percent_change_24h)}
+              size="small"
+            />
             1d
           </DeltaBadge>
           <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_7d)}>
+            <Icon
+              name={this.calculateIconName(coin.percent_change_7d)}
+              size="small"
+            />
             7d
           </DeltaBadge>
         </Deltas>
