@@ -69,17 +69,15 @@ const Deltas = Styled.div`
 `
 
 const DeltaBadge = Styled.div`
-  height: 32px;
-  width: 32px;
+  height: 30px;
+  width: 30px;
   border-radius: 32px;
   display: inline-block;
-  padding: 4px;
-  /*color: ${({ color }) => color};*/
-  color: white;
+  padding: 3px;
+  color: ${({ color }) => color};
   font-weight: bold;
-  border: 1px solid ${({ color }) => color};
-  /*box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);*/
-  background-color: ${({ color }) => rgba(color, 0.6)};
+  border: 1.5px solid ${({ color }) => color};
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
   text-align: center;
   vertical-align: middle;
   margin-right: 10px;
@@ -128,22 +126,13 @@ export default class extends Component {
           </Statistic>
         </Price>
         <Deltas>
-          <DeltaBadge
-            circular
-            color={this.calculateDeltaColor(coin.percent_change_1h)}
-          >
+          <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_1h)}>
             1h
           </DeltaBadge>
-          <DeltaBadge
-            circular
-            color={this.calculateDeltaColor(coin.percent_change_24h)}
-          >
+          <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_24h)}>
             1d
           </DeltaBadge>
-          <DeltaBadge
-            circular
-            color={this.calculateDeltaColor(coin.percent_change_7d)}
-          >
+          <DeltaBadge color={this.calculateDeltaColor(coin.percent_change_7d)}>
             7d
           </DeltaBadge>
         </Deltas>

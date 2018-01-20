@@ -24,7 +24,7 @@ export default class extends Component {
     } else if (val < 0) {
       return "red"
     } else {
-      return "white"
+      return "grey"
     }
   }
   calculateStatIcon = val => {
@@ -33,7 +33,7 @@ export default class extends Component {
     } else if (val < 0) {
       return "arrow down"
     } else {
-      return "minus"
+      return "ban"
     }
   }
   render() {
