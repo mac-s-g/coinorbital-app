@@ -1,7 +1,8 @@
 import {
   RECEIVE_WATCH_LIST,
   ADD_TO_WATCH_LIST,
-  REORDER_WATCH_LIST
+  REORDER_WATCH_LIST,
+  REMOVE_FROM_WATCH_LIST
 } from "./../actions"
 
 const default_state = {
@@ -16,6 +17,11 @@ export default (state = default_state, { type, payload }) => {
         ranked: [...payload]
       }
     case ADD_TO_WATCH_LIST:
+      return {
+        ...state,
+        ranked: [...payload]
+      }
+    case REMOVE_FROM_WATCH_LIST:
       return {
         ...state,
         ranked: [...payload]

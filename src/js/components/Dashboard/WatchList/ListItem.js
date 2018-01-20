@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Component } from "react"
 import Styled from "styled-components"
 import { Container, Icon, Image, Statistic } from "semantic-ui-react"
 
@@ -8,8 +8,7 @@ import { theme } from "./../../../constants"
 import * as svgs from "./CoinLogos"
 
 const ItemContainer = Styled.div`
-  /*background-color: ${theme.colors.well_gray};*/
-  /*border: 1px solid #999;*/
+  cursor: ${({ moveCursor }) => (moveCursor ? "move" : "grab")};
   border-radius: 2px;
   padding: 8px 8px;
   height: 100%;
@@ -19,7 +18,7 @@ const ItemContainer = Styled.div`
     vertical-align: top;
   }
   & * {
-    cursor: pointer;
+    cursor: ${({ moveCursor }) => (moveCursor ? "move !important" : "grab")};
   }
 `
 
@@ -65,36 +64,51 @@ const Controls = Styled.div`
   }
 `
 
-export default ({ coin, rank }) => (
-  <ItemContainer>
-    <Rank>{rank}</Rank>
-    <CurrencyIcon>
-      <CurrencyLogo symbol={coin.symbol} />
-    </CurrencyIcon>
-    <Name>
-      <div>{coin.name}</div>
-      <div>{coin.symbol}</div>
-    </Name>
-    <Price>
-      <Statistic size="mini" horizontal>
-        <Statistic.Value>${formatNumber(coin.price_usd)}</Statistic.Value>
-        <Statistic.Label>USD</Statistic.Label>
-      </Statistic>
-    </Price>
-    <Controls>
-      <Icon
-        size="large"
-        name="info circle"
-        style={{ color: theme.colors.inverted }}
-      />
-      <Icon
-        size="large"
-        name="remove circle"
-        style={{ color: theme.colors.red }}
-      />
-    </Controls>
-  </ItemContainer>
-)
+export default class extends Component {
+  state = { moveCursor: false }
+  render() {
+    const { coin, rank, requestCoinInfo, removeFromWatchList } = this.props
+    const { moveCursor } = this.state
+    return (
+      <ItemContainer
+        onMouseDown={e => this.setState({ moveCursor: true })}
+        onMouseUp={e => this.setState({ moveCursor: false })}
+        moveCursor={moveCursor}
+      >
+        <Rank>{rank}</Rank>
+        <CurrencyIcon>
+          <CurrencyLogo symbol={coin.symbol} />
+        </CurrencyIcon>
+        <Name>
+          <div>{coin.name}</div>
+          <div>{coin.symbol}</div>
+        </Name>
+        <Price>
+          <Statistic size="mini" horizontal>
+            <Statistic.Value>${formatNumber(coin.price_usd)}</Statistic.Value>
+            <Statistic.Label>USD</Statistic.Label>
+          </Statistic>
+        </Price>
+        <Controls>
+          <Icon
+            size="large"
+            name="info circle"
+            style={{ color: theme.colors.inverted }}
+            onMouseDown={e => e.stopPropagation()}
+            onClick={e => requestCoinInfo(coin.symbol)}
+          />
+          <Icon
+            size="large"
+            name="remove circle"
+            style={{ color: theme.colors.red }}
+            onMouseDown={e => e.stopPropagation()}
+            onClick={e => removeFromWatchList(coin.symbol)}
+          />
+        </Controls>
+      </ItemContainer>
+    )
+  }
+}
 
 const CurrencyLogo = ({ symbol }) =>
   svgs[symbol.toLowerCase()] ? (

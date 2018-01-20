@@ -25,11 +25,17 @@ export default class extends Component {
   }
 
   render() {
-    const { reorderWatchList, coins } = this.props
+    const {
+      reorderWatchList,
+      removeFromWatchList,
+      requestCoinInfo,
+      coins
+    } = this.props
     const { ranked, order } = this.state
     return (
       <List
-        rowHeight={60}
+        rowHeight={64}
+        gutter={0}
         onReOrder={order => {
           this.setState({ order: order })
           reorderWatchList(order.map(idx => ranked[idx]))
@@ -41,6 +47,8 @@ export default class extends Component {
             <ListItem
               coin={coins.by_symbol[symbol]}
               rank={order.indexOf(idx) + RANK_IDX_OFFSET}
+              requestCoinInfo={requestCoinInfo}
+              removeFromWatchList={removeFromWatchList}
             />
           </List.Item>
         ))}

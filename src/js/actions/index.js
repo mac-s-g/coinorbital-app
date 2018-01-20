@@ -5,10 +5,12 @@ export {
   CLOSE_ALL_MODALS,
   NEW_TRANSACTION_MODAL,
   ADD_TO_WATCHLIST_MODAL,
+  COIN_INFO_MODAL,
   //dispatcher calls
   closeAllModals,
   newTransactionModal,
-  addToWatchListModal
+  addToWatchListModal,
+  coinInfoModal
 } from "./Modals"
 
 export {
@@ -31,9 +33,11 @@ export {
   //action constants
   RECEIVE_WATCH_LIST,
   ADD_TO_WATCH_LIST,
+  REMOVE_FROM_WATCH_LIST,
   REORDER_WATCH_LIST,
   //dispatcher calls
   fetchWatchList,
   addToWatchList,
+  removeFromWatchList,
   reorderWatchList
 } from "./WatchList"
