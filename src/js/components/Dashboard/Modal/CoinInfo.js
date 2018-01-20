@@ -18,22 +18,22 @@ export default class extends Component {
       fetchCoins()
     }
   }
-  getStatColor = val => {
+  calculateStatColor = val => {
     if (val > 0) {
       return "green"
     } else if (val < 0) {
       return "red"
     } else {
-      return "white"
+      return "grey"
     }
   }
-  getStatIcon = val => {
+  calculateStatIcon = val => {
     if (val > 0) {
       return "arrow up"
     } else if (val < 0) {
       return "arrow down"
     } else {
-      return "minus"
+      return "ban"
     }
   }
   render() {
@@ -61,33 +61,33 @@ export default class extends Component {
             </Statistic>
             <Statistic
               inverted
-              color={this.getStatColor(coin.percent_change_1h)}
+              color={this.calculateStatColor(coin.percent_change_1h)}
               size="tiny"
             >
               <Statistic.Value>
-                <Icon name={this.getStatIcon(coin.percent_change_1h)} />
+                <Icon name={this.calculateStatIcon(coin.percent_change_1h)} />
                 {Math.abs(coin.percent_change_1h)}%
               </Statistic.Value>
               <Statistic.Label>1 Hour</Statistic.Label>
             </Statistic>
             <Statistic
               inverted
-              color={this.getStatColor(coin.percent_change_24h)}
+              color={this.calculateStatColor(coin.percent_change_24h)}
               size="tiny"
             >
               <Statistic.Value>
-                <Icon name={this.getStatIcon(coin.percent_change_24h)} />
+                <Icon name={this.calculateStatIcon(coin.percent_change_24h)} />
                 {Math.abs(coin.percent_change_24h)}%
               </Statistic.Value>
               <Statistic.Label>24 Hour</Statistic.Label>
             </Statistic>
             <Statistic
               inverted
-              color={this.getStatColor(coin.percent_change_7d)}
+              color={this.calculateStatColor(coin.percent_change_7d)}
               size="tiny"
             >
               <Statistic.Value>
-                <Icon name={this.getStatIcon(coin.percent_change_7d)} />
+                <Icon name={this.calculateStatIcon(coin.percent_change_7d)} />
                 {Math.abs(coin.percent_change_7d)}%
               </Statistic.Value>
               <Statistic.Label>7 Day</Statistic.Label>

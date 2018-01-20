@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Container, Icon, Image, Statistic } from "semantic-ui-react"
+import { rgba } from "polished"
 
 import formatNumber from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
@@ -28,7 +29,7 @@ const Rank = Styled.div`
   display: inline-block;
   font-style: italic;
   font-weight: bold;
-  color: #aaa;
+  color: ${theme.colors.gray};
   margin-top: 0.2em;
 `
 
@@ -45,7 +46,7 @@ const Name = Styled.div`
   & :nth-child(2) {
     font-weight: bold;
     font-size: 10px;
-    color: #aaa;
+    color: ${theme.colors.gray};
   }
 `
 
@@ -54,7 +55,26 @@ const CurrencyIcon = Styled.div`
 `
 
 const Price = Styled.div`
-  width: 160px;
+  width: 180px;
+  @media (max-width: 876px) {
+    display: none !important;
+  }
+`
+
+const Deltas = Styled.div`
+  width: 142px;
+  @media (max-width: 1016px) {
+    display: none !important;
+  }
+`
+
+const DeltaStat = Styled.div`
+  display: inline-block;
+  color: ${({ color }) => color};
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top;
+  margin-right: 14px;
 `
 
 const Controls = Styled.div`
@@ -66,9 +86,28 @@ const Controls = Styled.div`
 
 export default class extends Component {
   state = { moveCursor: false }
+  calculateDeltaColor = delta => {
+    if (delta > 0) {
+      return theme.colors.green
+    } else if (delta < 0) {
+      return theme.colors.red
+    } else {
+      return theme.colors.gray
+    }
+  }
+  calculateIconName = delta => {
+    if (delta > 0) {
+      return "up arrow"
+    } else if (delta < 0) {
+      return "down arrow"
+    } else {
+      return "ban"
+    }
+  }
   render() {
     const { coin, rank, requestCoinInfo, removeFromWatchList } = this.props
     const { moveCursor } = this.state
+
     return (
       <ItemContainer
         onMouseDown={e => this.setState({ moveCursor: true })}
@@ -89,6 +128,29 @@ export default class extends Component {
             <Statistic.Label>USD</Statistic.Label>
           </Statistic>
         </Price>
+        <Deltas>
+          <DeltaStat color={this.calculateDeltaColor(coin.percent_change_1h)}>
+            <Icon
+              name={this.calculateIconName(coin.percent_change_7d)}
+              size="small"
+            />
+            1h
+          </DeltaStat>
+          <DeltaStat color={this.calculateDeltaColor(coin.percent_change_24h)}>
+            <Icon
+              name={this.calculateIconName(coin.percent_change_24h)}
+              size="small"
+            />
+            1d
+          </DeltaStat>
+          <DeltaStat color={this.calculateDeltaColor(coin.percent_change_7d)}>
+            <Icon
+              name={this.calculateIconName(coin.percent_change_7d)}
+              size="small"
+            />
+            7d
+          </DeltaStat>
+        </Deltas>
         <Controls>
           <Icon
             size="large"
