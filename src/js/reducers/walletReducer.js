@@ -1,6 +1,7 @@
 import { RECEIVE_WALLETS, CREATE_WALLET } from "./../actions"
 
 const default_state = {
+  fetched: false,
   by_name: {}
 }
 
@@ -9,6 +10,7 @@ export default (state = default_state, { type, payload }) => {
     case RECEIVE_WALLETS:
       return {
         ...state,
+        fetched: true,
         by_name: {
           ...payload
         }

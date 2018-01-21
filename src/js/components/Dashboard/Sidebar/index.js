@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Divider, Grid } from "semantic-ui-react"
+import List from "react-smooth-draggable-list"
 
 import SidebarItem from "./SidebarItem"
 

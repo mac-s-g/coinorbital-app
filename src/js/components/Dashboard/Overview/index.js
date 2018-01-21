@@ -1,5 +1,5 @@
 import React from "react"
-import ContentComponent from "./ContentComponent"
+import ContentComponent from "./../ContentComponent"
 
 export default props => (
   <ContentComponent

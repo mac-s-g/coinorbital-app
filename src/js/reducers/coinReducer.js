@@ -3,6 +3,7 @@ import { REQUEST_COINS, RECEIVE_COINS, RECEIVE_COINS_ERROR } from "./../actions"
 import coinsBySymbol from "./../helpers/coinsBySymbol"
 
 const default_state = {
+  fetched: false,
   by_symbol: {},
   list: [],
   fetching_coins: false,
@@ -21,6 +22,7 @@ export default (state = default_state, action) => {
     case RECEIVE_COINS:
       return {
         ...state,
+        fetched: true,
         list: [...payload],
         by_symbol: coinsBySymbol(payload),
         fetching_coins: false,

@@ -9,7 +9,7 @@ const SidebarButton = Styled.div`
   font-style: ${({ actionItem }) => (actionItem ? "italic" : "normal")};
   color: ${({ actionItem }) => (actionItem ? theme.colors.inverted : "#444")};
   position: relative;
-  padding: 0.67em 2em;
+  padding: 11px 32px;
   cursor: pointer;
   transition: all 0s ease;
   font-weight: 600;
