@@ -6,11 +6,13 @@ export {
   NEW_TRANSACTION_MODAL,
   ADD_TO_WATCHLIST_MODAL,
   COIN_INFO_MODAL,
+  CREATE_WALLET_MODAL,
   //dispatcher calls
   closeAllModals,
   newTransactionModal,
   addToWatchListModal,
-  coinInfoModal
+  coinInfoModal,
+  createWalletModal
 } from "./Modals"
 
 export {
@@ -41,3 +43,12 @@ export {
   removeFromWatchList,
   reorderWatchList
 } from "./WatchList"
+
+export {
+  //action constants
+  RECEIVE_WALLETS,
+  CREATE_WALLET,
+  //dispatcher calls
+  fetchWallets,
+  createWallet
+} from "./Wallets"

@@ -10,30 +10,47 @@ import Dashboard from "./../components/Dashboard"
 import "semantic-ui-css/semantic.min.css"
 
 import {
-  closeAllModals,
+  //coins
+  fetchCoins,
+  //wallet
+  fetchWallets,
+  createWallet,
+  //transactions
   createTransaction,
+  //watchlist
+  addToWatchList,
+  removeFromWatchList,
+  fetchWatchList,
+  reorderWatchList,
+  //modals
+  closeAllModals,
   newTransactionModal,
   addToWatchListModal,
   coinInfoModal,
-  addToWatchList,
-  removeFromWatchList,
-  fetchCoins,
-  fetchWatchList,
-  reorderWatchList
+  createWalletModal
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
+  //router
   navigateTo: location => dispatch(push(location)),
-  requestNewTransaction: () => dispatch(newTransactionModal()),
-  requestAddToWatchList: () => dispatch(addToWatchListModal()),
+  //coins
   requestCoinInfo: coin => dispatch(coinInfoModal(coin)),
+  fetchCoins: () => dispatch(fetchCoins()),
+  //wallets
+  fetchWallets: () => dispatch(fetchWallets()),
+  createWallet: wallet => dispatch(createWallet(wallet)),
+  //transactions
+  createTransaction: payload => dispatch(createTransaction(payload)),
+  //watchlist
   addToWatchList: coin => dispatch(addToWatchList(coin)),
   removeFromWatchList: coin => dispatch(removeFromWatchList(coin)),
-  closeModal: () => dispatch(closeAllModals()),
-  createTransaction: payload => dispatch(createTransaction(payload)),
-  fetchCoins: () => dispatch(fetchCoins()),
   fetchWatchList: () => dispatch(fetchWatchList()),
-  reorderWatchList: order => dispatch(reorderWatchList(order))
+  reorderWatchList: order => dispatch(reorderWatchList(order)),
+  //modals
+  requestNewTransaction: () => dispatch(newTransactionModal()),
+  requestAddToWatchList: () => dispatch(addToWatchListModal()),
+  requestCreateWallet: () => dispatch(createWalletModal()),
+  closeModal: () => dispatch(closeAllModals())
 })
 
 const mapStateToProps = state => ({ ...state })
