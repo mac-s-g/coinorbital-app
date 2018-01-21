@@ -4,8 +4,7 @@ import { Route, Switch } from "react-router"
 import Header from "./Header"
 import Sidebar from "./Sidebar/"
 //views
-import Overview from "./Overview"
-import AccountView from "./AccountView"
+import Overview from "./Overview/"
 import WatchList from "./WatchList/"
 import Wallet from "./Wallet/"
 //modals

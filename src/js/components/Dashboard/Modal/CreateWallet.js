@@ -111,7 +111,8 @@ export default class extends Component {
               createWallet({
                 name: name.trim(),
                 symbol,
-                balance: this.parseBalance(balance)
+                balance: this.parseBalance(balance),
+                transactions: []
               }) && closeModal()}
             disabled={
               symbol === null ||
