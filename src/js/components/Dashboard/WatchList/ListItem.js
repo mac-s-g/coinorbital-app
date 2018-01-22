@@ -3,10 +3,10 @@ import Styled from "styled-components"
 import { Container, Icon, Image, Statistic } from "semantic-ui-react"
 import { rgba } from "polished"
 
+import CoinLogo from "./../../CoinLogo/"
+
 import formatNumber from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
-
-import * as svgs from "./CoinLogos"
 
 const ItemContainer = Styled.div`
   cursor: ${({ moveCursor }) => (moveCursor ? "move" : "grab")};
@@ -50,7 +50,7 @@ const Name = Styled.div`
   }
 `
 
-const CurrencyIcon = Styled.div`
+const CoinIcon = Styled.div`
   width: 44px;
 `
 
@@ -115,9 +115,9 @@ export default class extends Component {
         moveCursor={moveCursor}
       >
         <Rank>{rank}</Rank>
-        <CurrencyIcon>
-          <CurrencyLogo symbol={coin.symbol} />
-        </CurrencyIcon>
+        <CoinIcon>
+          <CoinLogo symbol={coin.symbol} />
+        </CoinIcon>
         <Name>
           <div>{coin.name}</div>
           <div>{coin.symbol}</div>
@@ -131,7 +131,7 @@ export default class extends Component {
         <Deltas>
           <DeltaStat color={this.calculateDeltaColor(coin.percent_change_1h)}>
             <Icon
-              name={this.calculateIconName(coin.percent_change_7d)}
+              name={this.calculateIconName(coin.percent_change_1h)}
               size="small"
             />
             1h
@@ -171,10 +171,3 @@ export default class extends Component {
     )
   }
 }
-
-const CurrencyLogo = ({ symbol }) =>
-  svgs[symbol.toLowerCase()] ? (
-    <Image src={svgs[symbol.toLowerCase()]} />
-  ) : (
-    <Icon name="image" size="big" color="grey" />
-  )
