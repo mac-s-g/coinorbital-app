@@ -24,7 +24,7 @@ import {
   reorderWatchList,
   //modals
   closeAllModals,
-  newTransactionModal,
+  createTransactionModal,
   addToWatchListModal,
   coinInfoModal,
   createWalletModal
@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => ({
   fetchWatchList: () => dispatch(fetchWatchList()),
   reorderWatchList: order => dispatch(reorderWatchList(order)),
   //modals
-  requestNewTransaction: () => dispatch(newTransactionModal()),
+  requestCreateTransaction: wallet => dispatch(createTransactionModal(wallet)),
   requestAddToWatchList: () => dispatch(addToWatchListModal()),
   requestCreateWallet: () => dispatch(createWalletModal()),
   closeModal: () => dispatch(closeAllModals())

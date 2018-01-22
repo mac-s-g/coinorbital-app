@@ -1,11 +1,12 @@
-export const NEW_TRANSACTION_MODAL = "NEW_TRANSACTION_MODAL"
+export const CREATE_TRANSACTION_MODAL = "CREATE_TRANSACTION_MODAL"
 export const ADD_TO_WATCHLIST_MODAL = "ADD_TO_WATCHLIST_MODAL"
 export const COIN_INFO_MODAL = "COIN_INFO_MODAL"
 export const CREATE_WALLET_MODAL = "CREATE_WALLET_MODAL"
 export const CLOSE_ALL_MODALS = "CLOSE_ALL_MODALS"
 
-export const newTransactionModal = () => ({
-  type: NEW_TRANSACTION_MODAL
+export const createTransactionModal = wallet => ({
+  type: CREATE_TRANSACTION_MODAL,
+  payload: wallet
 })
 
 export const addToWatchListModal = () => ({

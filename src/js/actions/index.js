@@ -3,13 +3,13 @@
 export {
   //action constants
   CLOSE_ALL_MODALS,
-  NEW_TRANSACTION_MODAL,
+  CREATE_TRANSACTION_MODAL,
   ADD_TO_WATCHLIST_MODAL,
   COIN_INFO_MODAL,
   CREATE_WALLET_MODAL,
   //dispatcher calls
   closeAllModals,
-  newTransactionModal,
+  createTransactionModal,
   addToWatchListModal,
   coinInfoModal,
   createWalletModal

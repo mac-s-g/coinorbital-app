@@ -41,6 +41,7 @@ export default class extends Component {
       createTransaction,
       createWallet,
       coins,
+      navigateTo,
       ...props
     } = this.props
     const { name, symbol, enable_balance, balance } = this.state
@@ -112,8 +113,13 @@ export default class extends Component {
                 name: name.trim(),
                 symbol,
                 balance: this.parseBalance(balance),
+                initial_balance: this.parseBalance(balance),
                 transactions: []
-              }) && closeModal()}
+              }) &&
+              closeModal() &&
+              navigateTo(
+                `/dashboard/wallet?name=${encodeURIComponent(name.trim())}`
+              )}
             disabled={
               symbol === null ||
               name.trim() === "" ||
