@@ -12,6 +12,7 @@ import AddToWatchList from "./Modal/AddToWatchList"
 import CoinInfo from "./Modal/CoinInfo"
 import CreateWallet from "./Modal/CreateWallet"
 import CreateTransaction from "./Modal/CreateTransaction"
+import EditWallet from "./Modal/EditWallet"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
@@ -50,5 +51,6 @@ export default props => (
     {props.modals.coin_info ? <CoinInfo {...props} /> : null}
     {props.modals.create_wallet ? <CreateWallet {...props} /> : null}
     {props.modals.create_transaction ? <CreateTransaction {...props} /> : null}
+    {props.modals.edit_wallet ? <EditWallet {...props} /> : null}
   </div>
 )

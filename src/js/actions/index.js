@@ -6,12 +6,14 @@ export {
   CREATE_TRANSACTION_MODAL,
   ADD_TO_WATCHLIST_MODAL,
   COIN_INFO_MODAL,
+  EDIT_WALLET_MODAL,
   CREATE_WALLET_MODAL,
   //dispatcher calls
   closeAllModals,
   createTransactionModal,
   addToWatchListModal,
   coinInfoModal,
+  editWalletModal,
   createWalletModal
 } from "./Modals"
 

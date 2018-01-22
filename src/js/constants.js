@@ -25,12 +25,3 @@ export const links = {
   github: "https://github.com/mac-s-g/crypto-portfolio"
 }
 
-/*
-{
-  gold: "#faa916",
-  white: "#fdfdff",
-  grey: "#aaaaaa",
-  red: "#dd4444",
-  blue: "#335577"
-}
-*/

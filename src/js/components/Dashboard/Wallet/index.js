@@ -39,7 +39,12 @@ export default class extends Component {
   walletName = () => parseSearchQuery(this.props.location.search).name
 
   render() {
-    const { coins, wallets, requestCreateTransaction } = this.props
+    const {
+      coins,
+      wallets,
+      requestEditWallet,
+      requestCreateTransaction
+    } = this.props
     const wallet = wallets.by_name[this.walletName()]
     const coin = wallet ? coins.by_symbol[wallet.symbol] : null
 
@@ -53,7 +58,11 @@ export default class extends Component {
           header={
             <span>
               {wallet.name}
-              <Icon as={EditWalletIcon} name="edit" />
+              <Icon
+                as={EditWalletIcon}
+                name="edit"
+                onClick={e => requestEditWallet({ ...wallet, coin: coin })}
+              />
             </span>
           }
           subHeader={`Your ${coin.name} Wallet`}

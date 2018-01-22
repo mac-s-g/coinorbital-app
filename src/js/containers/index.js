@@ -27,7 +27,8 @@ import {
   createTransactionModal,
   addToWatchListModal,
   coinInfoModal,
-  createWalletModal
+  createWalletModal,
+  editWalletModal
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
@@ -50,6 +51,7 @@ const mapDispatchToProps = dispatch => ({
   requestCreateTransaction: wallet => dispatch(createTransactionModal(wallet)),
   requestAddToWatchList: () => dispatch(addToWatchListModal()),
   requestCreateWallet: () => dispatch(createWalletModal()),
+  requestEditWallet: wallet => dispatch(editWalletModal(wallet)),
   closeModal: () => dispatch(closeAllModals())
 })
 

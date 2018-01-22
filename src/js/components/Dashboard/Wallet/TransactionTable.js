@@ -30,12 +30,12 @@ export default ({ wallet, coin, requestCreateTransaction }) => (
       as={HeaderButton}
       circular
       icon="plus"
-      onClick={e => requestCreateTransaction(wallet)}
+      onClick={e => requestCreateTransaction({ ...wallet, coin: coin })}
     />
     {wallet.transactions.length ? (
-      <div>there are {wallet.transactions.length} transactions</div>
+      <div>there are {wallet.transactions.length} recorded transactions</div>
     ) : (
-      <div>no transactions found</div>
+      <div>no recorded transactions</div>
     )}
   </TransactionsComponent>
 )
