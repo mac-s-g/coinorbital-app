@@ -13,6 +13,7 @@ import CoinInfo from "./Modal/CoinInfo"
 import CreateWallet from "./Modal/CreateWallet"
 import CreateTransaction from "./Modal/CreateTransaction"
 import EditWallet from "./Modal/EditWallet"
+import DeleteWallet from "./Modal/DeleteWallet"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
@@ -52,5 +53,6 @@ export default props => (
     {props.modals.create_wallet ? <CreateWallet {...props} /> : null}
     {props.modals.create_transaction ? <CreateTransaction {...props} /> : null}
     {props.modals.edit_wallet ? <EditWallet {...props} /> : null}
+    {props.modals.delete_wallet ? <DeleteWallet {...props} /> : null}
   </div>
 )

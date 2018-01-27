@@ -8,22 +8,27 @@ import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 
 const StatsComponent = Styled.div`
-  margin: 0.67em 0;
+  margin: 0 0 3em 0;
+  & > div {
+    margin: 1.5em 0;
+  }
 `
 
 export default ({ wallet, coin }) => (
   <StatsComponent>
-    <Statistic.Group>
-      <Statistic>
+    <div>
+      <Statistic horizontal size="huge">
         <Statistic.Value>
           ${formatNumberForDisplay(round(wallet.balance * coin.price_usd, 2))}
         </Statistic.Value>
         <Statistic.Label>Value USD</Statistic.Label>
       </Statistic>
-      <Statistic>
+    </div>
+    <div>
+      <Statistic horizontal>
         <Statistic.Value>{wallet.balance}</Statistic.Value>
         <Statistic.Label>Total {wallet.symbol}</Statistic.Label>
       </Statistic>
-    </Statistic.Group>
+    </div>
   </StatsComponent>
 )

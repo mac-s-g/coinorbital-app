@@ -15,13 +15,22 @@ import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
 
 const EditWalletIcon = Styled.i`
-  margin-left: 10px !important;
+  margin-left: 12px !important;
   cursor: pointer;
   color: ${theme.colors.gray};
   font-size: 0.75em !important;
 
   &:hover {
     color: ${theme.colors.blue};
+  }
+`
+const RemoveWalletIcon = Styled.i`
+  cursor: pointer;
+  color: ${theme.colors.gray};
+  font-size: 0.75em !important;
+
+  &:hover {
+    color: ${theme.colors.red};
   }
 `
 
@@ -43,6 +52,7 @@ export default class extends Component {
       coins,
       wallets,
       requestEditWallet,
+      requestDeleteWallet,
       requestCreateTransaction
     } = this.props
     const wallet = wallets.by_name[this.walletName()]
@@ -62,6 +72,11 @@ export default class extends Component {
                 as={EditWalletIcon}
                 name="edit"
                 onClick={e => requestEditWallet({ ...wallet, coin: coin })}
+              />
+              <Icon
+                as={RemoveWalletIcon}
+                name="remove"
+                onClick={e => requestDeleteWallet(wallet.name)}
               />
             </span>
           }

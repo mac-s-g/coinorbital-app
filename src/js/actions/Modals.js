@@ -3,6 +3,7 @@ export const ADD_TO_WATCHLIST_MODAL = "ADD_TO_WATCHLIST_MODAL"
 export const COIN_INFO_MODAL = "COIN_INFO_MODAL"
 export const CREATE_WALLET_MODAL = "CREATE_WALLET_MODAL"
 export const EDIT_WALLET_MODAL = "EDIT_WALLET_MODAL"
+export const DELETE_WALLET_MODAL = "DELETE_WALLET_MODAL"
 export const CLOSE_ALL_MODALS = "CLOSE_ALL_MODALS"
 
 export const addToWatchListModal = () => ({
@@ -26,6 +27,11 @@ export const editWalletModal = wallet => ({
 export const createTransactionModal = wallet => ({
   type: CREATE_TRANSACTION_MODAL,
   payload: wallet
+})
+
+export const deleteWalletModal = wallet_name => ({
+  type: DELETE_WALLET_MODAL,
+  payload: wallet_name
 })
 
 export const closeAllModals = () => ({

@@ -1,5 +1,5 @@
 export const project_info = {
-  name: "Crypto Asset Manager"
+  name: "Crypto Wallet"
 }
 
 export const theme = {
@@ -10,7 +10,7 @@ export const theme = {
     well_border: "#bbb",
     dash_content: "#fff",
     logo: "#FAA916",
-    green: "#2ecc40",
+    green: "#33aa11",
     gold: "#faa916",
     white: "#fdfdff",
     gray: "#aaa",
