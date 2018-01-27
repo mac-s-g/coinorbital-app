@@ -33,15 +33,14 @@ export default props => (
       <Container text>
         <SegmentHeader>Visualize your Value</SegmentHeader>
         <SegmentContent>
-          Cryptocurrencty trading involves constant price fluctuations.
-          To help make the right decision at the right time, we equip you
-          with tools to analyze the market.
+          Cryptocurrencty trading involves hundreds of currencies and constant
+          price fluctuations. It's tough to keep up with the value of your
+          investments.
         </SegmentContent>
         <SegmentContent>
-          Track the value of your crypto portfolio by logging
-          snapshots of your transactions.
-          Transactions are plotted against market prices
-          to help you measure your value over time.
+          Track the value of your crypto portfolio by logging your transactions.
+          Transactions are plotted against market prices to help you measure
+          your value over time.
         </SegmentContent>
         <Button
           as="a"
@@ -51,11 +50,11 @@ export default props => (
           Try the Dashboard
         </Button>
         <Divider as={SegmentDivider} />
-        <SegmentHeader>Privacy is Paramount</SegmentHeader>
+        <SegmentHeader>Protect your Privacy</SegmentHeader>
         <SegmentContent>
-          <i>{project_info.name}</i> doesn't get in your way. User activity and
-          profile information is all stored locally. We don't store, process, or
-          share <strong>any</strong> data that you use to track your coins.
+          The only one with your information should be you.{" "}
+          <i>{project_info.name}</i> stores everything locally. None of your
+          data is stored or processed remotely.
         </SegmentContent>
       </Container>
     </Segment>

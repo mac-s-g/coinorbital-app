@@ -1,17 +1,46 @@
 import React, { Component } from "react"
-import { Loader, Statistic } from "semantic-ui-react"
+import Styled from "styled-components"
+import { Icon, Loader, Statistic } from "semantic-ui-react"
 
 import NotFound from "./NotFound"
 import ContentComponent from "./../ContentComponent"
+import SummaryTable from "./SummaryTable"
+import HeaderStatistics from "./HeaderStatistics"
+import TransactionTable from "./TransactionTable"
 
 import round from "./../../../helpers/round"
 import parseSearchQuery from "./../../../helpers/parseSearchQuery"
+import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+
+import { theme } from "./../../../constants"
+
+const EditWalletIcon = Styled.i`
+  margin-left: 12px !important;
+  cursor: pointer;
+  color: ${theme.colors.gray};
+  font-size: 0.75em !important;
+
+  &:hover {
+    color: ${theme.colors.blue};
+  }
+`
+const RemoveWalletIcon = Styled.i`
+  cursor: pointer;
+  color: ${theme.colors.gray};
+  font-size: 0.75em !important;
+
+  &:hover {
+    color: ${theme.colors.red};
+  }
+`
 
 export default class extends Component {
   componentWillMount() {
-    const { fetchWallets, fetchCoins, coins } = this.props
-    fetchWallets()
-    if (!coins.fetching_coins && !coins.list.length) {
+    const { fetchWallets, fetchCoins, wallets, coins } = this.props
+    if (!wallets.fetched) {
+      fetchWallets()
+    }
+    if (!coins.fetching_coins && !coins.fetched) {
       fetchCoins()
     }
   }
@@ -19,7 +48,13 @@ export default class extends Component {
   walletName = () => parseSearchQuery(this.props.location.search).name
 
   render() {
-    const { coins, wallets } = this.props
+    const {
+      coins,
+      wallets,
+      requestEditWallet,
+      requestDeleteWallet,
+      requestCreateTransaction
+    } = this.props
     const wallet = wallets.by_name[this.walletName()]
     const coin = wallet ? coins.by_symbol[wallet.symbol] : null
 
@@ -30,25 +65,27 @@ export default class extends Component {
     } else {
       return (
         <ContentComponent
-          header={wallet.name}
+          header={
+            <span>
+              {wallet.name}
+              <Icon
+                as={EditWalletIcon}
+                name="edit"
+                onClick={e => requestEditWallet({ ...wallet, coin: coin })}
+              />
+              <Icon
+                as={RemoveWalletIcon}
+                name="remove"
+                onClick={e => requestDeleteWallet(wallet.name)}
+              />
+            </span>
+          }
           subHeader={`Your ${coin.name} Wallet`}
+          coinSymbol={coin.symbol}
         >
-          <Statistic.Group>
-            <Statistic>
-              <Statistic.Value>{wallet.balance}</Statistic.Value>
-              <Statistic.Label>Total {wallet.symbol}</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>
-                ${round(
-                  wallet.balance * coins.by_symbol[wallet.symbol].price_usd,
-                  2
-                )}
-              </Statistic.Value>
-              <Statistic.Label>Value USD</Statistic.Label>
-            </Statistic>
-          </Statistic.Group>
-          <pre>{JSON.stringify(wallets, null, 2)}</pre>
+          <HeaderStatistics {...{ wallet, coin }} />
+          <SummaryTable {...{ wallet, coin }} />
+          <TransactionTable {...{ wallet, coin, requestCreateTransaction }} />
         </ContentComponent>
       )
     }

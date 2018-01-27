@@ -31,8 +31,12 @@ export default class extends Component {
   setSymbol = symbol => this.setState({ symbol })
   setBalance = (event, { value }) =>
     value.match(/^[\d]*\.?[\d]*$/) ? this.setState({ balance: value }) : null
-  parseBalance = balance =>
-    isNaN(parseFloat(balance)) ? 0 : parseFloat(balance)
+  parseBalance = balance => {
+    const { enable_balance } = this.state
+    return !enable_balance || isNaN(parseFloat(balance))
+      ? 0
+      : parseFloat(balance)
+  }
 
   render() {
     const {
@@ -41,6 +45,7 @@ export default class extends Component {
       createTransaction,
       createWallet,
       coins,
+      navigateTo,
       ...props
     } = this.props
     const { name, symbol, enable_balance, balance } = this.state
@@ -112,8 +117,13 @@ export default class extends Component {
                 name: name.trim(),
                 symbol,
                 balance: this.parseBalance(balance),
+                initial_balance: this.parseBalance(balance),
                 transactions: []
-              }) && closeModal()}
+              }) &&
+              closeModal() &&
+              navigateTo(
+                `/dashboard/wallet?name=${encodeURIComponent(name.trim())}`
+              )}
             disabled={
               symbol === null ||
               name.trim() === "" ||
