@@ -4,6 +4,7 @@ import {
   ADD_TO_WATCHLIST_MODAL,
   COIN_INFO_MODAL,
   EDIT_WALLET_MODAL,
+  DELETE_WALLET_MODAL,
   CREATE_WALLET_MODAL
 } from "./../actions"
 
@@ -12,7 +13,8 @@ const default_state = {
   add_to_watchlist: false,
   coin_info: false,
   create_wallet: false,
-  edit_wallet: false
+  edit_wallet: false,
+  delete_wallet: false
 }
 
 export default (state = default_state, { type, payload }) => {
@@ -24,7 +26,8 @@ export default (state = default_state, { type, payload }) => {
         add_to_watchlist: false,
         coin_info: false,
         create_wallet: false,
-        edit_wallet: false
+        edit_wallet: false,
+        delete_wallet: false
       }
     case CREATE_TRANSACTION_MODAL:
       return {
@@ -50,6 +53,11 @@ export default (state = default_state, { type, payload }) => {
       return {
         ...state,
         edit_wallet: { ...payload }
+      }
+    case DELETE_WALLET_MODAL:
+      return {
+        ...state,
+        delete_wallet: payload
       }
     default:
       return state

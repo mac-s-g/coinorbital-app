@@ -31,8 +31,12 @@ export default class extends Component {
   setSymbol = symbol => this.setState({ symbol })
   setBalance = (event, { value }) =>
     value.match(/^[\d]*\.?[\d]*$/) ? this.setState({ balance: value }) : null
-  parseBalance = balance =>
-    isNaN(parseFloat(balance)) ? 0 : parseFloat(balance)
+  parseBalance = balance => {
+    const { enable_balance } = this.state
+    return !enable_balance || isNaN(parseFloat(balance))
+      ? 0
+      : parseFloat(balance)
+  }
 
   render() {
     const {

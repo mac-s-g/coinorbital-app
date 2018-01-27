@@ -104,6 +104,7 @@ export default class extends Component {
                 />
               ))}
               <SidebarItem
+                style={{ marginBottom: "0.33em" }}
                 onClick={requestCreateWallet}
                 label="Create a Wallet"
                 actionItem

@@ -62,8 +62,8 @@ const Price = Styled.div`
 `
 
 const Deltas = Styled.div`
-  width: 142px;
-  @media (max-width: 1016px) {
+  width: 166px;
+  @media (max-width: 1040px) {
     display: none !important;
   }
 `
@@ -75,6 +75,7 @@ const DeltaStat = Styled.div`
   text-align: center;
   vertical-align: top;
   margin-right: 14px;
+  font-size: 16px;
 `
 
 const Controls = Styled.div`
@@ -92,7 +93,7 @@ export default class extends Component {
     } else if (delta < 0) {
       return theme.colors.red
     } else {
-      return theme.colors.gray
+      return theme.colors.gold
     }
   }
   calculateIconName = delta => {
@@ -130,24 +131,15 @@ export default class extends Component {
         </Price>
         <Deltas>
           <DeltaStat color={this.calculateDeltaColor(coin.percent_change_1h)}>
-            <Icon
-              name={this.calculateIconName(coin.percent_change_1h)}
-              size="small"
-            />
+            <Icon name={this.calculateIconName(coin.percent_change_1h)} />
             1h
           </DeltaStat>
           <DeltaStat color={this.calculateDeltaColor(coin.percent_change_24h)}>
-            <Icon
-              name={this.calculateIconName(coin.percent_change_24h)}
-              size="small"
-            />
+            <Icon name={this.calculateIconName(coin.percent_change_24h)} />
             1d
           </DeltaStat>
           <DeltaStat color={this.calculateDeltaColor(coin.percent_change_7d)}>
-            <Icon
-              name={this.calculateIconName(coin.percent_change_7d)}
-              size="small"
-            />
+            <Icon name={this.calculateIconName(coin.percent_change_7d)} />
             7d
           </DeltaStat>
         </Deltas>

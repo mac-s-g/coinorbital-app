@@ -8,12 +8,14 @@ export {
   COIN_INFO_MODAL,
   EDIT_WALLET_MODAL,
   CREATE_WALLET_MODAL,
+  DELETE_WALLET_MODAL,
   //dispatcher calls
   closeAllModals,
   createTransactionModal,
   addToWatchListModal,
   coinInfoModal,
   editWalletModal,
+  deleteWalletModal,
   createWalletModal
 } from "./Modals"
 
@@ -48,9 +50,13 @@ export {
 
 export {
   //action constants
+  DELETE_WALLET,
   RECEIVE_WALLETS,
   CREATE_WALLET,
+  EDIT_WALLET,
   //dispatcher calls
   fetchWallets,
-  createWallet
+  createWallet,
+  deleteWallet,
+  editWallet
 } from "./Wallets"

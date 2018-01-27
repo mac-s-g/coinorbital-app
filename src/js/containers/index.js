@@ -15,6 +15,8 @@ import {
   //wallet
   fetchWallets,
   createWallet,
+  editWallet,
+  deleteWallet,
   //transactions
   createTransaction,
   //watchlist
@@ -28,7 +30,8 @@ import {
   addToWatchListModal,
   coinInfoModal,
   createWalletModal,
-  editWalletModal
+  editWalletModal,
+  deleteWalletModal
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
@@ -40,6 +43,9 @@ const mapDispatchToProps = dispatch => ({
   //wallets
   fetchWallets: () => dispatch(fetchWallets()),
   createWallet: wallet => dispatch(createWallet(wallet)),
+  editWallet: (original_name, wallet) =>
+    dispatch(editWallet(original_name, wallet)),
+  deleteWallet: wallet_name => dispatch(deleteWallet(wallet_name)),
   //transactions
   createTransaction: payload => dispatch(createTransaction(payload)),
   //watchlist
@@ -52,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
   requestAddToWatchList: () => dispatch(addToWatchListModal()),
   requestCreateWallet: () => dispatch(createWalletModal()),
   requestEditWallet: wallet => dispatch(editWalletModal(wallet)),
+  requestDeleteWallet: wallet_name => dispatch(deleteWalletModal(wallet_name)),
   closeModal: () => dispatch(closeAllModals())
 })
 

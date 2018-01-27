@@ -1,4 +1,9 @@
-import { RECEIVE_WALLETS, CREATE_WALLET } from "./../actions"
+import {
+  RECEIVE_WALLETS,
+  CREATE_WALLET,
+  DELETE_WALLET,
+  EDIT_WALLET
+} from "./../actions"
 
 const default_state = {
   fetched: false,
@@ -20,6 +25,20 @@ export default (state = default_state, { type, payload }) => {
         ...state,
         by_name: {
           ...state.by_name,
+          ...payload
+        }
+      }
+    case DELETE_WALLET:
+      return {
+        ...state,
+        by_name: {
+          ...payload
+        }
+      }
+    case EDIT_WALLET:
+      return {
+        ...state,
+        by_name: {
           ...payload
         }
       }
