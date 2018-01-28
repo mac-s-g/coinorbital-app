@@ -6,6 +6,10 @@ import CoinLogo from "./../../CoinLogo/"
 
 import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+import {
+  calculateWalletQuantity,
+  calculateWalletValue
+} from "./../../../helpers/walletMetrics"
 
 const StatsComponent = Styled.div`
   margin: 0 0 3em 0;
@@ -19,14 +23,18 @@ export default ({ wallet, coin }) => (
     <div>
       <Statistic horizontal size="huge">
         <Statistic.Value>
-          ${formatNumberForDisplay(round(wallet.balance * coin.price_usd, 2))}
+          ${formatNumberForDisplay(
+            round(calculateWalletValue(wallet, coin.price_usd), 2)
+          )}
         </Statistic.Value>
         <Statistic.Label>Value USD</Statistic.Label>
       </Statistic>
     </div>
     <div>
       <Statistic horizontal>
-        <Statistic.Value>{wallet.balance}</Statistic.Value>
+        <Statistic.Value>
+          {formatNumberForDisplay(calculateWalletQuantity(wallet))}
+        </Statistic.Value>
         <Statistic.Label>Total {wallet.symbol}</Statistic.Label>
       </Statistic>
     </div>

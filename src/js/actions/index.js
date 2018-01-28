@@ -9,6 +9,9 @@ export {
   EDIT_WALLET_MODAL,
   CREATE_WALLET_MODAL,
   DELETE_WALLET_MODAL,
+  DELETE_TRANSACTION_MODAL,
+  EDIT_TRANSACTION_MODAL,
+  TRANSACTION_NOTE_MODAL,
   //dispatcher calls
   closeAllModals,
   createTransactionModal,
@@ -16,15 +19,11 @@ export {
   coinInfoModal,
   editWalletModal,
   deleteWalletModal,
-  createWalletModal
+  createWalletModal,
+  deleteTransactionModal,
+  editTransactionModal,
+  transactionNoteModal
 } from "./Modals"
-
-export {
-  //action constants
-  CREATE_TRANSACTION,
-  //dispatcher calls
-  createTransaction
-} from "./Transactions"
 
 export {
   //action constants
@@ -54,6 +53,7 @@ export {
   RECEIVE_WALLETS,
   CREATE_WALLET,
   EDIT_WALLET,
+  CREATE_TRANSACTION,
   //dispatcher calls
   fetchWallets,
   createWallet,
