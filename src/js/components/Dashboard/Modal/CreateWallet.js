@@ -1,12 +1,16 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Checkbox, Modal, Input, Statistic } from "semantic-ui-react"
+import moment from "moment"
 
 import Submit from "./../../Buttons/Submit"
 import Cancel from "./../../Buttons/Cancel"
 import CoinDropdown from "./../../Inputs/CoinDropdown"
 
 import round from "./../../../helpers/round"
+import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+
+const RECEIVED = "received"
 
 const ModalInputContainer = Styled.div`
   & > * {margin-bottom: 12px;}
@@ -68,6 +72,7 @@ export default class extends Component {
               onChange={this.setSymbol}
               placeholder="Select a Currency"
               coins={coins}
+              value={symbol}
               {...props}
             />
             {symbol ? (
@@ -94,10 +99,12 @@ export default class extends Component {
                     <div>
                       <Statistic horizontal size="mini">
                         <Statistic.Value>
-                          ${round(
-                            this.parseBalance(balance) *
-                              parseFloat(coins.by_symbol[symbol].price_usd),
-                            2
+                          ${formatNumberForDisplay(
+                            round(
+                              this.parseBalance(balance) *
+                                parseFloat(coins.by_symbol[symbol].price_usd),
+                              2
+                            )
                           )}
                         </Statistic.Value>
                         <Statistic.Label>USD</Statistic.Label>
@@ -116,9 +123,19 @@ export default class extends Component {
               createWallet({
                 name: name.trim(),
                 symbol,
-                balance: this.parseBalance(balance),
-                initial_balance: this.parseBalance(balance),
-                transactions: []
+                transactions: this.parseBalance(balance)
+                  ? [
+                      {
+                        time_recorded: moment(),
+                        time_transacted: null,
+                        quantity: this.parseBalance(balance),
+                        type: RECEIVED,
+                        cost_per_coin_usd: null,
+                        fee: null,
+                        notes: []
+                      }
+                    ]
+                  : []
               }) &&
               closeModal() &&
               navigateTo(

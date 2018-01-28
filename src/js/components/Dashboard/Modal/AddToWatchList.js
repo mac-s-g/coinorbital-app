@@ -20,6 +20,7 @@ export default class extends Component {
           <CoinDropdown
             onChange={this.selectCoin}
             exclude={watchList.ranked}
+            value={selected}
             {...this.props}
           />
         </Modal.Content>
