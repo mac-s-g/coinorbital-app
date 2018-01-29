@@ -33,12 +33,12 @@ export default props => (
       <Container text>
         <SegmentHeader>Visualize Your Portfolio</SegmentHeader>
         <SegmentContent>
-          Cryptocurrencty trading involves hundreds of currencies and constant
+          Cryptocurrency trading involves hundreds of currencies and constant
           price fluctuations. It's tough to keep up with the value of your
           investments.
         </SegmentContent>
         <SegmentContent>
-          Track the value of your crypto portfolio by logging your transactions.
+          Track the value of your investments by logging transactions.
           Transactions are plotted against market prices to help you measure
           your value over time.
         </SegmentContent>
