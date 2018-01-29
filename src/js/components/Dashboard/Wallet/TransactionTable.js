@@ -31,9 +31,14 @@ const HeaderComponent = Styled.div`
   padding-top: 6px;
 `
 
-const HeaderButton = Styled.div`
+const HeaderIcon = Styled.i`
+  cursor: pointer;
+  color: ${theme.colors.gray} !important;
+  margin-top: 6px !important;
   vertical-align: top !important;
-  padding: 8px !important;
+  &:hover {
+    color: ${theme.colors.blue} !important;
+  }
 `
 
 const TableIcon = Styled.i`
@@ -68,8 +73,10 @@ const NoteLabel = Styled.div`
 export default class extends Component {
   getTxTypeIcon = type => {
     if (type === RECEIVED) {
+      return "Received"
       return <Icon name="plus circle" style={{ color: theme.colors.green }} />
     } else {
+      return "Sent"
       return <Icon name="minus circle" style={{ color: theme.colors.red }} />
     }
   }
@@ -166,10 +173,10 @@ export default class extends Component {
     return (
       <TransactionsComponent>
         <HeaderComponent>Transactions</HeaderComponent>
-        <Button
-          as={HeaderButton}
-          circular
-          icon="plus"
+        <Icon
+          as={HeaderIcon}
+          size="large"
+          name="plus circle"
           onClick={e => requestCreateTransaction({ ...wallet, coin: coin })}
         />
         {transactions.length ? (

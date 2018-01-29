@@ -31,14 +31,14 @@ export default props => (
 
     <Segment as={SegmentContainer} vertical>
       <Container text>
-        <SegmentHeader>Visualize your Value</SegmentHeader>
+        <SegmentHeader>Visualize Your Portfolio</SegmentHeader>
         <SegmentContent>
-          Cryptocurrencty trading involves hundreds of currencies and constant
+          Cryptocurrency trading involves hundreds of currencies and constant
           price fluctuations. It's tough to keep up with the value of your
           investments.
         </SegmentContent>
         <SegmentContent>
-          Track the value of your crypto portfolio by logging your transactions.
+          Track the value of your investments by logging transactions.
           Transactions are plotted against market prices to help you measure
           your value over time.
         </SegmentContent>
@@ -50,7 +50,7 @@ export default props => (
           Try the Dashboard
         </Button>
         <Divider as={SegmentDivider} />
-        <SegmentHeader>Protect your Privacy</SegmentHeader>
+        <SegmentHeader>Protect Your Privacy</SegmentHeader>
         <SegmentContent>
           The only one with your information should be you.{" "}
           <i>{project_info.name}</i> stores everything locally. None of your

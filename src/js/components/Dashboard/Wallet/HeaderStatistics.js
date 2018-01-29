@@ -21,7 +21,7 @@ const StatsComponent = Styled.div`
 export default ({ wallet, coin }) => (
   <StatsComponent>
     <div>
-      <Statistic horizontal size="huge">
+      <Statistic horizontal size="large">
         <Statistic.Value>
           ${formatNumberForDisplay(
             round(calculateWalletValue(wallet, coin.price_usd), 2)
