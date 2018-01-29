@@ -9,7 +9,7 @@ const HeaderContainer = Styled.div`
   background-color: ${theme.colors.inverted} !important;
 `
 const HeaderContent = Styled.div`
-  padding: 5em 0em 8em 0em;
+  padding: 14em 0em 18em 0em;
 `
 const HeaderLabel = Styled.div`
   font-size: 36px;
@@ -48,7 +48,7 @@ export default ({ navigateTo }) => (
       <HeaderContent>
         <HeaderLabel>{project_info.name}</HeaderLabel>
         <Icon name="angle double left" size="big" as={Logo} />
-        <Icon name="bitcoin" size="huge" as={Logo} />
+        <Icon name="id card outline" size="huge" as={Logo} />
         <Icon name="angle double right" size="big" as={Logo} />
       </HeaderContent>
     </Container>
