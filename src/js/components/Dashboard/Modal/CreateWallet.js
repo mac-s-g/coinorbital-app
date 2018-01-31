@@ -6,9 +6,12 @@ import moment from "moment"
 import Submit from "./../../Buttons/Submit"
 import Cancel from "./../../Buttons/Cancel"
 import CoinDropdown from "./../../Inputs/CoinDropdown"
+import ToggleSwitch from "./../../Inputs/ToggleSwitch"
 
 import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+
+import { theme } from "./../../../constants"
 
 const RECEIVED = "received"
 
@@ -80,9 +83,7 @@ export default class extends Component {
                 <Modal.Description as={ToggleLabel}>
                   Include Starting Balance?
                 </Modal.Description>
-                <Checkbox
-                  as="span"
-                  toggle
+                <ToggleSwitch
                   checked={enable_balance}
                   onChange={e =>
                     this.setState({ enable_balance: !enable_balance })}
