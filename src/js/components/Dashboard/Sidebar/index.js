@@ -19,6 +19,7 @@ const SidebarGridColumn = Styled.div`
 `
 const Sidebar = Styled.div`
   background-color: ${theme.colors.dash_sidebar};
+  height: 100%;
   width: 100%;
   display: inline-block;
 `
@@ -74,6 +75,7 @@ export default class extends Component {
                     ? navigateTo("/dashboard")
                     : null}
                 label="Overview"
+                icon="line chart"
               />
               <SidebarItem
                 selected={this.isSelected(router, "/dashboard/watch-list")}
@@ -82,6 +84,7 @@ export default class extends Component {
                     ? navigateTo("/dashboard/watch-list")
                     : null}
                 label="Coin Watch List"
+                icon="empty star"
               />
               <Divider horizontal>My Wallets</Divider>
               {Object.keys(wallets.by_name).map(name => (
@@ -101,6 +104,7 @@ export default class extends Component {
                         )
                       : null}
                   label={name}
+                  coinLogo={wallets.by_name[name].symbol}
                 />
               ))}
               <SidebarItem
@@ -108,6 +112,7 @@ export default class extends Component {
                 onClick={requestCreateWallet}
                 label="Create a Wallet"
                 actionItem
+                icon="plus circle"
               />
             </Sidebar>
           </Grid.Column>

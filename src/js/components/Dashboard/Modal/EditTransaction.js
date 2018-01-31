@@ -29,12 +29,17 @@ const RECEIVED = "received"
 export default class extends Component {
   constructor(props) {
     super(props)
-    const { coin } = this.props.modals.create_transaction
+    const { wallet, transaction_id } = this.props.modals.edit_transaction
+    const transaction = wallet.transactions[transaction_id]
     this.state = {
-      time_transacted: moment(),
-      type: RECEIVED,
-      quantity: "",
-      cost_per_coin_usd: coin.price_usd
+      time_transacted: !!transaction.time_transacted
+        ? moment(transaction.time_transacted)
+        : moment(transaction.time_recorded),
+      type: transaction.type,
+      quantity: transaction.quantity,
+      cost_per_coin_usd: !!transaction.cost_per_coin_usd
+        ? transaction.cost_per_coin_usd.toString()
+        : ""
     }
   }
 
@@ -44,28 +49,37 @@ export default class extends Component {
   setPricePerCoin = (event, { value }) =>
     this.setState({ cost_per_coin_usd: value })
 
-  isValidQuantity = quantity =>
-    this.isValidFloat(quantity) &&
-    this.parseFloatInput(quantity) !== 0 &&
-    //make sure the user can't send more than exists in wallet
-    (this.state.type === RECEIVED ||
-      this.parseFloatInput(quantity) <
-        calculateWalletQuantity(this.props.modals.create_transaction))
+  isValidQuantity = quantity => {
+    const { wallet, transaction_id } = this.props.modals.edit_transaction
+    const transaction = wallet.transactions[transaction_id]
+    return (
+      this.isValidFloat(quantity) &&
+      this.parseFloatInput(quantity) !== 0 &&
+      //make sure the user can't send more than exists in wallet
+      (this.state.type === RECEIVED ||
+        this.parseFloatInput(quantity) +
+          this.parseFloatInput(transaction.quantity) *
+            (transaction.type === SENT ? -1 : 1) <
+          calculateWalletQuantity(this.props.modals.edit_transaction.wallet))
+    )
+  }
   isValidCost = cost =>
-    this.isValidFloat(cost) && this.parseFloatInput(cost) > 0
+    cost.trim() != "" &&
+    this.isValidFloat(cost) &&
+    this.parseFloatInput(cost) > 0
   isValidFloat = value =>
     !!value.toString().length && !!value.toString().match(/^(\d*\.?\d*)$/)
   parseFloatInput = value => parseFloat(value.toString().trim())
 
   render() {
     const { closeModal, editWallet, modals, navigateTo } = this.props
-    const wallet = modals.create_transaction
-    const { coin } = modals.create_transaction
+    const { wallet, transaction_id } = this.props.modals.edit_transaction
+    const { coin } = wallet
     const { time_transacted, quantity, cost_per_coin_usd, type } = this.state
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
-        <Modal.Header>Record a Transaction</Modal.Header>
+        <Modal.Header>Edit Transaction</Modal.Header>
         <Modal.Content>
           <ModalInputContainer>
             <InputLabel>Transaction Date</InputLabel>
@@ -101,7 +115,8 @@ export default class extends Component {
               label={{ content: "$" }}
               error={!this.isValidCost(cost_per_coin_usd)}
             />
-            {this.isValidQuantity(quantity) && this.isValidCost ? (
+            {this.isValidQuantity(quantity) &&
+            this.isValidCost(cost_per_coin_usd) ? (
               <div>
                 <InputLabel>Transaction Value</InputLabel>
                 <Statistic horizontal size="mini" as={ValueStatistic}>
@@ -129,21 +144,17 @@ export default class extends Component {
             }
             onClick={e => {
               delete wallet.coin
-              editWallet(wallet.name, {
-                ...wallet,
-                transactions: [
-                  ...wallet.transactions,
-                  {
-                    time_recorded: moment(),
-                    time_transacted: time_transacted,
-                    quantity: this.parseFloatInput(quantity),
-                    type: type,
-                    cost_per_coin_usd: this.parseFloatInput(cost_per_coin_usd),
-                    fee: null,
-                    notes: []
-                  }
-                ]
-              })
+              wallet.transactions[transaction_id] = {
+                ...wallet.transactions[transaction_id],
+                time_recorded: moment(),
+                time_transacted: time_transacted,
+                quantity: this.parseFloatInput(quantity),
+                type: type,
+                cost_per_coin_usd: this.parseFloatInput(cost_per_coin_usd),
+                fee: null,
+                notes: []
+              }
+              editWallet(wallet.name, wallet)
               closeModal()
               navigateTo(
                 `/dashboard/wallet?name=${encodeURIComponent(wallet.name)}`

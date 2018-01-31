@@ -38,7 +38,7 @@ export default class extends Component {
     return (
       <ContentComponent
         header="Coin Watch List"
-        subHeader="Monitor coins that interest you."
+        subHeader="Monitor coins that interest you"
       >
         {watchList.ranked.length ? this.getSortableList() : null}
         <Button onClick={requestAddToWatchList}>

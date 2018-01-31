@@ -121,11 +121,11 @@ const DonutPieComponent = Styled.div`
 
 const centerChartLabel = {
   draw(context) {
-    if (context.type === 'label') {
+    if (context.type === "label") {
       context.element.attr({
         dx: context.element.root().width() / 2,
         dy: context.element.root().height() / 2
-      });
+      })
     }
   }
 }
@@ -146,11 +146,9 @@ export default class extends Component {
 
     let pieChartOptions = {
       stretch: true,
-      width: '400px',
-      height: '400px',
-      plugins: [
-        ChartistLegend()
-      ]
+      width: "400px",
+      height: "400px",
+      plugins: [ChartistLegend()]
     }
 
     let pieChartSeries = Object.keys(wallets.by_name).map(key => {
@@ -167,13 +165,16 @@ export default class extends Component {
     }
 
     let pieChartResponsiveOptions = [
-      ["screen and (min-width: 600px)", {
-        labelInterpolationFnc(value, index) {
-          let percentage = (value / totalValue * 100) + "%"
-          let label = parseInt(percentage) > 3 ? "$" + value : null
-          return label
+      [
+        "screen and (min-width: 600px)",
+        {
+          labelInterpolationFnc(value, index) {
+            let percentage = value / totalValue * 100 + "%"
+            let label = parseInt(percentage) > 3 ? "$" + value : null
+            return label
+          }
         }
-      }]
+      ]
     ]
 
     return (
@@ -208,13 +209,16 @@ export default class extends Component {
         donut: true,
         donutWidth: 10,
         donutSolid: true,
-        plugins: [
-          ChartistLegend()
-        ]
+        plugins: [ChartistLegend()]
       }
       options.total = totalValue
       options.labelInterpolationFnc = val => {
-        return "$" + formatNumberForDisplay(round(value), 2) + " / $" + formatNumberForDisplay(round(totalValue), 2)
+        return (
+          "$" +
+          formatNumberForDisplay(round(value), 2) +
+          " / $" +
+          formatNumberForDisplay(round(totalValue), 2)
+        )
       }
 
       options.labelInterpolationFnc = val => {
@@ -263,42 +267,97 @@ export default class extends Component {
         header="Overview"
         subHeader="Manage your assets at a glance."
       >
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
+        <link
+          rel="stylesheet"
+          href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
+        />
 
-        <div class="column" style={{marginTop:"20px"}}>
+        <div class="column" style={{ marginTop: "20px" }}>
           <div class="ui three column grid">
-            <div class="column" style={{textAlign:'center', borderRight:'1px solid #ddd'}}>
-              <div style={{color:'rgb(128, 128, 129)',fontSize:'22px',marginTop:'20px'}}>Total Value</div>
-              <div style={{color:'#525254',fontSize:'36px',marginTop:'22px'}}>${formatNumberForDisplay(round(totalValue))}</div>
+            <div
+              class="column"
+              style={{ textAlign: "center", borderRight: "1px solid #ddd" }}
+            >
+              <div
+                style={{
+                  color: "rgb(128, 128, 129)",
+                  fontSize: "22px",
+                  marginTop: "20px"
+                }}
+              >
+                Total Value
+              </div>
+              <div
+                style={{
+                  color: "#525254",
+                  fontSize: "36px",
+                  marginTop: "22px"
+                }}
+              >
+                ${formatNumberForDisplay(round(totalValue))}
+              </div>
             </div>
-            <div class="column" style={{textAlign:'center', borderRight:'1px solid #ddd'}}>
-              <div style={{color:'rgb(128, 128, 129)',fontSize:'22px',marginTop:'20px'}}>Total Value</div>
-              <div style={{color:'#525254',fontSize:'36px',marginTop:'22px'}}>$3991</div>
+            <div
+              class="column"
+              style={{ textAlign: "center", borderRight: "1px solid #ddd" }}
+            >
+              <div
+                style={{
+                  color: "rgb(128, 128, 129)",
+                  fontSize: "22px",
+                  marginTop: "20px"
+                }}
+              >
+                Total Value
+              </div>
+              <div
+                style={{
+                  color: "#525254",
+                  fontSize: "36px",
+                  marginTop: "22px"
+                }}
+              >
+                $3991
+              </div>
             </div>
-            <div class="column" style={{textAlign:'center'}}>
-              <div style={{color:'rgb(128, 128, 129)',fontSize:'22px',marginTop:'20px'}}>Total Profit</div>
-              <div style={{color:'#525254',fontSize:'36px',marginTop:'22px'}}>$2210</div>
+            <div class="column" style={{ textAlign: "center" }}>
+              <div
+                style={{
+                  color: "rgb(128, 128, 129)",
+                  fontSize: "22px",
+                  marginTop: "20px"
+                }}
+              >
+                Total Profit
+              </div>
+              <div
+                style={{
+                  color: "#525254",
+                  fontSize: "36px",
+                  marginTop: "22px"
+                }}
+              >
+                $2210
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="column" style={{marginTop:"60px"}}>
+        <div class="column" style={{ marginTop: "60px" }}>
           <div class="ui sixteen column grid">
             {this.buildPieChart(totalValue)}
           </div>
         </div>
 
-        <div class="column" style={{marginTop:"50px"}}>
+        <div class="column" style={{ marginTop: "50px" }}>
           <div class="ui sixteen column grid">
-            {
-              // these charts will be used on the individual wallet page
-              this.buildDonutPieChart(totalValue)
-            }
+            {// these charts will be used on the individual wallet page
+            this.buildDonutPieChart(totalValue)}
           </div>
         </div>
-
       </ContentComponent>
-		)
-		: <div></div>
-	}
+    ) : (
+      <div />
+    )
+  }
 }

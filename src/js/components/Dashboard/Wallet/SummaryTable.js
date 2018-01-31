@@ -4,6 +4,10 @@ import { Table } from "semantic-ui-react"
 
 import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+import {
+  calculateWalletQuantity,
+  calculateWalletValue
+} from "./../../../helpers/walletMetrics"
 
 const InlineLogo = Styled.div`
   display: inline-block;
@@ -32,9 +36,13 @@ export default ({ wallet, coin }) => (
           </span>
         </Table.Cell>
         <Table.Cell>${formatNumberForDisplay(coin.price_usd)}</Table.Cell>
-        <Table.Cell>{formatNumberForDisplay(wallet.balance)}</Table.Cell>
         <Table.Cell>
-          ${formatNumberForDisplay(round(wallet.balance * coin.price_usd, 2))}
+          {formatNumberForDisplay(calculateWalletQuantity(wallet))}
+        </Table.Cell>
+        <Table.Cell>
+          ${formatNumberForDisplay(
+            round(calculateWalletValue(wallet, coin.price_usd), 2)
+          )}
         </Table.Cell>
       </Table.Row>
     </Table.Body>

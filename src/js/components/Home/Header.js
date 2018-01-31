@@ -7,9 +7,11 @@ import { project_info, theme, links } from "./../../constants"
 const HeaderContainer = Styled.div`
   padding: 1em 0em;
   background-color: ${theme.colors.inverted} !important;
+  height: 100vh;
+  position: relative;
 `
 const HeaderContent = Styled.div`
-  padding: 5em 0em 8em 0em;
+  padding: 30vh 0em 18em 0em;
 `
 const HeaderLabel = Styled.div`
   font-size: 36px;
@@ -20,6 +22,15 @@ const MenuContainer = Styled.div`
 `
 const Logo = Styled.i`
   color: ${theme.colors.logo};
+`
+const BottomBar = Styled.div`
+  position: absolute;
+  color: black;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 4em;
+  background-color: ${theme.colors.dash_sidebar};
 `
 
 export default ({ navigateTo }) => (
@@ -48,9 +59,11 @@ export default ({ navigateTo }) => (
       <HeaderContent>
         <HeaderLabel>{project_info.name}</HeaderLabel>
         <Icon name="angle double left" size="big" as={Logo} />
-        <Icon name="bitcoin" size="huge" as={Logo} />
+        <Icon name="id card outline" size="huge" as={Logo} />
         <Icon name="angle double right" size="big" as={Logo} />
       </HeaderContent>
     </Container>
+
+    <BottomBar />
   </Segment>
 )

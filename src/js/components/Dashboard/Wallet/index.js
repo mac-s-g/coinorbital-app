@@ -53,7 +53,10 @@ export default class extends Component {
       wallets,
       requestEditWallet,
       requestDeleteWallet,
-      requestCreateTransaction
+      requestCreateTransaction,
+      requestDeleteTransaction,
+      requestEditTransaction,
+      requestTransactionNote
     } = this.props
     const wallet = wallets.by_name[this.walletName()]
     const coin = wallet ? coins.by_symbol[wallet.symbol] : null
@@ -75,7 +78,7 @@ export default class extends Component {
               />
               <Icon
                 as={RemoveWalletIcon}
-                name="remove"
+                name="remove circle"
                 onClick={e => requestDeleteWallet(wallet.name)}
               />
             </span>
@@ -85,7 +88,16 @@ export default class extends Component {
         >
           <HeaderStatistics {...{ wallet, coin }} />
           <SummaryTable {...{ wallet, coin }} />
-          <TransactionTable {...{ wallet, coin, requestCreateTransaction }} />
+          <TransactionTable
+            {...{
+              wallet,
+              coin,
+              requestCreateTransaction,
+              requestDeleteTransaction,
+              requestEditTransaction,
+              requestTransactionNote
+            }}
+          />
         </ContentComponent>
       )
     }
