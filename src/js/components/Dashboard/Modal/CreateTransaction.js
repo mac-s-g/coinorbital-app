@@ -34,13 +34,18 @@ export default class extends Component {
       time_transacted: moment(),
       type: RECEIVED,
       quantity: "",
+      validQuantity: null,
       cost_per_coin_usd: coin.price_usd
     }
   }
 
   setTimeTransacted = date => this.setState({ time_transacted: date })
   setTransactionType = value => this.setState({ type: value })
-  setQuantity = (event, { value }) => this.setState({ quantity: value })
+  setQuantity = (event, { value }) =>
+    this.setState({
+      quantity: value,
+      validQuantity: this.isValidQuantity(value)
+    })
   setPricePerCoin = (event, { value }) =>
     this.setState({ cost_per_coin_usd: value })
 
@@ -61,7 +66,15 @@ export default class extends Component {
     const { closeModal, editWallet, modals, navigateTo } = this.props
     const wallet = modals.create_transaction
     const { coin } = modals.create_transaction
-    const { time_transacted, quantity, cost_per_coin_usd, type } = this.state
+    const {
+      time_transacted,
+      quantity,
+      cost_per_coin_usd,
+      type,
+      validQuantity
+    } = this.state
+
+    console.log(validQuantity)
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
@@ -90,7 +103,7 @@ export default class extends Component {
               placeholder="Quantity"
               value={quantity}
               onChange={this.setQuantity}
-              error={!this.isValidQuantity(quantity)}
+              error={validQuantity === false}
             />
             <InputLabel>Price Per Coin</InputLabel>
             <Input
@@ -101,7 +114,7 @@ export default class extends Component {
               label={{ content: "$" }}
               error={!this.isValidCost(cost_per_coin_usd)}
             />
-            {this.isValidQuantity(quantity) && this.isValidCost ? (
+            {this.validQuantity && this.isValidCost ? (
               <div>
                 <InputLabel>Transaction Value</InputLabel>
                 <Statistic horizontal size="mini" as={ValueStatistic}>
@@ -124,8 +137,7 @@ export default class extends Component {
           <Cancel onClick={closeModal} />
           <Submit
             disabled={
-              !this.isValidQuantity(quantity) ||
-              !this.isValidCost(cost_per_coin_usd)
+              !this.validQuantity || !this.isValidCost(cost_per_coin_usd)
             }
             onClick={e => {
               delete wallet.coin

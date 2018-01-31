@@ -22,6 +22,7 @@ const Sidebar = Styled.div`
   height: 100%;
   width: 100%;
   display: inline-block;
+  border-right: 1px solid ${theme.colors.inverted};
 `
 const ContentContainer = Styled.div`
   width: 100%;
