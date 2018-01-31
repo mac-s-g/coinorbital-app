@@ -1,10 +1,17 @@
 import React, { Component } from "react"
-import ContentComponent from "./../ContentComponent"
 import ChartistGraph from "react-chartist"
 import ChartistLegend from "chartist-plugin-legend"
 import Styled from "styled-components"
+
+import ContentComponent from "./../ContentComponent"
+
 import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+import {
+  calculateWalletQuantity,
+  calculateWalletValue
+} from "./../../../helpers/walletMetrics"
+
 import { theme } from "./../../../constants"
 
 const PieComponent = Styled.div`
@@ -151,14 +158,18 @@ export default class extends Component {
       plugins: [ChartistLegend()]
     }
 
-    let pieChartSeries = Object.keys(wallets.by_name).map(key => {
-      let wallet = wallets.by_name[key]
-      let price_usd = coins.by_symbol[wallet.symbol].price_usd
-      return {
-        name: wallets.by_name[key].symbol,
-        value: round(wallet.balance * price_usd, 2)
-      }
-    })
+    let pieChartSeries = Object.keys(wallets.by_name).map(key => ({
+      name: wallets.by_name[key].symbol,
+      value: round(
+        calculateWalletValue(
+          wallets.by_name[key],
+          coins.by_symbol[wallets.by_name[key].symbol].price_usd
+        ),
+        2
+      )
+    }))
+
+    console.log(pieChartSeries)
 
     let pieChartData = {
       series: pieChartSeries

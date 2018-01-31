@@ -9,6 +9,7 @@ export const calculateWalletQuantity = wallet =>
 export const calculateWalletValue = (wallet, price_per_coin) =>
   calculateWalletQuantity(wallet) * price_per_coin
 
+//aggregate total cost of original transactions
 export const calculateWalletTotalTx = wallet =>
   wallet.transactions.reduce((acc, tx) => {
     if (!!tx.cost_per_coin_usd) {
