@@ -74,8 +74,6 @@ export default class extends Component {
       validQuantity
     } = this.state
 
-    console.log(validQuantity)
-
     return (
       <Modal open size="tiny" onClose={closeModal}>
         <Modal.Header>Record a Transaction</Modal.Header>
@@ -114,7 +112,7 @@ export default class extends Component {
               label={{ content: "$" }}
               error={!this.isValidCost(cost_per_coin_usd)}
             />
-            {this.validQuantity && this.isValidCost ? (
+            {validQuantity && this.isValidCost ? (
               <div>
                 <InputLabel>Transaction Value</InputLabel>
                 <Statistic horizontal size="mini" as={ValueStatistic}>
@@ -136,9 +134,7 @@ export default class extends Component {
         <Modal.Actions>
           <Cancel onClick={closeModal} />
           <Submit
-            disabled={
-              !this.validQuantity || !this.isValidCost(cost_per_coin_usd)
-            }
+            disabled={!validQuantity || !this.isValidCost(cost_per_coin_usd)}
             onClick={e => {
               delete wallet.coin
               editWallet(wallet.name, {
