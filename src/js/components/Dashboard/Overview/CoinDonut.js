@@ -9,7 +9,7 @@ import {
 } from "./../../../helpers/walletMetrics"
 
 export default class extends Component {
-  buildSeriesData = () => {
+  buildChartData = () => {
     const { coins, wallets } = this.props
     let totalValue = aggregateWalletsValue(wallets.by_name, coins.by_symbol)
     return Object.keys(wallets.by_name).map(key => {
@@ -56,8 +56,6 @@ export default class extends Component {
   }
 
   render() {
-    return (
-      <div>{this.buildSeriesData()}</div>
-    )
+    return this.buildChartData()
   }
 }

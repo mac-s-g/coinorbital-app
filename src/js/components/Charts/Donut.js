@@ -3,7 +3,7 @@ import ChartistGraph from "react-chartist"
 import Styled from "styled-components"
 import { theme } from "./../../constants"
 
-const DonutComponent = Styled.div`
+const DonutContainer = Styled.div`
   & .ct-chart {
     position: relative;
     margin-bottom: 15px;
@@ -70,9 +70,9 @@ export default class extends Component {
 
   render() {
     return (
-      <DonutComponent themeColors={theme.colors}>
+      <DonutContainer themeColors={theme.colors}>
         {this.buildChart()}
-      </DonutComponent>
+      </DonutContainer>
     )
   }
 }

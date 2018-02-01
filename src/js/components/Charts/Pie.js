@@ -3,7 +3,7 @@ import ChartistGraph from "react-chartist"
 import Styled from "styled-components"
 import { theme } from "./../../constants"
 
-const PieComponent = Styled.div`
+const PieContainer = Styled.div`
   & .ct-chart-pie {
     margin-top: 30px;
   }
@@ -89,9 +89,9 @@ export default class extends Component {
 
   render() {
     return (
-      <PieComponent themeColors={theme.colors}>
+      <PieContainer themeColors={theme.colors}>
         {this.buildChart()}
-      </PieComponent>
+      </PieContainer>
     )
   }
 }

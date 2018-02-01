@@ -42,19 +42,17 @@ export default class extends Component {
         }
       ]
     ]
-
-    return (
-      <PieComponent
-        data={data}
-        options={options}
-        responsiveOptions={responsiveOptions}
-      />
-    )
+    return { data, options, responsiveOptions }
   }
 
   render() {
+    let chartData = this.buildChartData()
     return (
-      <div>{this.buildChartData()}</div>
+      <PieComponent
+        data={chartData.data}
+        options={chartData.options}
+        responsiveOptions={chartData.responsiveOptions}
+      />
     )
   }
 }
