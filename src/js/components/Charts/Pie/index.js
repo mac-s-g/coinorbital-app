@@ -7,8 +7,8 @@ import round from "./../../../helpers/round"
 import { theme } from "./../../../constants"
 
 import {
-	calculateWalletQuantity,
-	calculateWalletValue
+  calculateWalletQuantity,
+  calculateWalletValue
 } from "./../../../helpers/walletMetrics"
 
 const PieComponent = Styled.div`
@@ -83,75 +83,75 @@ const PieComponent = Styled.div`
 `
 
 export default class extends Component {
-	getTotalValue = () => {
-		const { coins, wallets } = this.props
-		let totalValue = Object.keys(wallets.by_name)
-			.map(key => {
-				return calculateWalletValue(
-					wallets.by_name[key],
-					coins.by_symbol[wallets.by_name[key].symbol].price_usd
-				)
-			})
-			.reduce((accumulator, currentValue) => accumulator + currentValue)
+  getTotalValue = () => {
+    const { coins, wallets } = this.props
+    let totalValue = Object.keys(wallets.by_name)
+      .map(key => {
+        return calculateWalletValue(
+          wallets.by_name[key],
+          coins.by_symbol[wallets.by_name[key].symbol].price_usd
+        )
+      })
+      .reduce((accumulator, currentValue) => accumulator + currentValue)
 
-		return round(totalValue, 2)
-	}
+    return round(totalValue, 2)
+  }
 
-	buildChart = () => {
-		const { coins, wallets } = this.props
-		const totalValue = this.getTotalValue()
-		let pieChartOptions = {
-			stretch: true,
-			width: "400px",
-			height: "400px",
-			plugins: [ChartistLegend()]
-		}
+  buildChart = () => {
+    const { coins, wallets } = this.props
+    const totalValue = this.getTotalValue()
+    let pieChartOptions = {
+      stretch: true,
+      width: "400px",
+      height: "400px",
+      plugins: [ChartistLegend()]
+    }
 
-		let pieChartSeries = Object.keys(wallets.by_name).map(key => ({
-			name: wallets.by_name[key].symbol,
-			value: round(
-				calculateWalletValue(
-					wallets.by_name[key],
-					coins.by_symbol[wallets.by_name[key].symbol].price_usd
-				),
-				2
-			)
-		}))
+    let pieChartSeries = Object.keys(wallets.by_name).map(key => ({
+      name: wallets.by_name[key].symbol,
+      value: round(
+        calculateWalletValue(
+          wallets.by_name[key],
+          coins.by_symbol[wallets.by_name[key].symbol].price_usd
+        ),
+        2
+      )
+    }))
 
-		let pieChartData = {
-			series: pieChartSeries
-		}
+    let pieChartData = {
+      series: pieChartSeries
+    }
 
-		let pieChartResponsiveOptions = [
-			[
-				"screen and (min-width: 600px)",
-				{
-					labelInterpolationFnc(value, index) {
-						////////// fix soon
-						return "$" + value
-						let percentage = value / totalValue * 100 + "%"
-						let label = parseInt(percentage) > 3 ? "$" + value : null
-						return label
-					}
-				}
-			]
-		]
+    let pieChartResponsiveOptions = [
+      [
+        "screen and (min-width: 600px)",
+        {
+          labelInterpolationFnc(value, index) {
+            ////////// fix soon
+            return "$" + value
+            let percentage = value / totalValue * 100 + "%"
+            let label = parseInt(percentage) > 3 ? "$" + value : null
+            return label
+          }
+        }
+      ]
+    ]
 
-		return (
-			<ChartistGraph
-				data={pieChartData}
-				type={"Pie"}
-				options={pieChartOptions}
-				responsiveOptions={pieChartResponsiveOptions}
-			/>
-		)
-	}
+    return (
+      <ChartistGraph
+        data={pieChartData}
+        type={"Pie"}
+        options={pieChartOptions}
+        responsiveOptions={pieChartResponsiveOptions}
+      />
+    )
+  }
 
-	render() {
-		return (
-			<PieComponent themeColors={theme.colors}>
-				{this.buildChart()}
-			</PieComponent>
-		)
-	}
+  render() {
+    return (
+      <PieComponent themeColors={theme.colors}>
+        {this.buildChart()}
+      </PieComponent>
+    )
+  }
 }

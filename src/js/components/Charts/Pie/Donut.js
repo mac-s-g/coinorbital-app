@@ -8,8 +8,8 @@ import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
 
 import {
-	calculateWalletQuantity,
-	calculateWalletValue
+  calculateWalletQuantity,
+  calculateWalletValue
 } from "./../../../helpers/walletMetrics"
 
 const DonutComponent = Styled.div`
@@ -65,79 +65,79 @@ const centerChartLabel = {
 }
 
 export default class extends Component {
-	getTotalValue = () => {
-		const { coins, wallets } = this.props
-		let totalValue = Object.keys(wallets.by_name)
-			.map(key => {
-				return calculateWalletValue(
-					wallets.by_name[key],
-					coins.by_symbol[wallets.by_name[key].symbol].price_usd
-				)
-			})
-			.reduce((accumulator, currentValue) => accumulator + currentValue)
+  getTotalValue = () => {
+    const { coins, wallets } = this.props
+    let totalValue = Object.keys(wallets.by_name)
+      .map(key => {
+        return calculateWalletValue(
+          wallets.by_name[key],
+          coins.by_symbol[wallets.by_name[key].symbol].price_usd
+        )
+      })
+      .reduce((accumulator, currentValue) => accumulator + currentValue)
 
-		return round(totalValue, 2)
-	}
+    return round(totalValue, 2)
+  }
 
-	buildChart = () => {
-		const { coins, wallets } = this.props
-		const totalValue = this.getTotalValue()
-		return Object.keys(wallets.by_name).map(key => {
-			let wallet = wallets.by_name[key]
-			let value = calculateWalletValue(
-				wallet,
-				coins.by_symbol[wallet.symbol].price_usd
-			)
-			let difference = totalValue - value
-			let data = {
-				series: [round(value, 2), round(difference, 2)],
-				labels: [coins.by_symbol[wallet.symbol].name]
-			}
-			let options = {
-				width: "300px",
-				height: "300px",
-				total: 100,
-				donut: true,
-				donutWidth: 10,
-				donutSolid: true,
-				plugins: [ChartistLegend()]
-			}
-			options.total = totalValue
-			options.labelInterpolationFnc = val => {
-				return (
-					"$" +
-					formatNumberForDisplay(round(value), 2) +
-					" / $" +
-					formatNumberForDisplay(round(totalValue), 2)
-				)
-			}
+  buildChart = () => {
+    const { coins, wallets } = this.props
+    const totalValue = this.getTotalValue()
+    return Object.keys(wallets.by_name).map(key => {
+      let wallet = wallets.by_name[key]
+      let value = calculateWalletValue(
+        wallet,
+        coins.by_symbol[wallet.symbol].price_usd
+      )
+      let difference = totalValue - value
+      let data = {
+        series: [round(value, 2), round(difference, 2)],
+        labels: [coins.by_symbol[wallet.symbol].name]
+      }
+      let options = {
+        width: "300px",
+        height: "300px",
+        total: 100,
+        donut: true,
+        donutWidth: 10,
+        donutSolid: true,
+        plugins: [ChartistLegend()]
+      }
+      options.total = totalValue
+      options.labelInterpolationFnc = val => {
+        return (
+          "$" +
+          formatNumberForDisplay(round(value), 2) +
+          " / $" +
+          formatNumberForDisplay(round(totalValue), 2)
+        )
+      }
 
-			options.labelInterpolationFnc = val => {
-				return (
-					"$" +
-					formatNumberForDisplay(round(value), 2) +
-					" / $" +
-					formatNumberForDisplay(round(totalValue), 2)
-				)
-			}
+      options.labelInterpolationFnc = val => {
+        return (
+          "$" +
+          formatNumberForDisplay(round(value), 2) +
+          " / $" +
+          formatNumberForDisplay(round(totalValue), 2)
+        )
+      }
 
-			return (
-				<ChartistGraph
-					key={key}
-					data={data}
-					type={"Pie"}
-					options={options}
-					listener={centerChartLabel}
-				/>
-			)
-		})
-	}
+      return (
+        <ChartistGraph
+          key={key}
+          data={data}
+          type={"Pie"}
+          options={options}
+          listener={centerChartLabel}
+        />
+      )
+    })
+  }
 
-	render() {
-		return (
-			<DonutComponent themeColors={theme.colors}>
-				{this.buildChart()}
-			</DonutComponent>
-		)
-	}
+  render() {
+    return (
+      <DonutComponent themeColors={theme.colors}>
+        {this.buildChart()}
+      </DonutComponent>
+    )
+  }
 }
