@@ -2,14 +2,7 @@ import React, { Component } from "react"
 import ChartistGraph from "react-chartist"
 import ChartistLegend from "chartist-plugin-legend"
 import Styled from "styled-components"
-
-import round from "./../../../helpers/round"
-import { theme } from "./../../../constants"
-
-import {
-  calculateWalletQuantity,
-  calculateWalletValue
-} from "./../../../helpers/walletMetrics"
+import { theme } from "./../../constants"
 
 const PieComponent = Styled.div`
   & .ct-chart-pie {
@@ -83,52 +76,19 @@ const PieComponent = Styled.div`
 `
 
 export default class extends Component {
-  getTotalValue = () => {
-    const { coins, wallets } = this.props
-    let totalValue = Object.keys(wallets.by_name)
-      .map(key => {
-        return calculateWalletValue(
-          wallets.by_name[key],
-          coins.by_symbol[wallets.by_name[key].symbol].price_usd
-        )
-      })
-      .reduce((accumulator, currentValue) => accumulator + currentValue)
-
-    return round(totalValue, 2)
-  }
-
   buildChart = () => {
-    const { coins, wallets } = this.props
-    const totalValue = this.getTotalValue()
+    const { data, totalValue } = this.props
     let pieChartOptions = {
       stretch: true,
       width: "400px",
       height: "400px",
       plugins: [ChartistLegend()]
     }
-
-    let pieChartSeries = Object.keys(wallets.by_name).map(key => ({
-      name: wallets.by_name[key].symbol,
-      value: round(
-        calculateWalletValue(
-          wallets.by_name[key],
-          coins.by_symbol[wallets.by_name[key].symbol].price_usd
-        ),
-        2
-      )
-    }))
-
-    let pieChartData = {
-      series: pieChartSeries
-    }
-
     let pieChartResponsiveOptions = [
       [
         "screen and (min-width: 600px)",
         {
           labelInterpolationFnc(value, index) {
-            ////////// fix soon
-            return "$" + value
             let percentage = value / totalValue * 100 + "%"
             let label = parseInt(percentage) > 3 ? "$" + value : null
             return label
@@ -139,7 +99,7 @@ export default class extends Component {
 
     return (
       <ChartistGraph
-        data={pieChartData}
+        data={data}
         type={"Pie"}
         options={pieChartOptions}
         responsiveOptions={pieChartResponsiveOptions}

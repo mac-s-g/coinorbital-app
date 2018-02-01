@@ -1,16 +1,9 @@
 import React, { Component } from "react"
-import Styled from "styled-components"
 import ContentComponent from "./../ContentComponent"
-import PieComponent from "./../../Charts/Pie"
-
-import round from "./../../../helpers/round"
-import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
-import {
-  calculateWalletQuantity,
-  calculateWalletValue
-} from "./../../../helpers/walletMetrics"
-
-import { theme } from "./../../../constants"
+import WalletPie from "./WalletPie"
+import CoinDonut from "./CoinDonut"
+import { Loader } from "semantic-ui-react"
+import HeaderStatistics from "./HeaderStatistics"
 
 export default class extends Component {
   componentWillMount() {
@@ -25,23 +18,26 @@ export default class extends Component {
 
   render() {
     const { coins, wallets } = this.props
-    return coins.fetched && wallets.fetched ? ( // make sure app state contains what i need
+
+    return (
       <ContentComponent
         header="Overview"
-        subHeader="Manage your assets at a glance."
+        subHeader="Manage your assets at a glance"
       >
-        <link
-          rel="stylesheet"
-          href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
-        />
-        <div class="column" style={{ marginTop: "60px" }}>
-          <div class="ui sixteen column grid">
-            <PieComponent coins={coins} wallets={wallets} />
+        {!coins.fetched || !wallets.fetched ? (
+          <Loader active />
+        ) : (
+          <div class="column">
+            <div class="ui sixteen column grid">
+              <HeaderStatistics wallets={wallets.by_name} coins={coins.by_symbol} />
+            </div>
+            <div class="ui sixteen column grid">
+              <WalletPie {...this.props} />
+              <CoinDonut {...this.props} />
+            </div>
           </div>
-        </div>
+        )}
       </ContentComponent>
-    ) : (
-      <div />
     )
   }
 }
