@@ -17,3 +17,14 @@ export const calculateWalletTotalTx = wallet =>
     }
     return acc
   }, 0)
+
+//aggregate value accross wallets
+export const aggregateWalletsValue = (wallets, coins) =>
+  //reduce wallets down to single sum
+  Object.keys(wallets).reduce((acc, wallet_name) => {
+    acc += calculateWalletValue(
+      wallets[wallet_name],
+      coins[wallets[wallet_name].symbol].price_usd
+    )
+    return acc
+  }, 0)

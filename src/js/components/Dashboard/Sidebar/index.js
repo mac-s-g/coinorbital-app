@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Divider, Grid } from "semantic-ui-react"
+import { rgba } from "polished"
 
 import SidebarItem from "./SidebarItem"
 
@@ -22,6 +23,7 @@ const Sidebar = Styled.div`
   height: 100%;
   width: 100%;
   display: inline-block;
+  border-right: 1px solid ${rgba(theme.colors.inverted, 0.2)};
 `
 const ContentContainer = Styled.div`
   width: 100%;

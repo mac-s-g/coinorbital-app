@@ -25,12 +25,10 @@ const ItemContainer = Styled.div`
 
 const Rank = Styled.div`
   width: 36px;
-  font-size: 26px;
+  font-size: 16px;
   display: inline-block;
-  font-style: italic;
   font-weight: bold;
   color: ${theme.colors.gray};
-  margin-top: 0.2em;
 `
 
 const Name = Styled.div`

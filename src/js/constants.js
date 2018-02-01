@@ -18,7 +18,8 @@ export const theme = {
     gray_dark: "rgba(0,0,0,0.6)",
     grey_dark: "rgba(0,0,0,0.6)",
     red: "#dd4444",
-    blue: "#335577"
+    blue: "#335577",
+    white: "#fff"
   },
   dash_nav_height: "4em"
 }
