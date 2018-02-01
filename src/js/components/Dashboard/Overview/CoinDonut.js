@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import DonutComponent from "./../../Charts/Donut"
+import ChartistLegend from "chartist-plugin-legend"
 import round from "./../../../helpers/round"
+import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 import {
   aggregateWalletsValue,
   calculateWalletValue
@@ -9,8 +11,7 @@ import {
 export default class extends Component {
   buildSeriesData = () => {
     const { coins, wallets } = this.props
-    let totalValue = 6969
-
+    let totalValue = aggregateWalletsValue(wallets.by_name, coins.by_symbol)
     return Object.keys(wallets.by_name).map(key => {
       let wallet = wallets.by_name[key]
       let value = calculateWalletValue(
@@ -22,10 +23,31 @@ export default class extends Component {
         series: [round(value, 2), round(difference, 2)],
         labels: [coins.by_symbol[wallet.symbol].name]
       }
+
+      let options = {
+        width: "300px",
+        height: "300px",
+        total: totalValue,
+        donut: true,
+        donutWidth: 10,
+        donutSolid: true,
+        plugins: [ChartistLegend()]
+      }
+
+      options.labelInterpolationFnc = val => {
+        return (
+          "$" +
+          formatNumberForDisplay(round(value), 2) +
+          " / $" +
+          formatNumberForDisplay(round(totalValue), 2)
+        )
+      }
+
       return (
         <DonutComponent
           key={key}
           data={data}
+          options={options}
           value={value}
           totalValue={totalValue}
         />
@@ -34,9 +56,6 @@ export default class extends Component {
   }
 
   render() {
-    const { coins, wallets } = this.props
-    // let totalValue = aggregateWalletsValue(wallets, coins)
-    let totalValue = 6969
     return (
       <div>{this.buildSeriesData()}</div>
     )

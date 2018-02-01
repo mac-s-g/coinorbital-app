@@ -32,8 +32,8 @@ export default class extends Component {
               <HeaderStatistics wallets={wallets.by_name} coins={coins.by_symbol} />
             </div>
             <div class="ui sixteen column grid">
-              <WalletPie {...this.props} />
-              <CoinDonut {...this.props} />
+              <WalletPie wallets={wallets} coins={coins} />
+              <CoinDonut wallets={wallets} coins={coins} />
             </div>
           </div>
         )}

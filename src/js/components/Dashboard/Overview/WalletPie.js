@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import PieComponent from "./../../Charts/Pie"
+import ChartistLegend from "chartist-plugin-legend"
 import round from "./../../../helpers/round"
 import {
   aggregateWalletsValue,
@@ -9,8 +10,9 @@ import {
 export default class extends Component {
   buildChartData = () => {
     const { coins, wallets } = this.props
-
-    let seriesData = Object.keys(wallets.by_name).map(key => ({
+    let totalValue = aggregateWalletsValue(wallets.by_name, coins.by_symbol)
+    let data = {}
+    data.series = Object.keys(wallets.by_name).map(key => ({
       name: wallets.by_name[key].symbol,
       value: round(
         calculateWalletValue(
@@ -21,17 +23,38 @@ export default class extends Component {
       )
     }))
 
-    return {
-      series: seriesData
+    let options = {
+      stretch: true,
+      width: "400px",
+      height: "400px",
+      plugins: [ChartistLegend()]
     }
+
+    let responsiveOptions = [
+      [
+        "screen and (min-width: 600px)",
+        {
+          labelInterpolationFnc(value, index) {
+            let percentage = value / totalValue * 100 + "%"
+            let label = parseInt(percentage) > 3 ? "$" + value : null
+            return label
+          }
+        }
+      ]
+    ]
+
+    return (
+      <PieComponent
+        data={data}
+        options={options}
+        responsiveOptions={responsiveOptions}
+      />
+    )
   }
 
   render() {
-    const { coins, wallets } = this.props
-    // let totalValue = aggregateWalletsValue(wallets, coins)
-    let totalValue = 6969
     return (
-      <PieComponent data={this.buildChartData()} totalValue={totalValue} />
+      <div>{this.buildChartData()}</div>
     )
   }
 }

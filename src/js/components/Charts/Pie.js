@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import ChartistGraph from "react-chartist"
-import ChartistLegend from "chartist-plugin-legend"
 import Styled from "styled-components"
 import { theme } from "./../../constants"
 
@@ -77,32 +76,13 @@ const PieComponent = Styled.div`
 
 export default class extends Component {
   buildChart = () => {
-    const { data, totalValue } = this.props
-    let pieChartOptions = {
-      stretch: true,
-      width: "400px",
-      height: "400px",
-      plugins: [ChartistLegend()]
-    }
-    let pieChartResponsiveOptions = [
-      [
-        "screen and (min-width: 600px)",
-        {
-          labelInterpolationFnc(value, index) {
-            let percentage = value / totalValue * 100 + "%"
-            let label = parseInt(percentage) > 3 ? "$" + value : null
-            return label
-          }
-        }
-      ]
-    ]
-
+    const { data, options, responsiveOptions } = this.props
     return (
       <ChartistGraph
         data={data}
         type={"Pie"}
-        options={pieChartOptions}
-        responsiveOptions={pieChartResponsiveOptions}
+        options={options}
+        responsiveOptions={responsiveOptions}
       />
     )
   }

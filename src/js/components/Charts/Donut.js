@@ -1,9 +1,6 @@
 import React, { Component } from "react"
 import ChartistGraph from "react-chartist"
-import ChartistLegend from "chartist-plugin-legend"
 import Styled from "styled-components"
-import round from "./../../helpers/round"
-import formatNumberForDisplay from "./../../helpers/formatNumberForDisplay"
 import { theme } from "./../../constants"
 
 const DonutComponent = Styled.div`
@@ -59,36 +56,8 @@ const centerChartLabel = {
 }
 
 export default class extends Component {
-
   buildChart = () => {
-    const { data, totalValue, value } = this.props
-    let options = {
-      width: "300px",
-      height: "300px",
-      total: 100,
-      donut: true,
-      donutWidth: 10,
-      donutSolid: true,
-      plugins: [ChartistLegend()]
-    }
-    options.total = totalValue
-    options.labelInterpolationFnc = val => {
-      return (
-        "$" +
-        formatNumberForDisplay(round(value), 2) +
-        " / $" +
-        formatNumberForDisplay(round(totalValue), 2)
-      )
-    }
-    options.labelInterpolationFnc = val => {
-      return (
-        "$" +
-        formatNumberForDisplay(round(value), 2) +
-        " / $" +
-        formatNumberForDisplay(round(totalValue), 2)
-      )
-    }
-
+    const { data, options } = this.props
     return (
       <ChartistGraph
         data={data}

@@ -20,6 +20,9 @@ export default ({ wallets, coins }) => (
     <div>
       <Statistic horizontal size="large">
         <Statistic.Value>
+          {
+            console.log('$$$$$$$$$$$$$$$$')
+          }
           ${formatNumberForDisplay(
             round(aggregateWalletsValue(wallets, coins), 2)
           )}
