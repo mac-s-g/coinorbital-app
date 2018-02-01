@@ -7,9 +7,27 @@ export const RECEIVE_WALLETS = "RECEIVE_WALLETS"
 export const DELETE_WALLET = "DELETE_WALLET"
 export const EDIT_WALLET = "EDIT_WALLET"
 
+const default_wallets = {
+  Bitcoin: {
+    name: "Bitcoin",
+    symbol: "BTC",
+    transactions: []
+  },
+  Ethereum: {
+    name: "Ethereum",
+    symbol: "ETH",
+    transactions: []
+  },
+  Ripple: {
+    name: "Ripple",
+    symbol: "XRP",
+    transactions: []
+  }
+}
+
 export const fetchWallets = () => ({
   type: RECEIVE_WALLETS,
-  payload: Cabinet.get(WALLET_BY_NAME_KEY, {})
+  payload: Cabinet.get(WALLET_BY_NAME_KEY, default_wallets)
 })
 
 export const createWallet = wallet => ({
