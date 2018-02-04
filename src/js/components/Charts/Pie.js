@@ -2,11 +2,9 @@ import React, { Component } from "react"
 import ChartistGraph from "react-chartist"
 import Styled from "styled-components"
 import { theme } from "./../../constants"
+import ChartistLegend from "chartist-plugin-legend"
 
 const PieContainer = Styled.div`
-  & .ct-chart-pie {
-    margin-top: 30px;
-  }
   & .ct-series-a .ct-slice-pie {
     fill: ${props => props.themeColors.blue};
   }
@@ -20,29 +18,38 @@ const PieContainer = Styled.div`
     fill: ${props => props.themeColors.gold};
   }
   & .ct-label {
-    fill: #fff;
-    color: #fff;
+    fill: ${props => props.themeColors.white};
+    color: ${props => props.themeColors.white};
     font-size: 1.15rem;
   }
   & .ct-chart {
     position: relative;
+    width: 430px;
+    float: left;
+    @media (max-width: 500px) {
+      width: auto;
+    }
   }
   & .ct-legend {
     padding: 0;
+    float: right;
+    @media (max-width: 500px) {
+      padding: 0;
+      float: left;
+    }
   }
   & .ct-legend li {
-    color: rgba(0, 0, 0, 0.6);
+    color: ${props => props.themeColors.grey_dark};
     position: relative;
     padding-left: 16px;
     margin-bottom: 3px;
     margin-right: 18px;
     list-style: none;
-    display: block;
-    float: left;
     cursor: pointer;
-  }
-  & .ct-legend li:hover {
-    color: rgba(0, 0, 0, 0.85);
+    @media (max-width: 500px) {
+      display: inline-block;
+      float: left;
+    }
   }
   & .ct-legend li.inactive {
     opacity: .6;
@@ -58,7 +65,7 @@ const PieContainer = Styled.div`
     border-radius: 2px;
   }
   & .ct-legend li:before {
-    background: #333;
+    background: ${props => props.themeColors.grey_dark};
   }
   & .ct-legend .ct-series-0:before {
     background: ${props => props.themeColors.blue};
@@ -77,6 +84,9 @@ const PieContainer = Styled.div`
 export default class extends Component {
   buildChart = () => {
     const { data, options, responsiveOptions } = this.props
+    if (options.showLegend) {
+      options.plugins = [ChartistLegend()]
+    }
     return (
       <ChartistGraph
         data={data}

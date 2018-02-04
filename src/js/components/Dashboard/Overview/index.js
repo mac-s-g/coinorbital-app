@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import ContentComponent from "./../ContentComponent"
 import WalletPie from "./WalletPie"
-import CoinDonut from "./CoinDonut"
 import { Loader } from "semantic-ui-react"
 import HeaderStatistics from "./HeaderStatistics"
+import { calculateWalletQuantity } from "./../../../helpers/walletMetrics"
 
 export default class extends Component {
   componentWillMount() {
@@ -16,9 +16,17 @@ export default class extends Component {
     }
   }
 
+  nonZeroWallets = wallets =>
+    Object.keys(wallets).reduce((acc, name) => {
+      if (calculateWalletQuantity(wallets[name])) {
+        acc[name] = wallets[name]
+      }
+      return acc
+    }, {})
+
   render() {
     const { coins, wallets } = this.props
-
+    const nonZeroWallets = this.nonZeroWallets(wallets.by_name)
     return (
       <ContentComponent
         header="Overview"
@@ -27,14 +35,14 @@ export default class extends Component {
         {!coins.fetched || !wallets.fetched ? (
           <Loader active />
         ) : (
-          <div class="column">
-            <div class="ui sixteen column grid">
-              <HeaderStatistics wallets={wallets.by_name} coins={coins.by_symbol} />
-            </div>
-            <div class="ui sixteen column grid">
-              <WalletPie wallets={wallets} coins={coins} />
-              <CoinDonut wallets={wallets} coins={coins} />
-            </div>
+          <div>
+            <HeaderStatistics
+              wallets={wallets.by_name}
+              coins={coins.by_symbol}
+            />
+            {Object.keys(nonZeroWallets).length > 1 ? (
+              <WalletPie wallets={nonZeroWallets} coins={coins} />
+            ) : null}
           </div>
         )}
       </ContentComponent>

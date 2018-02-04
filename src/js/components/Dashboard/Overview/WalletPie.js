@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import PieComponent from "./../../Charts/Pie"
-import ChartistLegend from "chartist-plugin-legend"
 import round from "./../../../helpers/round"
 import {
   aggregateWalletsValue,
@@ -10,14 +9,14 @@ import {
 export default class extends Component {
   buildChartData = () => {
     const { coins, wallets } = this.props
-    let totalValue = aggregateWalletsValue(wallets.by_name, coins.by_symbol)
+    let totalValue = aggregateWalletsValue(wallets, coins.by_symbol)
     let data = {}
-    data.series = Object.keys(wallets.by_name).map(key => ({
-      name: wallets.by_name[key].symbol,
+    data.series = Object.keys(wallets).map(name => ({
+      name: wallets[name].symbol,
       value: round(
         calculateWalletValue(
-          wallets.by_name[key],
-          coins.by_symbol[wallets.by_name[key].symbol].price_usd
+          wallets[name],
+          coins.by_symbol[wallets[name].symbol].price_usd
         ),
         2
       )
@@ -25,9 +24,9 @@ export default class extends Component {
 
     let options = {
       stretch: true,
-      width: "400px",
-      height: "400px",
-      plugins: [ChartistLegend()]
+      width: "340px",
+      height: "340px",
+      showLegend: true
     }
 
     let responsiveOptions = [

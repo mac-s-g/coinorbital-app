@@ -12,11 +12,11 @@ const DonutContainer = Styled.div`
     fill: ${props => props.themeColors.blue};
   }
   .ct-chart-donut .ct-series-b .ct-slice-donut-solid {
-    fill: #E1E9EB;
+    fill: ${props => props.themeColors.gray};
   }
   & .ct-chart-donut .ct-label {
-    fill: #333;
-    color: #333;
+    fill: ${props => props.themeColors.grey_dark};
+    color: ${props => props.themeColors.grey_dark};
     font-size: 1.4rem;
     dominant-baseline: central;
     text-anchor: middle;
@@ -29,15 +29,12 @@ const DonutContainer = Styled.div`
     text-align: center;
   }
   & .ct-legend li {
-    color: rgba(0, 0, 0, 0.5);
+    color: ${props => props.themeColors.grey_dark};
     display: inline-block;
     font-size: 1.2rem;
     list-style: none;
     margin: 0;
     margin-bottom: 20px;
-  }
-  & .ct-legend li:hover {
-    color: rgba(0, 0, 0, 0.85);
   }
   & .ct-legend li.inactive {
     opacity: .6;
