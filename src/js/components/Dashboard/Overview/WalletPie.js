@@ -13,7 +13,7 @@ export default class extends Component {
     let totalValue = aggregateWalletsValue(wallets, coins.by_symbol)
     let data = {}
     data.series = Object.keys(wallets).map(name => ({
-      name: wallets[name].symbol,
+      name: name,
       value: round(
         calculateWalletValue(
           wallets[name],
