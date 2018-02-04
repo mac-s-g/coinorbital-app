@@ -30,8 +30,12 @@ export {
   REQUEST_COINS,
   RECEIVE_COINS,
   RECEIVE_COINS_ERROR,
+  REQUEST_TIME_SERIES,
+  RECEIVE_TIME_SERIES,
+  RECEIVE_TIME_SERIES_ERROR,
   //dispatcher calls
-  fetchCoins
+  fetchCoins,
+  fetchTimeSeries
 } from "./Coins"
 
 export {
