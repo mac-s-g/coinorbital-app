@@ -12,6 +12,7 @@ import "semantic-ui-css/semantic.min.css"
 import {
   //coins
   fetchCoins,
+  fetchTimeSeries,
   //wallet
   fetchWallets,
   createWallet,
@@ -41,6 +42,7 @@ const mapDispatchToProps = dispatch => ({
   //coins
   requestCoinInfo: coin => dispatch(coinInfoModal(coin)),
   fetchCoins: () => dispatch(fetchCoins()),
+  fetchTimeSeries: filters => dispatch(fetchTimeSeries(filters)),
   //wallets
   fetchWallets: () => dispatch(fetchWallets()),
   createWallet: wallet => dispatch(createWallet(wallet)),

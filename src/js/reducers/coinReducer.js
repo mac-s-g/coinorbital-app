@@ -1,4 +1,11 @@
-import { REQUEST_COINS, RECEIVE_COINS, RECEIVE_COINS_ERROR } from "./../actions"
+import {
+  REQUEST_COINS,
+  RECEIVE_COINS,
+  RECEIVE_COINS_ERROR,
+  REQUEST_TIME_SERIES,
+  RECEIVE_TIME_SERIES,
+  RECEIVE_TIME_SERIES_ERROR
+} from "./../actions"
 
 import coinsBySymbol from "./../helpers/coinsBySymbol"
 
@@ -7,7 +14,8 @@ const default_state = {
   by_symbol: {},
   list: [],
   fetching_coins: false,
-  fetch_coins_error: false
+  fetch_coins_error: false,
+  time_series: {}
 }
 
 export default (state = default_state, action) => {
@@ -33,6 +41,42 @@ export default (state = default_state, action) => {
         ...state,
         fetching_coins: false,
         fetch_coins_error: true
+      }
+    case REQUEST_TIME_SERIES:
+      return {
+        ...state,
+        time_series: {
+          [payload.query_key]: {
+            fetching: true,
+            fetched: false,
+            error: false,
+            result: null
+          }
+        }
+      }
+    case RECEIVE_TIME_SERIES:
+      return {
+        ...state,
+        time_series: {
+          [payload.query_key]: {
+            fetching: false,
+            fetched: true,
+            error: false,
+            result: [payload.result]
+          }
+        }
+      }
+    case RECEIVE_TIME_SERIES_ERROR:
+      return {
+        ...state,
+        time_series: {
+          [payload.query_key]: {
+            fetching: false,
+            fetched: true,
+            error: payload.error,
+            result: null
+          }
+        }
       }
     default:
       return state

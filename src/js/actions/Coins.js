@@ -1,8 +1,13 @@
 import axios from "axios"
 
+import createSearchQuery from "./../helpers/createSearchQuery"
+
 export const REQUEST_COINS = "REQUEST_COINS"
 export const RECEIVE_COINS = "RECEIVE_COINS"
 export const RECEIVE_COINS_ERROR = "RECEIVE_COINS_ERROR"
+export const REQUEST_TIME_SERIES = "REQUEST_TIME_SERIES"
+export const RECEIVE_TIME_SERIES = "RECEIVE_TIME_SERIES"
+export const RECEIVE_TIME_SERIES_ERROR = "RECEIVE_TIME_SERIES_ERROR"
 
 const requestCoins = () => ({
   type: REQUEST_COINS
@@ -15,7 +20,7 @@ const receiveCoins = response => ({
 
 const receiveCoinsError = payload => ({
   type: RECEIVE_COINS_ERROR,
-  payload: payload
+  payload
 })
 
 export const fetchCoins = payload => {
@@ -25,5 +30,56 @@ export const fetchCoins = payload => {
       .get("https://api.coinmarketcap.com/v1/ticker/")
       .then(response => dispatch(receiveCoins(response.data)))
       .catch(error => dispatch(receiveCoinsError(error)))
+  }
+}
+
+export const requestTimeSeries = query_key => ({
+  type: REQUEST_TIME_SERIES,
+  payload: { query_key }
+})
+
+export const receiveTimeSeries = (result, query_key) => ({
+  type: RECEIVE_TIME_SERIES,
+  payload: { result, query_key }
+})
+
+export const receiveTimeSeriesError = (error, query_key) => ({
+  type: RECEIVE_TIME_SERIES_ERROR,
+  payload: { error, query_key }
+})
+
+export const fetchTimeSeries = filters => {
+  //generate key for this search
+  const query_key = JSON.stringify(filters)
+  //make sure potentially missing filters have default values
+  filters = {
+    symbol: "BTC",
+    type: "day",
+    reference: "USD",
+    aggregate: 3,
+    limit: 60,
+    exchange: "CCCAGG",
+    ...filters
+  }
+  const { symbol, type, reference, aggregate, limit, exchange } = filters
+  return dispatch => {
+    dispatch(requestTimeSeries(query_key))
+    axios
+      .get(
+        createSearchQuery(
+          `https://min-api.cryptocompare.com/data/histo${type}`,
+          {
+            fsym: symbol,
+            tsym: reference,
+            aggregate,
+            limit,
+            exchange
+          }
+        )
+      )
+      .then(response =>
+        dispatch(receiveTimeSeries(response.data.Data, query_key))
+      )
+      .catch(error => dispatch(receiveTimeSeriesError(error, query_key)))
   }
 }
