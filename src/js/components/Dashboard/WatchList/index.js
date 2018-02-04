@@ -7,7 +7,7 @@ import ContentComponent from "./../ContentComponent"
 import CoinDropdown from "./../../Inputs/CoinDropdown"
 
 const ListContainer = Styled.div`
-  margin: 1.67em 0 1.67em 0;
+  margin-bottom: 1.67em;
 `
 
 export default class extends Component {
