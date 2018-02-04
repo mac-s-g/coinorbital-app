@@ -1,3 +1,8 @@
+/*--------------------------------------------
+THIS FILE PROVIDES AN EXAMPLE FOR HOW TO FETCH
+TIME SERIES DATA.  THIS COMPONENT IS NOT
+CURRENTLY BEING USED.
+--------------------------------------------*/
 import React, { Component } from "react"
 import Styled from "styled-components"
 
