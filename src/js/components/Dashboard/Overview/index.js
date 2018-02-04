@@ -7,7 +7,13 @@ import HeaderStatistics from "./HeaderStatistics"
 
 export default class extends Component {
   componentWillMount() {
-    const { fetchWallets, fetchCoins, wallets, coins } = this.props
+    const {
+      fetchWallets,
+      fetchCoins,
+      fetchTimeSeriesDay,
+      wallets,
+      coins
+    } = this.props
     if (!wallets.fetched) {
       fetchWallets()
     }
