@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PieComponent from "./../../Charts/Pie"
 import round from "./../../../helpers/round"
+import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 import {
   aggregateWalletsValue,
   calculateWalletValue
@@ -26,21 +27,19 @@ export default class extends Component {
       stretch: true,
       width: "340px",
       height: "340px",
-      showLegend: true
+      showLegend: true,
+      labelInterpolationFnc: function(value) {
+        let percentage = value / totalValue * 100 + "%"
+        let label =
+          parseInt(percentage) > 3
+            ? "$" + formatNumberForDisplay(value)
+            : null
+        return label
+      }
     }
 
-    let responsiveOptions = [
-      [
-        "screen and (min-width: 600px)",
-        {
-          labelInterpolationFnc(value, index) {
-            let percentage = value / totalValue * 100 + "%"
-            let label = parseInt(percentage) > 3 ? "$" + value : null
-            return label
-          }
-        }
-      ]
-    ]
+    let responsiveOptions = []
+
     return { data, options, responsiveOptions }
   }
 
