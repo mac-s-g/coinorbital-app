@@ -24,7 +24,6 @@ const PieContainer = Styled.div`
   }
   & .ct-chart {
     position: relative;
-    width: 430px;
     float: left;
     @media (max-width: 500px) {
       width: auto;
@@ -33,9 +32,11 @@ const PieContainer = Styled.div`
   & .ct-legend {
     padding: 0;
     float: right;
+    margin-left: 20px !important;
     @media (max-width: 500px) {
       padding: 0;
       float: left;
+      margin-left: 0 !important;
     }
   }
   & .ct-legend li {
