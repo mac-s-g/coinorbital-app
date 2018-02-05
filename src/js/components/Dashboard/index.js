@@ -1,7 +1,7 @@
 import React from "react"
 import { Route, Switch } from "react-router"
 
-import Header from "./Header"
+import Navbar from "./Navbar"
 import Sidebar from "./Sidebar/"
 //views
 import Overview from "./Overview/"
@@ -22,7 +22,7 @@ import parseSearch from "./../../helpers/parseSearchQuery"
 
 export default props => (
   <div>
-    <Header {...props} />
+    <Navbar {...props} />
     <Sidebar {...props}>
       {/*parseSearch(props.history.location.search).account ? (
         <AccountView {...props} />

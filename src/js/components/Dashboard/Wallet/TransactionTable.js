@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import Styled from "styled-components"
 import { Button, Icon, Label, Table } from "semantic-ui-react"
 
+import SubHeader from "./../SubHeader"
+
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 import formatDateForDisplay from "./../../../helpers/formatDateForDisplay"
 import round from "./../../../helpers/round"
@@ -19,16 +21,6 @@ const SENT = "sent"
 
 const TransactionsComponent = Styled.div`
   margin-top: 2.67em;
-`
-
-const HeaderComponent = Styled.div`
-  font-weight: 300;
-  font-size: 1.28571429em;
-  color: ${theme.colors.gray_dark};
-  display: inline-block;
-  height: 32px;
-  margin: 0 0.33em 0.33em 0;
-  padding-top: 6px;
 `
 
 const HeaderIcon = Styled.i`
@@ -172,7 +164,7 @@ export default class extends Component {
     const aggr_net_val = aggr_total_val - aggr_total_tx
     return (
       <TransactionsComponent>
-        <HeaderComponent>Transactions</HeaderComponent>
+        <SubHeader style={{ display: "inline-block" }}>Transactions</SubHeader>
         <Icon
           as={HeaderIcon}
           size="large"
