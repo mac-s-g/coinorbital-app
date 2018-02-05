@@ -6,7 +6,6 @@ import CoinLogo from "./../../CoinLogo/"
 
 import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
-import { aggregateWalletsValue } from "./../../../helpers/walletMetrics"
 
 const StatsComponent = Styled.div`
   margin: 0 0 3em 0;
@@ -15,14 +14,12 @@ const StatsComponent = Styled.div`
   }
 `
 
-export default ({ wallets, coins }) => (
+export default ({ totalValue }) => (
   <StatsComponent>
     <div>
       <Statistic horizontal size="large">
         <Statistic.Value>
-          ${formatNumberForDisplay(
-            round(aggregateWalletsValue(wallets, coins), 2)
-          )}
+          ${formatNumberForDisplay(round(totalValue, 2))}
         </Statistic.Value>
         <Statistic.Label>Value USD</Statistic.Label>
       </Statistic>

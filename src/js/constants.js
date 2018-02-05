@@ -12,7 +12,6 @@ export const theme = {
     logo: "#FAA916",
     green: "#33aa11",
     gold: "#faa916",
-    white: "#fdfdff",
     gray: "#aaa",
     grey: "#aaa",
     gray_dark: "rgba(0,0,0,0.6)",
