@@ -39,7 +39,7 @@ const StatComponent = Styled.div`
 `
 
 const StatHeader = Styled.div`
-  margin: 10px 0;
+  margin: 14px 0;
 
   & span {
     font-size: 24px;
@@ -58,7 +58,10 @@ const WalletStat = Styled.div`
 
 //pie chart component for wallets in portfolio
 export default class extends Component {
-  state = { selected: null }
+  constructor(props) {
+    super(props)
+    this.state = { selected: Object.keys(props.wallets)[0] }
+  }
 
   //on pie slice hover
   hoverSelect = name => this.setState({ selected: name })
@@ -78,7 +81,7 @@ export default class extends Component {
         ),
         2
       ),
-      fill: rgba(getRotatingThemeColor(idx), name === selected ? 0.7 : 1),
+      fill: rgba(getRotatingThemeColor(idx), name === selected ? 1 : 0.75),
       symbol: wallets[name].symbol,
       style: { cursor: "pointer" },
       onMouseEnter: () => this.hoverSelect(name),
@@ -107,10 +110,10 @@ export default class extends Component {
             align: "right",
             width: 160,
             wrapperStyle: {
+              fontSize: "1.14285714rem",
               position: "absolute",
               right: "-15px",
               top: "20px",
-              color: theme.colors.gray_dark,
               cursor: "pointer"
             },
             onMouseOver: ({ value }) => this.hoverSelect(value),

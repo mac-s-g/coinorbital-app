@@ -86,9 +86,9 @@ export default class extends Component {
                     ? navigateTo("/dashboard/watch-list")
                     : null}
                 label="Coin Watch List"
-                icon="empty star"
+                icon="star"
               />
-              <Divider horizontal>My Wallets</Divider>
+              <Divider horizontal>Holdings</Divider>
               {Object.keys(wallets.by_name).map(name => (
                 <SidebarItem
                   key={name}
@@ -112,7 +112,7 @@ export default class extends Component {
               <SidebarItem
                 style={{ marginBottom: "0.33em" }}
                 onClick={requestCreateWallet}
-                label="Create a Wallet"
+                label="Track a Wallet"
                 actionItem
                 icon="plus circle"
               />

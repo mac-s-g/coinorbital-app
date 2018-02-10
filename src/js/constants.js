@@ -1,5 +1,5 @@
 export const project_info = {
-  name: "Crypto Wallet"
+  name: "CoinOrbital"
 }
 
 export const theme = {

@@ -2,6 +2,8 @@ import React from "react"
 import Styled from "styled-components"
 import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
 
+import Logo from "./../Logo"
+
 import { project_info, theme, links } from "./../../constants"
 
 const HeaderContainer = Styled.div`
@@ -20,9 +22,7 @@ const HeaderLabel = Styled.div`
 const MenuContainer = Styled.div`
   border-color: ${theme.colors.inverted} !important;
 `
-const Logo = Styled.i`
-  color: ${theme.colors.logo};
-`
+
 const BottomBar = Styled.div`
   position: absolute;
   color: black;
@@ -43,24 +43,13 @@ export default ({ navigateTo }) => (
         <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
           Dashboard
         </Menu.Item>
-        <Menu.Item
-          position="right"
-          as="a"
-          href={links.github}
-          target="_blank"
-          style={{ padding: "0.33em" }}
-        >
-          <Icon name="github" size="big" />
-        </Menu.Item>
       </Menu>
     </Container>
 
     <Container text>
       <HeaderContent>
         <HeaderLabel>{project_info.name}</HeaderLabel>
-        <Icon name="angle double left" size="big" as={Logo} />
-        <Icon name="id card outline" size="huge" as={Logo} />
-        <Icon name="angle double right" size="big" as={Logo} />
+        <Logo size={100} />
       </HeaderContent>
     </Container>
 

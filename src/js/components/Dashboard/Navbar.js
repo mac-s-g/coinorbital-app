@@ -2,6 +2,8 @@ import React from "react"
 import Styled from "styled-components"
 import { Icon, Menu, Segment } from "semantic-ui-react"
 
+import Logo from "./../Logo"
+
 import { project_info, theme } from "./../../constants"
 
 const HeaderContainer = Styled.div`
@@ -28,15 +30,18 @@ const HeaderContainer = Styled.div`
     margin-right: 1em !important;
   }
 `
+
+const NavbarName = Styled.span`
+  margin-left: 6px;
+`
+
 export default ({ navigateTo }) => (
   <Segment as={HeaderContainer} inverted>
     <Menu inverted secondary>
-      <Menu.Item
-        name={project_info.name}
-        as="a"
-        header
-        onClick={e => navigateTo("/")}
-      />
+      <Menu.Item as="a" header onClick={e => navigateTo("/")}>
+        <Logo size={20} />
+        <NavbarName>{project_info.name}</NavbarName>
+      </Menu.Item>
     </Menu>
   </Segment>
 )

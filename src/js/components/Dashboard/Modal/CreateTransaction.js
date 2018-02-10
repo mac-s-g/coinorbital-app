@@ -40,20 +40,24 @@ export default class extends Component {
   }
 
   setTimeTransacted = date => this.setState({ time_transacted: date })
-  setTransactionType = value => this.setState({ type: value })
+  setTransactionType = value =>
+    this.setState({
+      type: value,
+      validQuantity: this.isValidQuantity(this.state.quantity, value)
+    })
   setQuantity = (event, { value }) =>
     this.setState({
       quantity: value,
-      validQuantity: this.isValidQuantity(value)
+      validQuantity: this.isValidQuantity(value, this.state.type)
     })
   setPricePerCoin = (event, { value }) =>
     this.setState({ cost_per_coin_usd: value })
 
-  isValidQuantity = quantity =>
+  isValidQuantity = (quantity, type) =>
     this.isValidFloat(quantity) &&
     this.parseFloatInput(quantity) !== 0 &&
     //make sure the user can't send more than exists in wallet
-    (this.state.type === RECEIVED ||
+    (type === RECEIVED ||
       this.parseFloatInput(quantity) <
         calculateWalletQuantity(this.props.modals.create_transaction))
   isValidCost = cost =>
