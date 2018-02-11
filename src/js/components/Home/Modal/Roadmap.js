@@ -51,6 +51,7 @@ export default ({ close, contactMe }) => (
               <List.Item>Support remote data storage</List.Item>
             </List>
           </List.Item>
+          <List.Item>Audit and polish mobile experience</List.Item>
         </List>
       </ListContainer>
     </Modal.Content>
