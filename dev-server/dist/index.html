@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>crypto-portfolio</title>
+    <title>CoinOrbital</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <!--[if lt IE 9]>
@@ -16,10 +16,39 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
     <![endif]-->
+    <style>
+      #initial-page-load {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #335577;
+      }
+      #initial-page-load-msg {
+        margin-top: 30%;
+        color: #fff;
+        text-align: center;
+        font-size: 26px;
+        font-style: italic;
+        font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+      }
+    </style>
   </head>
   <body>
-  <div id="app-container"></div>
+  <div id="app-container">
+    <div id="initial-page-load">
+      <div id="initial-page-load-msg">
+        <noscript>This page requires javascript to run.</noscript>
+      </div>
+    </div>
+  </div>
   <div id="react-devtools-root"></div>
+  <script type="text/javascript">
+    document.getElementById(
+      "initial-page-load-msg"
+    ).innerHTML="Loading..."
+  </script>
   <script type="text/javascript" src="/main.js"></script>
   </body>
 </html>
