@@ -7,6 +7,8 @@ import CoinLogo from "./../../CoinLogo/"
 import round from "./../../../helpers/round"
 import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 
+import { theme } from "./../../../constants"
+
 const StatsComponent = Styled.div`
   margin: 0 0 3em 0;
   & > div {
@@ -15,14 +17,14 @@ const StatsComponent = Styled.div`
 `
 
 export default ({ totalValue }) => (
-  <StatsComponent>
-    <div>
+  <div>
+    <StatsComponent>
       <Statistic horizontal size="large">
         <Statistic.Value>
           ${formatNumberForDisplay(round(totalValue, 2))}
         </Statistic.Value>
-        <Statistic.Label>Value USD</Statistic.Label>
+        <Statistic.Label>Portfolio Value (USD)</Statistic.Label>
       </Statistic>
-    </div>
-  </StatsComponent>
+    </StatsComponent>
+  </div>
 )

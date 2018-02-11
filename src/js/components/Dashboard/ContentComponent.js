@@ -7,12 +7,13 @@ import CoinLogo from "./../CoinLogo/"
 import { theme } from "./../../constants"
 
 const MainComponent = Styled.div`
-  background-color: ${theme.colors.dash_content};
+  background-color: ${theme.colors.white};
   width: 100%;
   padding: 3em 2em;
 `
 const PageContent = Styled.div`
   padding: 1em 0em;
+  font-size: 1.14285714rem;
 `
 
 export default ({ header, subHeader, children, coinSymbol }) => (

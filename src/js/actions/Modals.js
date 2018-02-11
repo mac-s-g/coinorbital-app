@@ -8,6 +8,9 @@ export const CLOSE_ALL_MODALS = "CLOSE_ALL_MODALS"
 export const DELETE_TRANSACTION_MODAL = "DELETE_TRANSACTION_MODAL"
 export const EDIT_TRANSACTION_MODAL = "EDIT_TRANSACTION_MODAL"
 export const TRANSACTION_NOTE_MODAL = "TRANSACTION_NOTE_MODAL"
+export const CONTACT_ME_MODAL = "CONTACT_ME_MODAL"
+export const DONATE_MODAL = "DONATE_MODAL"
+export const ROADMAP_MODAL = "ROADMAP_MODAL"
 
 export const addToWatchListModal = () => ({
   type: ADD_TO_WATCHLIST_MODAL
@@ -63,4 +66,16 @@ export const transactionNoteModal = (wallet, transaction_id) => ({
     wallet,
     transaction_id
   }
+})
+
+export const contactMeModal = () => ({
+  type: CONTACT_ME_MODAL
+})
+
+export const donateModal = () => ({
+  type: DONATE_MODAL
+})
+
+export const roadmapModal = () => ({
+  type: ROADMAP_MODAL
 })

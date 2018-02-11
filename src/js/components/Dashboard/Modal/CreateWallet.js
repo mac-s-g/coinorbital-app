@@ -59,7 +59,7 @@ export default class extends Component {
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
-        <Modal.Header>Create a New Wallet</Modal.Header>
+        <Modal.Header>Track a New Wallet</Modal.Header>
         <Modal.Content>
           <Modal.Description as="p">
             A wallet lets you group transactions for a particular coin.

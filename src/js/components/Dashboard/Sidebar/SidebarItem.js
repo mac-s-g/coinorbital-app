@@ -11,7 +11,7 @@ const SidebarButton = Styled.div`
   font-weight: ${({ actionItem }) => (actionItem ? 300 : 600)};
   color: ${({ actionItem }) => (actionItem ? theme.colors.inverted : "#444")};
   position: relative;
-  padding: 11px 11px 11px 36px;
+  padding: 12px 12px 12px 36px;
   cursor: pointer;
   transition: all 0s ease;
   font-size: 16px;
@@ -46,16 +46,17 @@ const SidebarButton = Styled.div`
 `
 
 const ItemLabel = Styled.div`
-  display: inline-block;
-  padding-right: 6px;
+  display: flex;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 2px 6px 2px 0;
 `
 
 const SidebarCaret = Styled.i`
   position: absolute;
   left: 10px;
+  top: 14px;
   width: 0 !important;
   opacity: ${({ selected }) => (selected ? 1 : 0)} !important;
   color: ${theme.colors.inverted};
@@ -63,7 +64,7 @@ const SidebarCaret = Styled.i`
 
 const SidebarLogo = Styled.i`
   position: absolute !important;
-  top: 12px;
+  top: 14px;
   left: 8px;
   height: 19px !important;
   width: 19px !important;

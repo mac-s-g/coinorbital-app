@@ -33,7 +33,10 @@ import {
   deleteWalletModal,
   deleteTransactionModal,
   transactionNoteModal,
-  editTransactionModal
+  editTransactionModal,
+  contactMeModal,
+  donateModal,
+  roadmapModal
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
@@ -66,6 +69,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(editTransactionModal(wallet, tx_idx)),
   requestTransactionNote: (wallet, tx_idx) =>
     dispatch(transactionNoteModal(wallet, tx_idx)),
+  requestContactMe: () => dispatch(contactMeModal()),
+  requestDonate: () => dispatch(donateModal()),
+  requestRoadmap: () => dispatch(roadmapModal()),
   closeModal: () => dispatch(closeAllModals())
 })
 

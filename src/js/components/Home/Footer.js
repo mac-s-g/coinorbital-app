@@ -30,18 +30,23 @@ const FooterContainer = Styled.div`
   background-color: ${theme.colors.inverted} !important;
 `
 
-export default () => (
+export default ({ requestContactMe, requestDonate, requestRoadmap }) => (
   <Segment inverted vertical as={FooterContainer}>
     <Container textAlign="center">
       <Grid inverted>
         <Grid.Row>
           <Grid.Column {...grid_width.gutter} />
           <Grid.Column {...grid_width.links}>
-            <Header inverted as="h4" content="About" />
             <List link inverted>
-              <List.Item as="a">Contact Us</List.Item>
-              <List.Item as="a">Feedback</List.Item>
-              <List.Item as="a">Contribute</List.Item>
+              <List.Item as="a" onClick={requestContactMe}>
+                Contact Me
+              </List.Item>
+              <List.Item as="a" onClick={requestDonate}>
+                Donate
+              </List.Item>
+              <List.Item as="a" onClick={requestRoadmap}>
+                Roadmap
+              </List.Item>
             </List>
           </Grid.Column>
           <Grid.Column {...grid_width.call_to_action}>

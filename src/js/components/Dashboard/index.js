@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router"
 
 import Navbar from "./Navbar"
 import Sidebar from "./Sidebar/"
+import Footer from "./Footer"
 //views
 import Overview from "./Overview/"
 import WatchList from "./WatchList/"
@@ -17,18 +18,17 @@ import CreateTransaction from "./Modal/CreateTransaction"
 import DeleteTransaction from "./Modal/DeleteTransaction"
 import EditTransaction from "./Modal/EditTransaction"
 import TransactionNote from "./Modal/TransactionNote"
+//home modals
+import ContactMe from "./../Home/Modal/ContactMe"
+import Donate from "./../Home/Modal/Donate"
+import Roadmap from "./../Home/Modal/Roadmap"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
-export default props => (
+export default ({ modals, ...props }) => (
   <div>
     <Navbar {...props} />
     <Sidebar {...props}>
-      {/*parseSearch(props.history.location.search).account ? (
-        <AccountView {...props} />
-      ) : (
-        <Overview {...props} />
-      )*/}
       <Switch>
         <Route
           exact
@@ -51,14 +51,22 @@ export default props => (
         />
       </Switch>
     </Sidebar>
-    {props.modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
-    {props.modals.coin_info ? <CoinInfo {...props} /> : null}
-    {props.modals.create_wallet ? <CreateWallet {...props} /> : null}
-    {props.modals.edit_wallet ? <EditWallet {...props} /> : null}
-    {props.modals.delete_wallet ? <DeleteWallet {...props} /> : null}
-    {props.modals.create_transaction ? <CreateTransaction {...props} /> : null}
-    {props.modals.delete_transaction ? <DeleteTransaction {...props} /> : null}
-    {props.modals.transaction_note ? <TransactionNote {...props} /> : null}
-    {props.modals.edit_transaction ? <EditTransaction {...props} /> : null}
+    <Footer {...props} />
+    {modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
+    {modals.coin_info ? <CoinInfo {...props} /> : null}
+    {modals.create_wallet ? <CreateWallet {...props} /> : null}
+    {modals.edit_wallet ? <EditWallet {...props} /> : null}
+    {modals.delete_wallet ? <DeleteWallet {...props} /> : null}
+    {modals.create_transaction ? <CreateTransaction {...props} /> : null}
+    {modals.delete_transaction ? <DeleteTransaction {...props} /> : null}
+    {modals.transaction_note ? <TransactionNote {...props} /> : null}
+    {modals.edit_transaction ? <EditTransaction {...props} /> : null}
+    {modals.contact_me ? (
+      <ContactMe donate={props.requestDonate} close={props.closeModal} />
+    ) : null}
+    {modals.donate ? <Donate close={props.closeModal} /> : null}
+    {modals.roadmap ? (
+      <Roadmap contactMe={props.requestContactMe} close={props.closeModal} />
+    ) : null}
   </div>
 )

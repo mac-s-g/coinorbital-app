@@ -8,7 +8,7 @@ import SidebarItem from "./SidebarItem"
 import { theme } from "./../../../constants"
 
 const SidebarContainer = Styled.div`
-  background-color: ${theme.colors.dash_sidebar};
+  background-color: ${theme.colors.well_gray};
 `
 const SidebarGrid = Styled.div`
   margin: 0 !important;
@@ -19,7 +19,7 @@ const SidebarGridColumn = Styled.div`
   padding: 0 !important;
 `
 const Sidebar = Styled.div`
-  background-color: ${theme.colors.dash_sidebar};
+  background-color: ${theme.colors.well_gray};
   height: 100%;
   width: 100%;
   display: inline-block;
@@ -28,8 +28,10 @@ const Sidebar = Styled.div`
 const ContentContainer = Styled.div`
   width: 100%;
   overflow: auto;
-  background-color: ${theme.colors.dash_content};
-  min-height: calc(100vh - ${theme.dash_nav_height}) !important;
+  background-color: ${theme.colors.white};
+  min-height: calc(
+    100vh - ${theme.dash_nav_height} - ${theme.dash_footer_height}
+  ) !important;
 `
 
 const grid_width = {
@@ -86,9 +88,9 @@ export default class extends Component {
                     ? navigateTo("/dashboard/watch-list")
                     : null}
                 label="Coin Watch List"
-                icon="empty star"
+                icon="star"
               />
-              <Divider horizontal>My Wallets</Divider>
+              <Divider horizontal>Holdings</Divider>
               {Object.keys(wallets.by_name).map(name => (
                 <SidebarItem
                   key={name}
@@ -112,7 +114,7 @@ export default class extends Component {
               <SidebarItem
                 style={{ marginBottom: "0.33em" }}
                 onClick={requestCreateWallet}
-                label="Create a Wallet"
+                label="Track a Wallet"
                 actionItem
                 icon="plus circle"
               />

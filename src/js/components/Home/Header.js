@@ -2,11 +2,13 @@ import React from "react"
 import Styled from "styled-components"
 import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
 
+import Logo from "./../Logo"
+
 import { project_info, theme, links } from "./../../constants"
 
 const HeaderContainer = Styled.div`
   padding: 1em 0em;
-  background-color: ${theme.colors.inverted} !important;
+  background-color: ${theme.colors.blue} !important;
   height: 100vh;
   position: relative;
 `
@@ -18,11 +20,9 @@ const HeaderLabel = Styled.div`
   margin-bottom: 0.33em;
 `
 const MenuContainer = Styled.div`
-  border-color: ${theme.colors.inverted} !important;
+  border-color: ${theme.colors.blue} !important;
 `
-const Logo = Styled.i`
-  color: ${theme.colors.logo};
-`
+
 const BottomBar = Styled.div`
   position: absolute;
   color: black;
@@ -30,7 +30,19 @@ const BottomBar = Styled.div`
   right: 0px;
   bottom: 0px;
   height: 4em;
-  background-color: ${theme.colors.dash_sidebar};
+  background-color: ${theme.colors.well_gray};
+`
+
+const LearnMore = Styled.span`
+  position: absolute;
+  right: 5px;
+  font-size: 18px;
+  color: ${theme.colors.blue};
+  top: 18px;
+  cursor: pointer;
+  & span {
+    margin-right: 6px;
+  }
 `
 
 export default ({ navigateTo }) => (
@@ -43,27 +55,31 @@ export default ({ navigateTo }) => (
         <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
           Dashboard
         </Menu.Item>
-        <Menu.Item
-          position="right"
-          as="a"
-          href={links.github}
-          target="_blank"
-          style={{ padding: "0.33em" }}
-        >
-          <Icon name="github" size="big" />
-        </Menu.Item>
       </Menu>
     </Container>
 
     <Container text>
       <HeaderContent>
         <HeaderLabel>{project_info.name}</HeaderLabel>
-        <Icon name="angle double left" size="big" as={Logo} />
-        <Icon name="id card outline" size="huge" as={Logo} />
-        <Icon name="angle double right" size="big" as={Logo} />
+        <Logo size={100} />
       </HeaderContent>
     </Container>
 
-    <BottomBar />
+    <BottomBar>
+      <LearnMore
+        onClick={e => {
+          const issueListDOMComponent = document.querySelector(".index-content")
+          if (issueListDOMComponent) {
+            issueListDOMComponent.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            })
+          }
+        }}
+      >
+        <span>Learn More</span>
+        <Icon name="arrow down circle" />
+      </LearnMore>
+    </BottomBar>
   </Segment>
 )

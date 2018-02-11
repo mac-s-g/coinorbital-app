@@ -12,6 +12,9 @@ export {
   DELETE_TRANSACTION_MODAL,
   EDIT_TRANSACTION_MODAL,
   TRANSACTION_NOTE_MODAL,
+  CONTACT_ME_MODAL,
+  DONATE_MODAL,
+  ROADMAP_MODAL,
   //dispatcher calls
   closeAllModals,
   createTransactionModal,
@@ -22,7 +25,10 @@ export {
   createWalletModal,
   deleteTransactionModal,
   editTransactionModal,
-  transactionNoteModal
+  transactionNoteModal,
+  contactMeModal,
+  donateModal,
+  roadmapModal
 } from "./Modals"
 
 export {
