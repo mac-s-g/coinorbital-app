@@ -7,7 +7,7 @@ export const ADD_TO_WATCH_LIST = "ADD_TO_WATCH_LIST"
 export const REMOVE_FROM_WATCH_LIST = "REMOVE_FROM_WATCH_LIST"
 export const REORDER_WATCH_LIST = "REORDER_WATCH_LIST"
 
-const default_watch_list = ["BTC", "ETH", "XRP", "BCH"]
+const default_watch_list = ["BTC", "ETH", "LTC", "BCH"]
 
 export const fetchWatchList = () => ({
   type: RECEIVE_WATCH_LIST,

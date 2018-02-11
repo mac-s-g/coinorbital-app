@@ -23,8 +23,8 @@ export default ({ wallet, coin }) => (
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Coin</Table.HeaderCell>
+        <Table.HeaderCell>Total Holding</Table.HeaderCell>
         <Table.HeaderCell>{coin.symbol} Price (USD)</Table.HeaderCell>
-        <Table.HeaderCell>Total {coin.symbol}</Table.HeaderCell>
         <Table.HeaderCell>Wallet Value (USD)</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
@@ -32,13 +32,13 @@ export default ({ wallet, coin }) => (
       <Table.Row>
         <Table.Cell>
           <span>
-            {coin.name} ({coin.symbol})
+            {coin.name}
           </span>
         </Table.Cell>
-        <Table.Cell>${formatNumberForDisplay(coin.price_usd)}</Table.Cell>
         <Table.Cell>
-          {formatNumberForDisplay(calculateWalletQuantity(wallet))}
+          {formatNumberForDisplay(calculateWalletQuantity(wallet))} {coin.symbol}
         </Table.Cell>
+        <Table.Cell>${formatNumberForDisplay(coin.price_usd)}</Table.Cell>
         <Table.Cell>
           ${formatNumberForDisplay(
             round(calculateWalletValue(wallet, coin.price_usd), 2)

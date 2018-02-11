@@ -5,6 +5,7 @@ import { Loader } from "semantic-ui-react"
 import ContentComponent from "./../ContentComponent"
 import HeaderStatistics from "./HeaderStatistics"
 import WalletsPie from "./WalletsPie"
+import Welcome from "./Welcome"
 
 import {
   calculateWalletQuantity,
@@ -45,15 +46,23 @@ export default class extends Component {
           <Loader active />
         ) : (
           <div>
-            <HeaderStatistics totalValue={this.totalValue(wallets, coins)} />
-            {Object.keys(non_zero_wallets).length > 1 ? (
-              <WalletsPie
-                wallets={non_zero_wallets}
-                coins={coins}
-                totalValue={this.totalValue(wallets, coins)}
-                navigateTo={navigateTo}
-              />
-            ) : null}
+            {this.totalValue(wallets, coins) > 0 ? (
+              <div>
+                <HeaderStatistics
+                  totalValue={this.totalValue(wallets, coins)}
+                />
+                {Object.keys(non_zero_wallets).length > 1 ? (
+                  <WalletsPie
+                    wallets={non_zero_wallets}
+                    coins={coins}
+                    totalValue={this.totalValue(wallets, coins)}
+                    navigateTo={navigateTo}
+                  />
+                ) : null}
+              </div>
+            ) : (
+              <Welcome />
+            )}
           </div>
         )}
       </ContentComponent>

@@ -1,14 +1,10 @@
-export const project_info = {
-  name: "CoinOrbital"
-}
+import React from "react"
 
 export const theme = {
   colors: {
     inverted: "#335577",
-    dash_sidebar: "#f5f5f5",
     well_gray: "#f5f5f5",
     well_border: "#bbb",
-    dash_content: "#fff",
     logo: "#FAA916",
     green: "#33aa11",
     gold: "#faa916",
@@ -20,10 +16,40 @@ export const theme = {
     blue: "#335577",
     white: "#fff"
   },
-  dash_nav_height: "4em"
+  dash_nav_height: "4em",
+  dash_footer_height: "2.3em"
+}
+export const project_info = {
+  name: (
+    <span>
+      <strong style={{ color: theme.colors.gold }}>Coin</strong>
+      <i>Orbital</i>
+    </span>
+  ),
+  author: {
+    name: "Mac Gainor",
+    email: "coinorbital@gmail.com"
+  },
+  donation: {
+    BTC: {
+      name: "Bitcoin",
+      address: "36Cp7HHpcyTESXXH5yGhfvqqae2wFxh3H2"
+    },
+    ETH: {
+      name: "Ethereum",
+      address: "0x9aB9335290fEF07aBf4Daa5a75651e77b3CE35Db"
+    },
+    LTC: {
+      name: "Litecoin",
+      address: "MEL7cts5NfcQUwjWjtfEcqHTcJmjavECgL"
+    },
+    BCH: {
+      name: "Bitcoin Cash",
+      address: "14ztfbFRhitxDKi3Z5vjHoMgDhZV27ZKZK"
+    }
+  }
 }
 
 export const links = {
-  github: "https://github.com/mac-s-g/crypto-portfolio"
+  author_avatar: "https://avatars3.githubusercontent.com/u/4097374?s=460&v=4"
 }
-

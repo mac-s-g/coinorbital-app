@@ -5,7 +5,11 @@ import { Button, Container, Divider, Segment } from "semantic-ui-react"
 import Header from "./Header"
 import Footer from "./Footer"
 
-import { project_info } from "./../../constants"
+import ContactMe from "./Modal/ContactMe"
+import Donate from "./Modal/Donate"
+import Roadmap from "./Modal/Roadmap"
+
+import { project_info, theme } from "./../../constants"
 
 const SegmentContainer = Styled.div`
   padding: 8em 0em 10em 0em !important;
@@ -25,11 +29,17 @@ const SegmentDivider = Styled.div`
   margin: 4em 0em !important;
 `
 
-export default props => (
+const Warning = Styled.span`
+  color: ${theme.colors.red};
+  font-weight: bold;
+  font-style: italic;
+`
+
+export default ({ modals, closeModal, ...props }) => (
   <div>
     <Header {...props} />
 
-    <Segment as={SegmentContainer} vertical>
+    <Segment as={SegmentContainer} vertical class="index-content">
       <Container text>
         <SegmentHeader>Visualize Your Portfolio</SegmentHeader>
         <SegmentContent>
@@ -38,9 +48,9 @@ export default props => (
           investments.
         </SegmentContent>
         <SegmentContent>
-          Track the value of your investments by logging transactions.
-          Transactions are plotted against market prices to help you measure
-          your value over time.
+          Track the value of your investments by logging your transactions.
+          Transactions are plotted against real-time market prices to help you
+          measure your value over time.
         </SegmentContent>
         <Button
           as="a"
@@ -50,15 +60,43 @@ export default props => (
           Try the Dashboard
         </Button>
         <Divider as={SegmentDivider} />
+        <SegmentHeader>{project_info.name} is Free!</SegmentHeader>
+        <SegmentContent>No Ads. No Fees. Just Free.</SegmentContent>
+        <SegmentContent>
+          I'm looking for user feedback. If feedback is positive, premium
+          features may be available in the future. {project_info.name} does not
+          generate revenue outside of donations. If you like the project,
+          consider supporting development with a donation.
+        </SegmentContent>
+        <Button as="a" size="large" onClick={props.requestContactMe}>
+          Provide Feedback
+        </Button>
+        <Button as="a" size="large" onClick={props.requestDonate}>
+          Send a Donation
+        </Button>
+        <Divider as={SegmentDivider} />
         <SegmentHeader>Protect Your Privacy</SegmentHeader>
         <SegmentContent>
-          The only one with your information should be you.{" "}
-          <i>{project_info.name}</i> stores everything locally. None of your
-          data is stored or processed remotely.
+          The only one with your information should be you. {project_info.name}{" "}
+          stores everything locally. None of your data is stored or processed
+          remotely.
+        </SegmentContent>
+        <SegmentContent>
+          <Warning>Warning:</Warning> Transaction logs are currently stored in
+          your browser's LocalStorage. Clearing your cache may result in data
+          loss. Support for downloading and backing up your data is coming soon.
         </SegmentContent>
       </Container>
     </Segment>
 
-    <Footer />
+    <Footer {...props} />
+
+    {modals.contact_me ? (
+      <ContactMe donate={props.requestDonate} close={closeModal} />
+    ) : null}
+    {modals.donate ? <Donate close={closeModal} /> : null}
+    {modals.roadmap ? (
+      <Roadmap contactMe={props.requestContactMe} close={closeModal} />
+    ) : null}
   </div>
 )

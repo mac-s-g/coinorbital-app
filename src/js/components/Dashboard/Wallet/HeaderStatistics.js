@@ -27,7 +27,7 @@ export default ({ wallet, coin }) => (
             round(calculateWalletValue(wallet, coin.price_usd), 2)
           )}
         </Statistic.Value>
-        <Statistic.Label>Value USD</Statistic.Label>
+        <Statistic.Label>Wallet Value (USD)</Statistic.Label>
       </Statistic>
     </div>
     <div>

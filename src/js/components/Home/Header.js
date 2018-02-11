@@ -8,7 +8,7 @@ import { project_info, theme, links } from "./../../constants"
 
 const HeaderContainer = Styled.div`
   padding: 1em 0em;
-  background-color: ${theme.colors.inverted} !important;
+  background-color: ${theme.colors.blue} !important;
   height: 100vh;
   position: relative;
 `
@@ -20,7 +20,7 @@ const HeaderLabel = Styled.div`
   margin-bottom: 0.33em;
 `
 const MenuContainer = Styled.div`
-  border-color: ${theme.colors.inverted} !important;
+  border-color: ${theme.colors.blue} !important;
 `
 
 const BottomBar = Styled.div`
@@ -30,7 +30,19 @@ const BottomBar = Styled.div`
   right: 0px;
   bottom: 0px;
   height: 4em;
-  background-color: ${theme.colors.dash_sidebar};
+  background-color: ${theme.colors.well_gray};
+`
+
+const LearnMore = Styled.span`
+  position: absolute;
+  right: 5px;
+  font-size: 18px;
+  color: ${theme.colors.blue};
+  top: 18px;
+  cursor: pointer;
+  & span {
+    margin-right: 6px;
+  }
 `
 
 export default ({ navigateTo }) => (
@@ -53,6 +65,21 @@ export default ({ navigateTo }) => (
       </HeaderContent>
     </Container>
 
-    <BottomBar />
+    <BottomBar>
+      <LearnMore
+        onClick={e => {
+          const issueListDOMComponent = document.querySelector(".index-content")
+          if (issueListDOMComponent) {
+            issueListDOMComponent.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            })
+          }
+        }}
+      >
+        <span>Learn More</span>
+        <Icon name="arrow down circle" />
+      </LearnMore>
+    </BottomBar>
   </Segment>
 )

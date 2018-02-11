@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
-import { Statistic } from "semantic-ui-react"
+import { Statistic, Table } from "semantic-ui-react"
 import { rgba } from "polished"
 
 //internal components
@@ -25,6 +25,10 @@ const WalletsPie = Styled.div`
   display: inline-block;
 `
 
+const PieComponent = Styled.div`
+  margin-bottom: 15px;
+`
+
 const ChartLabel = Styled.text`
   font-weight: bold;
   cursor: pointer;
@@ -36,6 +40,7 @@ const ChartLabel = Styled.text`
 
 const StatComponent = Styled.div`
   display: inline-block;
+  vertical-align: top;
 `
 
 const StatHeader = Styled.div`
@@ -56,11 +61,21 @@ const WalletStat = Styled.div`
   margin-bottom: 10px;
 `
 
+const WalletsTable = Styled.table`
+  &.ui.table tr.active {
+    background-color: ${theme.colors.well_gray} !important;
+  }
+`
+
+const WalletNameLink = Styled.a`
+  cursor: pointer;
+`
+
 //pie chart component for wallets in portfolio
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { selected: Object.keys(props.wallets)[0] }
+    this.state = { selected: null }
   }
 
   //on pie slice hover
@@ -81,7 +96,9 @@ export default class extends Component {
         ),
         2
       ),
-      fill: rgba(getRotatingThemeColor(idx), name === selected ? 1 : 0.75),
+      // pie piece highlighting
+      // fill: rgba(getRotatingThemeColor(idx), name === selected ? 1 : 0.75),
+      fill: getRotatingThemeColor(idx),
       symbol: wallets[name].symbol,
       style: { cursor: "pointer" },
       onMouseEnter: () => this.hoverSelect(name),
@@ -97,109 +114,117 @@ export default class extends Component {
 
     return (
       <WalletsPie>
-        <SubHeader>Value Distribution</SubHeader>
-        <Pie
-          width={380}
-          height={220}
-          outerRadius={100}
-          data={pie_data}
-          animate={false}
-          tooltip
-          legend={{
-            layout: "vertical",
-            align: "right",
-            width: 160,
-            wrapperStyle: {
-              fontSize: "1.14285714rem",
-              position: "absolute",
-              right: "-15px",
-              top: "20px",
-              cursor: "pointer"
-            },
-            onMouseOver: ({ value }) => this.hoverSelect(value),
-            onClick: ({ value }) => this.walletLink(value)
-          }}
-          label={({
-            cx,
-            cy,
-            midAngle,
-            innerRadius,
-            outerRadius,
-            percent,
-            index,
-            name
-          }) => {
-            const RADIAN = Math.PI / 180
-            const radius = innerRadius + (outerRadius - innerRadius) * 0.7
-            const x = cx + radius * Math.cos(-midAngle * RADIAN)
-            const y = cy + radius * Math.sin(-midAngle * RADIAN)
+        <PieComponent>
+          <SubHeader>Value Distribution</SubHeader>
+          <Pie
+            width={380}
+            height={220}
+            outerRadius={100}
+            data={pie_data}
+            animate={false}
+            tooltip
+            legend={{
+              layout: "vertical",
+              align: "right",
+              width: 160,
+              wrapperStyle: {
+                fontSize: "1.14285714rem",
+                position: "absolute",
+                right: "-15px",
+                top: "20px",
+                cursor: "pointer"
+              },
+              onMouseOver: ({ value }) => this.hoverSelect(value),
+              onClick: ({ value }) => this.walletLink(value)
+            }}
+            label={({
+              cx,
+              cy,
+              midAngle,
+              innerRadius,
+              outerRadius,
+              percent,
+              index,
+              name
+            }) => {
+              const RADIAN = Math.PI / 180
+              const radius = innerRadius + (outerRadius - innerRadius) * 0.7
+              const x = cx + radius * Math.cos(-midAngle * RADIAN)
+              const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
-            return (
-              <ChartLabel
-                x={x}
-                y={y}
-                hidden={percent < 0.05}
-                onClick={() => this.walletLink(name)}
+              return (
+                <ChartLabel
+                  x={x}
+                  y={y}
+                  hidden={percent < 0.05}
+                  onClick={() => this.walletLink(name)}
+                >
+                  {`${round(percent * 100, 1)}%`}
+                </ChartLabel>
+              )
+            }}
+          />
+        </PieComponent>
+        <Table collapsing as={WalletsTable}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Coin</Table.HeaderCell>
+              <Table.HeaderCell>Total Holding</Table.HeaderCell>
+              <Table.HeaderCell>Price (USD)</Table.HeaderCell>
+              <Table.HeaderCell>Wallet Value (USD)</Table.HeaderCell>
+              <Table.HeaderCell>Portfolio Weight</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {Object.keys(wallets).map(name => (
+              <Table.Row
+                key={name}
+                active={!!selected && selected == name}
+                onMouseOver={e => this.setState({ selected: name })}
               >
-                {`${round(percent * 100, 1)}%`}
-              </ChartLabel>
-            )
-          }}
-        />
-        {!!selected ? (
-          <StatComponent>
-            <StatHeader>
-              <CoinLogo symbol={wallets[selected].symbol} />
-              <span>{selected}</span>
-            </StatHeader>
-            <WalletStat>
-              <Statistic horizontal size="small">
-                <Statistic.Value>
+                <Table.Cell>
+                  <WalletNameLink onClick={e => this.walletLink(name)}>
+                    {coins.by_symbol[wallets[name].symbol].name}
+                  </WalletNameLink>
+                </Table.Cell>
+                <Table.Cell>
+                  {formatNumberForDisplay(
+                    calculateWalletQuantity(wallets[name])
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  ${formatNumberForDisplay(
+                    coins.by_symbol[wallets[name].symbol].price_usd
+                  )}
+                </Table.Cell>
+                <Table.Cell>
                   ${formatNumberForDisplay(
                     round(
                       calculateWalletValue(
-                        wallets[selected],
-                        coins.by_symbol[wallets[selected].symbol].price_usd
+                        wallets[name],
+                        coins.by_symbol[wallets[name].symbol].price_usd
                       ),
                       2
                     )
                   )}
-                </Statistic.Value>
-                <Statistic.Label>Value USD</Statistic.Label>
-              </Statistic>
-            </WalletStat>
-            <WalletStat>
-              <Statistic horizontal size="mini">
-                <Statistic.Value>
+                </Table.Cell>
+                <Table.Cell>
                   {formatNumberForDisplay(
                     round(
                       100 *
                         calculateWalletValue(
-                          wallets[selected],
-                          coins.by_symbol[wallets[selected].symbol].price_usd
+                          wallets[name],
+                          coins.by_symbol[wallets[name].symbol].price_usd
                         ) /
                         totalValue,
                       2
                     )
                   )}%
-                </Statistic.Value>
-                <Statistic.Label>Total Portfolio</Statistic.Label>
-              </Statistic>
-            </WalletStat>
-            <WalletStat>
-              <Statistic horizontal size="mini">
-                <Statistic.Value>
-                  {formatNumberForDisplay(
-                    round(calculateWalletQuantity(wallets[selected]), 2)
-                  )}
-                </Statistic.Value>
-                <Statistic.Label>
-                  Total {wallets[selected].symbol}
-                </Statistic.Label>
-              </Statistic>
-            </WalletStat>
-          </StatComponent>
-        ) : null}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
       </WalletsPie>
     )
   }

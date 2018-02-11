@@ -18,9 +18,9 @@ const default_wallets = {
     symbol: "ETH",
     transactions: []
   },
-  Ripple: {
-    name: "Ripple",
-    symbol: "XRP",
+  Litecoin: {
+    name: "Litecoin",
+    symbol: "LTC",
     transactions: []
   }
 }

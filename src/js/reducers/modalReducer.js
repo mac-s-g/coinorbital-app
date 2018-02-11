@@ -8,7 +8,10 @@ import {
   CREATE_WALLET_MODAL,
   DELETE_TRANSACTION_MODAL,
   EDIT_TRANSACTION_MODAL,
-  TRANSACTION_NOTE_MODAL
+  TRANSACTION_NOTE_MODAL,
+  CONTACT_ME_MODAL,
+  DONATE_MODAL,
+  ROADMAP_MODAL
 } from "./../actions"
 
 const default_state = {
@@ -20,7 +23,10 @@ const default_state = {
   delete_wallet: false,
   delete_transaction: false,
   edit_transaction: false,
-  transaction_note: false
+  transaction_note: false,
+  contact_me: false,
+  donate: false,
+  roadmap: false
 }
 
 export default (state = default_state, { type, payload }) => {
@@ -36,7 +42,10 @@ export default (state = default_state, { type, payload }) => {
         delete_wallet: false,
         delete_transaction: false,
         edit_transaction: false,
-        transaction_note: false
+        transaction_note: false,
+        contact_me: false,
+        donate: false,
+        roadmap: false
       }
     case CREATE_TRANSACTION_MODAL:
       return {
@@ -82,6 +91,21 @@ export default (state = default_state, { type, payload }) => {
       return {
         ...state,
         transaction_note: payload
+      }
+    case CONTACT_ME_MODAL:
+      return {
+        ...state,
+        contact_me: true
+      }
+    case DONATE_MODAL:
+      return {
+        ...state,
+        donate: true
+      }
+    case ROADMAP_MODAL:
+      return {
+        ...state,
+        roadmap: true
       }
     default:
       return state
