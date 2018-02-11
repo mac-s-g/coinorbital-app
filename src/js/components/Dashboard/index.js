@@ -25,7 +25,7 @@ import Roadmap from "./../Home/Modal/Roadmap"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
-export default ({ modals, ...props }) => (
+export default props => (
   <div>
     <Navbar {...props} />
     <Sidebar {...props}>
@@ -52,20 +52,20 @@ export default ({ modals, ...props }) => (
       </Switch>
     </Sidebar>
     <Footer {...props} />
-    {modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
-    {modals.coin_info ? <CoinInfo {...props} /> : null}
-    {modals.create_wallet ? <CreateWallet {...props} /> : null}
-    {modals.edit_wallet ? <EditWallet {...props} /> : null}
-    {modals.delete_wallet ? <DeleteWallet {...props} /> : null}
-    {modals.create_transaction ? <CreateTransaction {...props} /> : null}
-    {modals.delete_transaction ? <DeleteTransaction {...props} /> : null}
-    {modals.transaction_note ? <TransactionNote {...props} /> : null}
-    {modals.edit_transaction ? <EditTransaction {...props} /> : null}
-    {modals.contact_me ? (
+    {props.modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
+    {props.modals.coin_info ? <CoinInfo {...props} /> : null}
+    {props.modals.create_wallet ? <CreateWallet {...props} /> : null}
+    {props.modals.edit_wallet ? <EditWallet {...props} /> : null}
+    {props.modals.delete_wallet ? <DeleteWallet {...props} /> : null}
+    {props.modals.create_transaction ? <CreateTransaction {...props} /> : null}
+    {props.modals.delete_transaction ? <DeleteTransaction {...props} /> : null}
+    {props.modals.transaction_note ? <TransactionNote {...props} /> : null}
+    {props.modals.edit_transaction ? <EditTransaction {...props} /> : null}
+    {props.modals.contact_me ? (
       <ContactMe donate={props.requestDonate} close={props.closeModal} />
     ) : null}
-    {modals.donate ? <Donate close={props.closeModal} /> : null}
-    {modals.roadmap ? (
+    {props.modals.donate ? <Donate close={props.closeModal} /> : null}
+    {props.modals.roadmap ? (
       <Roadmap contactMe={props.requestContactMe} close={props.closeModal} />
     ) : null}
   </div>
