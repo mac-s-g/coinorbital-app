@@ -5,6 +5,7 @@ import { rgba } from "polished"
 
 import CoinLogo from "./../../CoinLogo/"
 
+import round from "./../../../helpers/round"
 import formatNumber from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
 
@@ -54,14 +55,14 @@ const CoinIcon = Styled.div`
 
 const Price = Styled.div`
   width: 180px;
-  @media (max-width: 876px) {
+  @media (max-width: 892px) {
     display: none !important;
   }
 `
 
 const Deltas = Styled.div`
   width: 166px;
-  @media (max-width: 1040px) {
+  @media (max-width: 1054px) {
     display: none !important;
   }
 `
@@ -123,7 +124,9 @@ export default class extends Component {
         </Name>
         <Price>
           <Statistic size="mini" horizontal>
-            <Statistic.Value>${formatNumber(coin.price_usd)}</Statistic.Value>
+            <Statistic.Value>
+              ${formatNumber(round(coin.price_usd, 2))}
+            </Statistic.Value>
             <Statistic.Label>USD</Statistic.Label>
           </Statistic>
         </Price>

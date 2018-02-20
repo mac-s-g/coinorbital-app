@@ -31,12 +31,11 @@ export default ({ wallet, coin }) => (
     <Table.Body>
       <Table.Row>
         <Table.Cell>
-          <span>
-            {coin.name}
-          </span>
+          <span>{coin.name}</span>
         </Table.Cell>
         <Table.Cell>
-          {formatNumberForDisplay(calculateWalletQuantity(wallet))} {coin.symbol}
+          {formatNumberForDisplay(calculateWalletQuantity(wallet))}{" "}
+          {coin.symbol}
         </Table.Cell>
         <Table.Cell>${formatNumberForDisplay(coin.price_usd)}</Table.Cell>
         <Table.Cell>

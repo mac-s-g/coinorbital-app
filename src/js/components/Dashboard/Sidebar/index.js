@@ -29,8 +29,10 @@ const ContentContainer = Styled.div`
   width: 100%;
   overflow: auto;
   background-color: ${theme.colors.white};
+  border-bottom: 1px solid ${rgba(theme.colors.inverted, 0.2)};
   min-height: calc(
-    100vh - ${theme.dash_nav_height} - ${theme.dash_footer_height}
+    /* +1 px for border bottom */
+    100vh - ${theme.dash_nav_height} - ${theme.dash_footer_height} - 1px
   ) !important;
 `
 
@@ -77,7 +79,8 @@ export default class extends Component {
                 onClick={e =>
                   !this.isSelected(router, "/dashboard")
                     ? navigateTo("/dashboard")
-                    : null}
+                    : null
+                }
                 label="Overview"
                 icon="line chart"
               />
@@ -86,7 +89,8 @@ export default class extends Component {
                 onClick={e =>
                   !this.isSelected(router, "/dashboard/watch-list")
                     ? navigateTo("/dashboard/watch-list")
-                    : null}
+                    : null
+                }
                 label="Coin Watch List"
                 icon="star"
               />
@@ -106,7 +110,8 @@ export default class extends Component {
                       ? navigateTo(
                           `/dashboard/wallet?name=${encodeURIComponent(name)}`
                         )
-                      : null}
+                      : null
+                  }
                   label={name}
                   coinLogo={wallets.by_name[name].symbol}
                 />

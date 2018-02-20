@@ -69,6 +69,15 @@ const WalletsTable = Styled.table`
 
 const WalletNameLink = Styled.a`
   cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
+`
+
+const WalletSymbolLabel = Styled.span`
+  color: ${theme.colors.gray};
+  font-weight: bold;
+  font-size: 10px;
+  display: inline-block;
 `
 
 //pie chart component for wallets in portfolio
@@ -168,7 +177,7 @@ export default class extends Component {
         <Table collapsing as={WalletsTable}>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Coin</Table.HeaderCell>
+              <Table.HeaderCell>Wallet</Table.HeaderCell>
               <Table.HeaderCell>Total Holding</Table.HeaderCell>
               <Table.HeaderCell>Price (USD)</Table.HeaderCell>
               <Table.HeaderCell>Wallet Value (USD)</Table.HeaderCell>
@@ -184,8 +193,9 @@ export default class extends Component {
               >
                 <Table.Cell>
                   <WalletNameLink onClick={e => this.walletLink(name)}>
-                    {coins.by_symbol[wallets[name].symbol].name}
+                    {name}
                   </WalletNameLink>
+                  <WalletSymbolLabel>{wallets[name].symbol}</WalletSymbolLabel>
                 </Table.Cell>
                 <Table.Cell>
                   {formatNumberForDisplay(
@@ -194,7 +204,7 @@ export default class extends Component {
                 </Table.Cell>
                 <Table.Cell>
                   ${formatNumberForDisplay(
-                    coins.by_symbol[wallets[name].symbol].price_usd
+                    round(coins.by_symbol[wallets[name].symbol].price_usd, 2)
                   )}
                 </Table.Cell>
                 <Table.Cell>
