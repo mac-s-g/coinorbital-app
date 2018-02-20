@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Header, Input, Modal, Statistic } from "semantic-ui-react"
-import moment from "moment"
 
 import Submit from "./../../Buttons/Submit"
 import Cancel from "./../../Buttons/Cancel"
@@ -33,8 +32,8 @@ export default class extends Component {
     const transaction = wallet.transactions[transaction_id]
     this.state = {
       time_transacted: !!transaction.time_transacted
-        ? moment(transaction.time_transacted)
-        : moment(transaction.time_recorded),
+        ? new Date(transaction.time_transacted)
+        : new Date(transaction.time_recorded),
       type: transaction.type,
       quantity: transaction.quantity,
       cost_per_coin_usd: !!transaction.cost_per_coin_usd
@@ -44,10 +43,18 @@ export default class extends Component {
   }
 
   setTimeTransacted = date => this.setState({ time_transacted: date })
-  setTransactionType = value => this.setState({ type: value })
-  setQuantity = (event, { value }) => this.setState({ quantity: value })
+  setTransactionType = value =>
+    this.setState({
+      type: value
+    })
+  setQuantity = (event, { value }) => {
+    value = value.replace(/[^0-9.]/g, "")
+    this.setState({
+      quantity: value
+    })
+  }
   setPricePerCoin = (event, { value }) =>
-    this.setState({ cost_per_coin_usd: value })
+    this.setState({ cost_per_coin_usd: value.replace(/[^0-9.]/g, "") })
 
   isValidQuantity = quantity => {
     const { wallet, transaction_id } = this.props.modals.edit_transaction
@@ -76,6 +83,8 @@ export default class extends Component {
     const { wallet, transaction_id } = this.props.modals.edit_transaction
     const { coin } = wallet
     const { time_transacted, quantity, cost_per_coin_usd, type } = this.state
+    const validQuantity = this.isValidQuantity(quantity)
+    const validCost = this.isValidCost(cost_per_coin_usd)
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
@@ -87,7 +96,7 @@ export default class extends Component {
               fluid
               selected={time_transacted}
               onChange={this.setTimeTransacted}
-              maxDate={moment()}
+              maxDate={new Date()}
             />
             <InputLabel>Transaction Type</InputLabel>
             <SearchDropdown
@@ -104,7 +113,7 @@ export default class extends Component {
               placeholder="Quantity"
               value={quantity}
               onChange={this.setQuantity}
-              error={!this.isValidQuantity(quantity)}
+              error={validQuantity === false}
             />
             <InputLabel>Price Per Coin</InputLabel>
             <Input
@@ -113,10 +122,9 @@ export default class extends Component {
               value={cost_per_coin_usd}
               onChange={this.setPricePerCoin}
               label={{ content: "$" }}
-              error={!this.isValidCost(cost_per_coin_usd)}
+              error={!validCost}
             />
-            {this.isValidQuantity(quantity) &&
-            this.isValidCost(cost_per_coin_usd) ? (
+            {validQuantity && validCost ? (
               <div>
                 <InputLabel>Transaction Value</InputLabel>
                 <Statistic horizontal size="mini" as={ValueStatistic}>
@@ -138,15 +146,12 @@ export default class extends Component {
         <Modal.Actions>
           <Cancel onClick={closeModal} />
           <Submit
-            disabled={
-              !this.isValidQuantity(quantity) ||
-              !this.isValidCost(cost_per_coin_usd)
-            }
+            disabled={!validQuantity || !validCost}
             onClick={e => {
               delete wallet.coin
               wallet.transactions[transaction_id] = {
                 ...wallet.transactions[transaction_id],
-                time_recorded: moment(),
+                time_recorded: new Date(),
                 time_transacted: time_transacted,
                 quantity: this.parseFloatInput(quantity),
                 type: type,

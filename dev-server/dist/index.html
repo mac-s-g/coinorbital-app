@@ -30,12 +30,18 @@
         bottom: 0;
         background-color: #335577;
       }
-      #initial-page-load-msg {
+      #load-msg-container {
         margin-top: 6em;
-        color: #fff;
         text-align: center;
+      }
+      #initial-load-logo {
+        height: 100px;
+        width: 100px;
+      }
+      #initial-page-load-msg {
+        margin-top: 0.67em;
+        color: #fff;
         font-size: 26px;
-        font-style: italic;
         font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
       }
     </style>
@@ -43,8 +49,11 @@
   <body>
   <div id="app-container">
     <div id="initial-page-load">
-      <div id="initial-page-load-msg">
-        <noscript>This page requires javascript to run.</noscript>
+      <div id="load-msg-container">
+        <img src="./logo.svg" id="initial-load-logo" />
+        <div id="initial-page-load-msg">
+          <noscript>This page requires javascript to run.</noscript>
+        </div>
       </div>
     </div>
   </div>

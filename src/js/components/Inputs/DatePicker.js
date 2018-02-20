@@ -1,40 +1,53 @@
 import React from "react"
 import Styled from "styled-components"
 import { Input } from "semantic-ui-react"
-import DatePicker from "react-datepicker"
+import DayPickerInput from "react-day-picker/DayPickerInput"
 
-import "react-datepicker/dist/react-datepicker.css"
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate
+} from "react-day-picker/moment"
 
-const InputComponent = Styled.div`
-  & > div:not(.label),
-    > div > .react-datepicker-wrapper,
-    > div > .react-datepicker-wrapper > .react-datepicker__input-container,
-    > div > .react-datepicker-wrapper > .react-datepicker__input-container > input {
-    ${props => (props.stretch ? "width: 100%;" : null)}
+import "react-day-picker/lib/style.css"
+
+const DatePickerContainer = Styled.div`
+  & .DayPickerInput {
+    width: 100%;
+
+    & > input {
+      width: 100%;
+      outline: 0;
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      text-align: left;
+      line-height: 1.21428571em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+      padding: .67857143em 1em;
+      background: #fff;
+      border: 1px solid rgba(34, 36, 38, 0.15);
+      color: rgba(0, 0, 0, 0.87);
+      border-radius: .28571429rem;
+      -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+      transition: box-shadow .1s ease,border-color .1s ease;
+      box-shadow: none;
+    }
   }
 `
 
-export default ({
-  selected,
-  onChange,
-  fluid,
-  showTimeSelect,
-  dateFormat,
-  timeFormat,
-  timeInterval,
-  minDate,
-  maxDate
-}) => (
-  <Input as={InputComponent} stretch={!!fluid} fluid={!!fluid}>
-    <DatePicker
-      selected={selected}
-      onChange={onChange}
-      showTimeSelect={!!showTimeSelect}
-      dateFormat={!!dateFormat ? dateFormat : "MM/DD/YYYY"}
-      timeFormat={!!timeFormat ? timeFormat : "HH:mm"}
-      timeInterval={!!timeInterval ? timeInterval : 15}
-      minDate={!!minDate ? minDate : null}
-      maxDate={!!maxDate ? maxDate : null}
+export default ({ selected, onChange, minDate, maxDate }) => (
+  <DatePickerContainer>
+    <DayPickerInput
+      value={selected}
+      onDayChange={onChange}
+      dayPickerProps={{
+        selectedDays: selected,
+        showOutsideDays: true,
+        disabledDays: [
+          {
+            after: maxDate,
+            before: minDate
+          }
+        ]
+      }}
     />
-  </Input>
+  </DatePickerContainer>
 )

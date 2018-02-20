@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
 import { Header, Input, Modal, Statistic } from "semantic-ui-react"
-import moment from "moment"
 
 import Submit from "./../../Buttons/Submit"
 import Cancel from "./../../Buttons/Cancel"
@@ -31,10 +30,9 @@ export default class extends Component {
     super(props)
     const { coin } = this.props.modals.create_transaction
     this.state = {
-      time_transacted: moment(),
+      time_transacted: new Date(),
       type: RECEIVED,
       quantity: "",
-      validQuantity: null,
       cost_per_coin_usd: coin.price_usd
     }
   }
@@ -42,26 +40,28 @@ export default class extends Component {
   setTimeTransacted = date => this.setState({ time_transacted: date })
   setTransactionType = value =>
     this.setState({
-      type: value,
-      validQuantity: this.isValidQuantity(this.state.quantity, value)
+      type: value
     })
-  setQuantity = (event, { value }) =>
+  setQuantity = (event, { value }) => {
+    value = value.replace(/[^0-9.]/g, "")
     this.setState({
-      quantity: value,
-      validQuantity: this.isValidQuantity(value, this.state.type)
+      quantity: value
     })
+  }
   setPricePerCoin = (event, { value }) =>
-    this.setState({ cost_per_coin_usd: value })
+    this.setState({ cost_per_coin_usd: value.replace(/[^0-9.]/g, "") })
 
-  isValidQuantity = (quantity, type) =>
+  isValidQuantity = quantity =>
     this.isValidFloat(quantity) &&
     this.parseFloatInput(quantity) !== 0 &&
     //make sure the user can't send more than exists in wallet
-    (type === RECEIVED ||
+    (this.state.type === RECEIVED ||
       this.parseFloatInput(quantity) <
         calculateWalletQuantity(this.props.modals.create_transaction))
   isValidCost = cost =>
-    this.isValidFloat(cost) && this.parseFloatInput(cost) > 0
+    cost.trim() != "" &&
+    this.isValidFloat(cost) &&
+    this.parseFloatInput(cost) > 0
   isValidFloat = value =>
     !!value.toString().length && !!value.toString().match(/^(\d*\.?\d*)$/)
   parseFloatInput = value => parseFloat(value.toString().trim())
@@ -70,13 +70,9 @@ export default class extends Component {
     const { closeModal, editWallet, modals, navigateTo } = this.props
     const wallet = modals.create_transaction
     const { coin } = modals.create_transaction
-    const {
-      time_transacted,
-      quantity,
-      cost_per_coin_usd,
-      type,
-      validQuantity
-    } = this.state
+    const { time_transacted, quantity, cost_per_coin_usd, type } = this.state
+    const validQuantity = this.isValidQuantity(quantity)
+    const validCost = this.isValidCost(cost_per_coin_usd)
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
@@ -88,7 +84,7 @@ export default class extends Component {
               fluid
               selected={time_transacted}
               onChange={this.setTimeTransacted}
-              maxDate={moment()}
+              maxDate={new Date()}
             />
             <InputLabel>Transaction Type</InputLabel>
             <SearchDropdown
@@ -114,9 +110,9 @@ export default class extends Component {
               value={cost_per_coin_usd}
               onChange={this.setPricePerCoin}
               label={{ content: "$" }}
-              error={!this.isValidCost(cost_per_coin_usd)}
+              error={!validCost}
             />
-            {validQuantity && this.isValidCost ? (
+            {validQuantity && validCost ? (
               <div>
                 <InputLabel>Transaction Value</InputLabel>
                 <Statistic horizontal size="mini" as={ValueStatistic}>
@@ -138,7 +134,7 @@ export default class extends Component {
         <Modal.Actions>
           <Cancel onClick={closeModal} />
           <Submit
-            disabled={!validQuantity || !this.isValidCost(cost_per_coin_usd)}
+            disabled={!validQuantity || !validCost}
             onClick={e => {
               delete wallet.coin
               editWallet(wallet.name, {
@@ -146,7 +142,7 @@ export default class extends Component {
                 transactions: [
                   ...wallet.transactions,
                   {
-                    time_recorded: moment(),
+                    time_recorded: new Date(),
                     time_transacted: time_transacted,
                     quantity: this.parseFloatInput(quantity),
                     type: type,

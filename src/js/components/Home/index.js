@@ -35,6 +35,10 @@ const Warning = Styled.span`
   font-style: italic;
 `
 
+const IndexButton = Styled.a`
+  margin: 2px 6px 2px 0px !important;
+`
+
 export default ({ modals, closeModal, ...props }) => (
   <div>
     <Header {...props} />
@@ -53,7 +57,7 @@ export default ({ modals, closeModal, ...props }) => (
           measure your value over time.
         </SegmentContent>
         <Button
-          as="a"
+          as={IndexButton}
           size="large"
           onClick={e => props.navigateTo("/dashboard")}
         >
@@ -68,10 +72,10 @@ export default ({ modals, closeModal, ...props }) => (
           generate revenue outside of donations. If you like the project,
           consider supporting development with a donation.
         </SegmentContent>
-        <Button as="a" size="large" onClick={props.requestContactMe}>
+        <Button as={IndexButton} size="large" onClick={props.requestContactMe}>
           Provide Feedback
         </Button>
-        <Button as="a" size="large" onClick={props.requestDonate}>
+        <Button as={IndexButton} size="large" onClick={props.requestDonate}>
           Send a Donation
         </Button>
         <Divider as={SegmentDivider} />

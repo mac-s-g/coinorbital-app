@@ -53,10 +53,7 @@ export default ({ requestContactMe, requestDonate, requestRoadmap }) => (
             <Header as="h4" inverted>
               {project_info.name}
             </Header>
-            <p>
-              Aggregate investments and visualize your value in a volatile
-              market.
-            </p>
+            <p>Visualize your value in a volatile market.</p>
           </Grid.Column>
           <Grid.Column {...grid_width.gutter} />
         </Grid.Row>

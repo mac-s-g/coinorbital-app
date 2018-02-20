@@ -179,11 +179,11 @@ export default class extends Component {
                   <Table.HeaderCell>Date</Table.HeaderCell>
                   <Table.HeaderCell>Type</Table.HeaderCell>
                   <Table.HeaderCell>Quantity</Table.HeaderCell>
-                  <Table.HeaderCell>TX Price</Table.HeaderCell>
-                  <Table.HeaderCell>TX Value</Table.HeaderCell>
-                  <Table.HeaderCell>Current Value</Table.HeaderCell>
+                  <Table.HeaderCell>Coin Price</Table.HeaderCell>
+                  <Table.HeaderCell>Cost Basis</Table.HeaderCell>
+                  <Table.HeaderCell>Market Value</Table.HeaderCell>
                   <Table.HeaderCell>Net %</Table.HeaderCell>
-                  <Table.HeaderCell>Net Value</Table.HeaderCell>
+                  <Table.HeaderCell>Capital Gain</Table.HeaderCell>
                   <Table.HeaderCell />
                 </Table.Row>
               </Table.Header>
@@ -273,7 +273,8 @@ export default class extends Component {
                             requestEditTransaction(
                               { ...wallet, coin: coin },
                               idx
-                            )}
+                            )
+                          }
                         />
                         <Icon
                           as={TableIcon}
