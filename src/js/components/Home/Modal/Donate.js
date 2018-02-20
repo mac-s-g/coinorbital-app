@@ -10,6 +10,10 @@ const DonationComponent = Styled.div`
   margin: 20px 0;
 `
 
+const AddressCell = Styled.td`
+  font-size: 11px;
+`
+
 export default ({ close }) => (
   <Modal open size="tiny" onClose={close}>
     <Modal.Header>Send a Donation</Modal.Header>
@@ -35,10 +39,12 @@ export default ({ close }) => (
             {Object.keys(project_info.donation).map(symbol => (
               <Table.Row key={symbol}>
                 <Table.Cell>
-                  <CoinLogo symbol={symbol} />
+                  <CoinLogo symbol={symbol} width="22px" height="22px" />
                 </Table.Cell>
                 <Table.Cell>{project_info.donation[symbol].name}</Table.Cell>
-                <Table.Cell>{project_info.donation[symbol].address}</Table.Cell>
+                <Table.Cell as={AddressCell}>
+                  {project_info.donation[symbol].address}
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
