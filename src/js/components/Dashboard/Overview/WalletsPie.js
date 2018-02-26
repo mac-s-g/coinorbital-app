@@ -174,7 +174,7 @@ export default class extends Component {
             }}
           />
         </PieComponent>
-        <Table collapsing as={WalletsTable}>
+        <Table collapsing as={WalletsTable} unstackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Wallet</Table.HeaderCell>

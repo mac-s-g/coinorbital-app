@@ -7,6 +7,7 @@ import ContentComponent from "./../ContentComponent"
 import SummaryTable from "./SummaryTable"
 import HeaderStatistics from "./HeaderStatistics"
 import TransactionTable from "./TransactionTable"
+import WalletLineChart from "./WalletLineChart"
 
 import round from "./../../../helpers/round"
 import parseSearchQuery from "./../../../helpers/parseSearchQuery"
@@ -56,7 +57,8 @@ export default class extends Component {
       requestCreateTransaction,
       requestDeleteTransaction,
       requestEditTransaction,
-      requestTransactionNote
+      requestTransactionNote,
+      fetchTimeSeries
     } = this.props
     const wallet = wallets.by_name[this.walletName()]
     const coin = wallet ? coins.by_symbol[wallet.symbol] : null
@@ -88,6 +90,7 @@ export default class extends Component {
         >
           <HeaderStatistics {...{ wallet, coin }} />
           <SummaryTable {...{ wallet, coin }} />
+          <WalletLineChart {...{ wallet, coins, fetchTimeSeries }} />
           <TransactionTable
             {...{
               wallet,

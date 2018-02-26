@@ -50,7 +50,9 @@ export default (state = default_state, action) => {
             fetching: true,
             fetched: false,
             error: false,
-            result: null
+            result: state.time_series[payload.query_key]
+              ? state.time_series[payload.query_key].result
+              : null
           }
         }
       }
@@ -62,7 +64,7 @@ export default (state = default_state, action) => {
             fetching: false,
             fetched: true,
             error: false,
-            result: [payload.result]
+            result: payload.result
           }
         }
       }

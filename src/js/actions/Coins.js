@@ -48,15 +48,13 @@ export const receiveTimeSeriesError = (error, query_key) => ({
   payload: { error, query_key }
 })
 
-export const fetchTimeSeries = filters => {
-  //generate key for this search
-  const query_key = JSON.stringify(filters)
+export const fetchTimeSeries = (filters, query_key) => {
   //make sure potentially missing filters have default values
   filters = {
     symbol: "BTC",
     type: "day",
     reference: "USD",
-    aggregate: 3,
+    aggregate: 1,
     limit: 60,
     exchange: "CCCAGG",
     ...filters

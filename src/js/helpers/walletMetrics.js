@@ -1,3 +1,5 @@
+import moment from "moment"
+
 const SENT = "sent"
 
 export const calculateWalletQuantity = wallet =>
@@ -28,3 +30,15 @@ export const aggregateWalletsValue = (wallets, coins) =>
     )
     return acc
   }, 0)
+
+export const transactionsByDate = transactions =>
+  transactions.reduce((acc, tx) => {
+    if (!!tx.time_transacted) {
+      if (acc[moment(tx.time_transacted)]) {
+        acc[moment(tx.time_transacted)].push(tx)
+      } else {
+        acc[moment(tx.time_transacted)] = [tx]
+      }
+    }
+    return acc
+  }, {})

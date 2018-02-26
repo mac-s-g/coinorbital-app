@@ -19,7 +19,7 @@ const InlineLogo = Styled.div`
 `
 
 export default ({ wallet, coin }) => (
-  <Table collapsing>
+  <Table collapsing unstackable>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell>Coin</Table.HeaderCell>

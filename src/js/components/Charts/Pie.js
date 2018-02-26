@@ -3,13 +3,39 @@ import PropTypes from "prop-types"
 import { Cell, Legend, PieChart, Pie, Tooltip } from "recharts"
 import { theme } from "./../../constants"
 
+const DEFAULT_WIDTH = 300
+const DEFAULT_HEIGHT = 300
+const DEFAULT_FILL = theme.colors.gold
+const DEFAULT_OUTER_RADIUS = 100
+const DEFAULT_ANIMATE = false
+const DEFAULT_ANIMATION_DURATION = 1000
+const DEFAULT_LABEL_LINE = false
+const DEFAULT_LEGEND = {}
+const DEFAULT_LEGEND_TYPE = "circle"
+const DEFAULT_DATA = []
+
 export default class extends Component {
+  static defaultProps = {
+    width: DEFAULT_WIDTH,
+    height: DEFAULT_HEIGHT,
+    animate: DEFAULT_ANIMATE,
+    animationDuration: DEFAULT_ANIMATION_DURATION,
+    outerRadius: DEFAULT_OUTER_RADIUS,
+    labelLine: DEFAULT_LABEL_LINE,
+    legend: DEFAULT_LEGEND,
+    legendType: DEFAULT_LEGEND_TYPE,
+    data: DEFAULT_DATA
+  }
+
   static propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     animate: PropTypes.bool,
+    animationDuration: PropTypes.number,
     outerRadius: PropTypes.number,
     labelLine: PropTypes.bool,
+    legend: PropTypes.object,
+    legendType: PropTypes.string,
     data: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string,
@@ -18,22 +44,11 @@ export default class extends Component {
     ).isRequired
   }
 
-  defaultWidth = 300
-  defaultHeight = 300
-  defaultFill = theme.colors.gold
-  defaultOuterRadius = 100
-  defaultAnimationDuration = 1000
-  defaultLabelLine = false
-  defaultLegendType = "circle"
-
-  getWidth = val => (!!val ? val : this.defaultWidth)
-  getChartWidth = (width, legend) => {
-    const total_width = !!width ? width : this.defaultWidth
+  getChartWidth = (total_width, legend) => {
     const legend_width = legend && legend.width ? legend.width : 0
     return total_width - legend_width
   }
-  getHeight = val => (!!val ? val : this.defaultHeight)
-  getFill = val => (!!val ? val : this.defaultFill)
+
   getOuterRadius = val => (!!val ? val : this.defaultOuterRadius)
   getLabelLine = val => (!!val ? val : this.defaultLabelLine)
 
@@ -43,27 +58,29 @@ export default class extends Component {
       width,
       height,
       animate,
+      animationDuration,
       fill,
       outerRadius,
       legend,
+      legendType,
       tooltip,
       labelLine,
       ...rest
     } = this.props
 
     return (
-      <PieChart width={this.getWidth(width)} height={this.getHeight(height)}>
+      <PieChart width={width} height={height}>
         <Pie
           data={data}
           dataKey="value"
-          cy={this.getHeight(height) / 2}
+          cy={height / 2}
           cx={this.getChartWidth(width, legend) / 2}
           isAnimationActive={!!animate}
-          animationDuration={this.defaultAnimationDuration}
-          fill={this.getFill(fill)}
-          outerRadius={this.getOuterRadius(outerRadius)}
-          labelLine={this.getLabelLine(labelLine)}
-          legendType={this.defaultLegendType}
+          animationDuration={animationDuration}
+          fill={fill}
+          outerRadius={outerRadius}
+          labelLine={labelLine}
+          legendType={legendType}
           {...rest}
         />
         {!!tooltip ? <Tooltip /> : null}

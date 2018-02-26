@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
   //coins
   requestCoinInfo: coin => dispatch(coinInfoModal(coin)),
   fetchCoins: () => dispatch(fetchCoins()),
-  fetchTimeSeries: filters => dispatch(fetchTimeSeries(filters)),
+  fetchTimeSeries: (filters, key) => dispatch(fetchTimeSeries(filters, key)),
   //wallets
   fetchWallets: () => dispatch(fetchWallets()),
   createWallet: wallet => dispatch(createWallet(wallet)),

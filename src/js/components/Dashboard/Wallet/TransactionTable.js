@@ -19,8 +19,11 @@ import { theme } from "./../../../constants"
 const RECEIVED = "received"
 const SENT = "sent"
 
+const MIN_WIDTH = "700px"
+
 const TransactionsComponent = Styled.div`
-  margin-top: 2.67em;
+  margin-top: 2em;
+  min-width: ${MIN_WIDTH};
 `
 
 const HeaderIcon = Styled.i`
@@ -173,7 +176,7 @@ export default class extends Component {
         />
         {transactions.length ? (
           <div>
-            <Table>
+            <Table unstackable>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Date</Table.HeaderCell>
