@@ -165,118 +165,78 @@ export default class extends Component {
       <WalletLineChart>
         <SubHeader>{coins.by_symbol[wallet.symbol].name} Trendline</SubHeader>
         <LineChartComponent height={DEFAULT_HEIGHT} width={DEFAULT_WIDTH}>
+          <Button.Group as={ChartControls} size="mini" compact>
+            {Object.keys(this.chartTypes).map(type => (
+              <Button
+                key={type}
+                active={type === this.state.chartType}
+                onClick={() => {
+                  this.init(this.props, type)
+                }}
+              >
+                {type}
+              </Button>
+            ))}
+          </Button.Group>
           {!this.isLoaded() ? (
             <Loader active inline="centered" />
           ) : (
-            <div>
-              <Button.Group as={ChartControls} size="mini" compact>
-                {Object.keys(this.chartTypes).map(type => (
-                  <Button
-                    key={type}
-                    active={type === this.state.chartType}
-                    onClick={() => {
-                      this.init(this.props, type)
-                    }}
-                  >
-                    {type}
-                  </Button>
-                ))}
-              </Button.Group>
-              <Line
-                height={DEFAULT_HEIGHT}
-                width={DEFAULT_WIDTH}
-                data={this.formatForChart(time_series[this.tsFilterKey].result)}
-                lines={[
-                  // {
-                  //   type: "monotone",
-                  //   dataKey: "high",
-                  //   dot: false,
-                  //   isAnimationActive: false,
-                  //   stroke: theme.colors.gray,
-                  //   fill: theme.colors.gray,
-                  //   fillOpacity: 0.4
-                  //   // fillOpacity: 0
-                  //   // strokeDasharray: "5 2"
-                  // },
-                  // {
-                  //   type: "monotone",
-                  //   dataKey: "low",
-                  //   dot: false,
-                  //   isAnimationActive: false,
-                  //   stroke: theme.colors.gray,
-                  //   fill: theme.colors.white,
-                  //   fillOpacity: 1
-                  //   // fillOpacity: 0
-                  //   // strokeDasharray: "5 2"
-                  // },
-                  // {
-                  //   type: "monotone",
-                  //   dataKey: "close",
-                  //   name: "price-hidden",
-                  //   dot: false,
-                  //   isAnimationActive: false,
-                  //   stroke: theme.colors.blue,
-                  //   fill: theme.colors.white,
-                  //   fillOpacity: 1
-                  // },
-                  {
-                    type: "monotone",
-                    dataKey: "close",
-                    name: "price",
-                    dot: false,
-                    isAnimationActive: false,
-                    stroke: theme.colors.blue,
-                    fill: theme.colors.blue,
-                    fillOpacity: 0.2,
-                    // fill: "url(#primaryFade)",
-                    // fillOpacity: 0.5,
-                    // fillOpacity: 0,
-                    strokeWidth: "2px"
-                  },
-                  {
-                    type: "monotone",
-                    dataKey: "transactions",
-                    name: "transactions",
-                    dot: true,
-                    isAnimationActive: false,
-                    stroke: theme.colors.gold,
-                    fill: theme.colors.white,
-                    fillOpacity: 0,
-                    // fill: "url(#primaryFade)",
-                    // fillOpacity: 0.5,
-                    // fillOpacity: 0,
-                    strokeWidth: "2px"
-                  }
-                ]}
-                dataKeyX="date"
-                tooltip={({ payload, label, ...rest }) => (
-                  <ToolTipComponent>
-                    <Header as="h4">
-                      {label}
-                      <ToolTipSubHeader>
-                        {payload[0] ? payload[0].payload.time : null}
-                      </ToolTipSubHeader>
-                    </Header>
-                    <List>
-                      {payload.map(line => (
-                        <List.Item
-                          key={line.name}
-                          name={line.name}
-                          style={{
-                            display: line.value == 0 ? "none" : "block"
-                          }}
-                        >
-                          <ToolTipLabel>{line.name}: </ToolTipLabel>
-                          <ToolTipValue>
-                            ${formatNumberForDisplay(round(line.value, 2))}
-                          </ToolTipValue>
-                        </List.Item>
-                      ))}
-                    </List>
-                  </ToolTipComponent>
-                )}
-              />
-            </div>
+            <Line
+              height={DEFAULT_HEIGHT}
+              width={DEFAULT_WIDTH}
+              data={this.formatForChart(time_series[this.tsFilterKey].result)}
+              lines={[
+                {
+                  type: "monotone",
+                  dataKey: "close",
+                  name: "price",
+                  dot: false,
+                  isAnimationActive: false,
+                  stroke: theme.colors.blue,
+                  fill: theme.colors.blue,
+                  fillOpacity: 0.2,
+                  strokeWidth: "2px"
+                },
+                {
+                  type: "monotone",
+                  dataKey: "transactions",
+                  name: "transactions",
+                  dot: true,
+                  isAnimationActive: false,
+                  stroke: theme.colors.gold,
+                  fill: theme.colors.white,
+                  fillOpacity: 0,
+                  strokeWidth: "2px"
+                }
+              ]}
+              dataKeyX="date"
+              tooltip={({ payload, label, ...rest }) => (
+                <ToolTipComponent>
+                  <Header as="h4">
+                    {label}
+                    <ToolTipSubHeader>
+                      {payload[0] ? payload[0].payload.time : null}
+                    </ToolTipSubHeader>
+                  </Header>
+                  <List>
+                    {payload.map(line => (
+                      <List.Item
+                        key={line.name}
+                        name={line.name}
+                        style={{
+                          display: line.value == 0 ? "none" : "block"
+                        }}
+                      >
+                        <ToolTipLabel>{line.name}: </ToolTipLabel>
+                        <ToolTipValue>
+                          ${formatNumberForDisplay(round(line.value, 2))}
+                        </ToolTipValue>
+                      </List.Item>
+                    ))}
+                  </List>
+                </ToolTipComponent>
+              )}
+            />
           )}
         </LineChartComponent>
       </WalletLineChart>
