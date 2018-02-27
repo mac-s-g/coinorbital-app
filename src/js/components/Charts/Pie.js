@@ -7,6 +7,8 @@ const DEFAULT_WIDTH = 300
 const DEFAULT_HEIGHT = 300
 const DEFAULT_FILL = theme.colors.gold
 const DEFAULT_OUTER_RADIUS = 100
+const DEFAULT_INNER_RADIUS = 0
+const DEFAULT_PADDING_ANGLE = 0
 const DEFAULT_ANIMATE = false
 const DEFAULT_ANIMATION_DURATION = 1000
 const DEFAULT_LABEL_LINE = false
@@ -21,6 +23,8 @@ export default class extends Component {
     animate: DEFAULT_ANIMATE,
     animationDuration: DEFAULT_ANIMATION_DURATION,
     outerRadius: DEFAULT_OUTER_RADIUS,
+    innerRadius: DEFAULT_INNER_RADIUS,
+    paddingAngle: DEFAULT_PADDING_ANGLE,
     labelLine: DEFAULT_LABEL_LINE,
     legend: DEFAULT_LEGEND,
     legendType: DEFAULT_LEGEND_TYPE,
@@ -33,6 +37,8 @@ export default class extends Component {
     animate: PropTypes.bool,
     animationDuration: PropTypes.number,
     outerRadius: PropTypes.number,
+    innerRadius: PropTypes.number,
+    paddingAngle: PropTypes.number,
     labelLine: PropTypes.bool,
     legend: PropTypes.object,
     legendType: PropTypes.string,
@@ -61,6 +67,8 @@ export default class extends Component {
       animationDuration,
       fill,
       outerRadius,
+      innerRadius,
+      paddingAngle,
       legend,
       legendType,
       tooltip,
@@ -79,8 +87,10 @@ export default class extends Component {
           animationDuration={animationDuration}
           fill={fill}
           outerRadius={outerRadius}
+          innerRadius={innerRadius}
           labelLine={labelLine}
           legendType={legendType}
+          paddingAngle={paddingAngle}
           {...rest}
         />
         {!!tooltip ? <Tooltip /> : null}

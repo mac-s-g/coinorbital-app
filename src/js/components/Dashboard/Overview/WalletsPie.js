@@ -106,8 +106,11 @@ export default class extends Component {
         2
       ),
       // pie piece highlighting
-      // fill: rgba(getRotatingThemeColor(idx), name === selected ? 1 : 0.75),
-      fill: getRotatingThemeColor(idx),
+      fill: name === selected ? theme.colors.gold : theme.colors.blue,
+      fillOpacity: name === selected ? 1 : 0.5,
+      stroke: theme.colors.blue,
+      strokeWidth: 2,
+      paddingAngle: 5,
       symbol: wallets[name].symbol,
       style: { cursor: "pointer" },
       onMouseEnter: () => this.hoverSelect(name),
@@ -129,6 +132,8 @@ export default class extends Component {
             width={380}
             height={220}
             outerRadius={100}
+            innerRadius={60}
+            paddingAngle={3}
             data={pie_data}
             animate={false}
             tooltip
@@ -157,7 +162,7 @@ export default class extends Component {
               name
             }) => {
               const RADIAN = Math.PI / 180
-              const radius = innerRadius + (outerRadius - innerRadius) * 0.7
+              const radius = innerRadius + (outerRadius - innerRadius) * 0.5
               const x = cx + radius * Math.cos(-midAngle * RADIAN)
               const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
