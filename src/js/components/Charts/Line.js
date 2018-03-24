@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import {
   LineChart,
-  AreaChart,
+  ComposedChart,
   Line,
   Area,
   XAxis,
@@ -31,7 +31,8 @@ export default class extends Component {
     lines: [],
     dataKeyX: "name",
     dataKeyY: null,
-    margin: { top: 0, right: 0, bottom: 0, left: 0 }
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    orientationY: "right"
   }
 
   static propTypes = {
@@ -57,7 +58,8 @@ export default class extends Component {
       right: PropTypes.number,
       bottom: PropTypes.number,
       left: PropTypes.number
-    })
+    }),
+    orientationY: PropTypes.string
   }
 
   render() {
@@ -72,11 +74,13 @@ export default class extends Component {
       lines,
       dataKeyX,
       dataKeyY,
-      margin
+      margin,
+      orientationY,
+      children
     } = this.props
 
     return (
-      <AreaChart
+      <ComposedChart
         width={width}
         height={height}
         data={data}
@@ -87,7 +91,7 @@ export default class extends Component {
         <XAxis dataKey={dataKeyX} />
         <YAxis
           dataKey={dataKeyY}
-          orientation="right"
+          orientation={orientationY}
           domain={[
             dataMin =>
               dataMin > 1
@@ -100,11 +104,15 @@ export default class extends Component {
           ]}
         />
         {!!tooltip ? (
-          <Tooltip content={tooltip !== true ? tooltip : null} />
+          <Tooltip
+            cursor={{ strokeDasharray: "3 3" }}
+            content={tooltip !== true ? tooltip : null}
+          />
         ) : null}
         {legend ? <Legend /> : null}
         {lines.map(line => <Area key={line.dataKey} {...line} />)}
-      </AreaChart>
+        {children}
+      </ComposedChart>
     )
   }
 }

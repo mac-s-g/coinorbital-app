@@ -39,14 +39,14 @@ const ContentContainer = Styled.div`
 const grid_width = {
   sidebar: {
     largeScreen: 3,
-    computer: 5,
-    tablet: 6,
+    computer: 4,
+    tablet: 5,
     mobile: 16
   },
   content: {
     largeScreen: 13,
-    computer: 11,
-    tablet: 10,
+    computer: 12,
+    tablet: 11,
     mobile: 16
   }
 }

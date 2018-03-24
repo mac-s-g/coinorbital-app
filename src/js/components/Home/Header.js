@@ -2,7 +2,7 @@ import React from "react"
 import Styled from "styled-components"
 import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
 
-import Logo from "./../Logo"
+import Logo from "./../Logo/"
 
 import { project_info, theme, links } from "./../../constants"
 

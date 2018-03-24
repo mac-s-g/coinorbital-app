@@ -2,9 +2,9 @@ import React, { Component } from "react"
 import Styled from "styled-components"
 import { Header, Input, Modal } from "semantic-ui-react"
 
-import Submit from "./../../Buttons/Submit"
-import Cancel from "./../../Buttons/Cancel"
-import InputLabel from "./../../Inputs/InputLabel"
+import Submit from "./../Buttons/Submit"
+import Cancel from "./../Buttons/Cancel"
+import InputLabel from "./../Inputs/InputLabel"
 
 const ModalInputContainer = Styled.div`
   & > * {margin-bottom: 12px;}

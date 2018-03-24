@@ -1,6 +1,6 @@
 export const CREATE_TRANSACTION_MODAL = "CREATE_TRANSACTION_MODAL"
 export const ADD_TO_WATCHLIST_MODAL = "ADD_TO_WATCHLIST_MODAL"
-export const COIN_INFO_MODAL = "COIN_INFO_MODAL"
+export const COIN_CHART_MODAL = "COIN_CHART_MODAL"
 export const CREATE_WALLET_MODAL = "CREATE_WALLET_MODAL"
 export const EDIT_WALLET_MODAL = "EDIT_WALLET_MODAL"
 export const DELETE_WALLET_MODAL = "DELETE_WALLET_MODAL"
@@ -16,8 +16,8 @@ export const addToWatchListModal = () => ({
   type: ADD_TO_WATCHLIST_MODAL
 })
 
-export const coinInfoModal = symbol => ({
-  type: COIN_INFO_MODAL,
+export const coinChartModal = symbol => ({
+  type: COIN_CHART_MODAL,
   payload: symbol
 })
 

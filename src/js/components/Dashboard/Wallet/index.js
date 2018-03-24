@@ -1,13 +1,12 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
-import { Icon, Loader, Statistic } from "semantic-ui-react"
+import { Icon, Loader, Statistic, Tab } from "semantic-ui-react"
 
 import NotFound from "./NotFound"
 import ContentComponent from "./../ContentComponent"
-import SummaryTable from "./SummaryTable"
 import HeaderStatistics from "./HeaderStatistics"
-import TransactionTable from "./TransactionTable"
-import WalletLineChart from "./WalletLineChart"
+import TransactionsTab from "./TransactionsTab"
+import ChartsTab from "./ChartsTab"
 
 import round from "./../../../helpers/round"
 import parseSearchQuery from "./../../../helpers/parseSearchQuery"
@@ -47,6 +46,7 @@ export default class extends Component {
   }
 
   walletName = () => parseSearchQuery(this.props.location.search).name
+  tab = () => parseSearchQuery(this.props.location.search).tab
 
   render() {
     const {
@@ -89,17 +89,39 @@ export default class extends Component {
           coinSymbol={coin.symbol}
         >
           <HeaderStatistics {...{ wallet, coin }} />
-          <SummaryTable {...{ wallet, coin }} />
-          <WalletLineChart {...{ wallet, coins, fetchTimeSeries }} />
-          <TransactionTable
-            {...{
-              wallet,
-              coin,
-              requestCreateTransaction,
-              requestDeleteTransaction,
-              requestEditTransaction,
-              requestTransactionNote
-            }}
+          <Tab
+            menu={{ secondary: true, pointing: true }}
+            panes={[
+              {
+                menuItem: {
+                  content: "Transactions",
+                  key: "txtab",
+                  icon: "table"
+                },
+                render: () => (
+                  <TransactionsTab
+                    {...{
+                      coin,
+                      wallet,
+                      requestCreateTransaction,
+                      requestDeleteTransaction,
+                      requestEditTransaction,
+                      requestTransactionNote
+                    }}
+                  />
+                )
+              },
+              {
+                menuItem: {
+                  content: "Trends",
+                  key: "chartstab",
+                  icon: "line chart"
+                },
+                render: () => (
+                  <ChartsTab {...{ wallet, coins, fetchTimeSeries }} />
+                )
+              }
+            ]}
           />
         </ContentComponent>
       )

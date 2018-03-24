@@ -2,17 +2,17 @@ import React, { Component } from "react"
 import Styled from "styled-components"
 import { Header, Input, Modal, Statistic } from "semantic-ui-react"
 
-import Submit from "./../../Buttons/Submit"
-import Cancel from "./../../Buttons/Cancel"
-import DatePicker from "./../../Inputs/DatePicker"
-import InputLabel from "./../../Inputs/InputLabel"
-import SearchDropdown from "./../../Inputs/SearchDropdown"
+import Submit from "./../Buttons/Submit"
+import Cancel from "./../Buttons/Cancel"
+import DatePicker from "./../Inputs/DatePicker"
+import InputLabel from "./../Inputs/InputLabel"
+import SearchDropdown from "./../Inputs/SearchDropdown"
 
-import round from "./../../../helpers/round"
-import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
-import { calculateWalletQuantity } from "./../../../helpers/walletMetrics"
+import round from "./../../helpers/round"
+import formatNumberForDisplay from "./../../helpers/formatNumberForDisplay"
+import { calculateWalletQuantity } from "./../../helpers/walletMetrics"
 
-import { theme } from "./../../../constants"
+import { theme } from "./../../constants"
 
 const ModalInputContainer = Styled.div`
   & > * {margin-bottom: 12px;}
@@ -75,7 +75,7 @@ export default class extends Component {
     const validCost = this.isValidCost(cost_per_coin_usd)
 
     return (
-      <Modal open size="tiny" onClose={closeModal}>
+      <Modal open size="tiny" onClose={closeModal} closeOnEscape={false}>
         <Modal.Header>Record a Transaction</Modal.Header>
         <Modal.Content>
           <ModalInputContainer>

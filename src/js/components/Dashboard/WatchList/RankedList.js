@@ -28,6 +28,7 @@ export default class extends Component {
     const {
       reorderWatchList,
       removeFromWatchList,
+      requestCoinChart,
       requestCoinInfo,
       coins
     } = this.props
@@ -47,6 +48,7 @@ export default class extends Component {
             <ListItem
               coin={coins.by_symbol[symbol]}
               rank={order.indexOf(idx) + RANK_IDX_OFFSET}
+              requestCoinChart={requestCoinChart}
               requestCoinInfo={requestCoinInfo}
               removeFromWatchList={removeFromWatchList}
             />

@@ -55,14 +55,14 @@ const CoinIcon = Styled.div`
 
 const Price = Styled.div`
   width: 180px;
-  @media (max-width: 892px) {
+  @media (max-width: 840px) {
     display: none !important;
   }
 `
 
 const Deltas = Styled.div`
-  width: 166px;
-  @media (max-width: 1054px) {
+  width: 170px;
+  @media (max-width: 1020px) {
     display: none !important;
   }
 `
@@ -77,11 +77,46 @@ const DeltaStat = Styled.div`
   font-size: 16px;
 `
 
+const News = Styled.i`
+  color: ${theme.colors.gray};
+  width: 32px;
+  margin-right: 10px !important;
+  @media (max-width: 1160px) {
+    display: none !important;
+  }
+`
+
+const Charts = Styled.i`
+  color: ${theme.colors.blue};
+  @media (max-width: 400px) {
+    display: none !important;
+  }
+`
+
 const Controls = Styled.div`
   float: right;
   & > .icon {
     cursor: pointer;
+    margin-left: 4px
   }
+`
+
+const DotBox = Styled.div`
+  display: inline-block;
+  margin: 8px 14px;
+  @media (max-width: 1100px) {
+    display: none !important;
+  }
+`
+
+const Dot = Styled.div`
+  vertical-align: top;
+  display: inline-block;
+  margin: 0 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
+  background-color: ${theme.colors.well_gray};
 `
 
 export default class extends Component {
@@ -105,7 +140,7 @@ export default class extends Component {
     }
   }
   render() {
-    const { coin, rank, requestCoinInfo, removeFromWatchList } = this.props
+    const { coin, rank, requestCoinChart, removeFromWatchList } = this.props
     const { moveCursor } = this.state
 
     return (
@@ -116,7 +151,12 @@ export default class extends Component {
       >
         <Rank>{rank}</Rank>
         <CoinIcon>
-          <CoinLogo symbol={coin.symbol} />
+          <CoinLogo
+            symbol={coin.symbol}
+            style={{ cursor: "pointer" }}
+            onMouseDown={e => e.stopPropagation()}
+            onClick={e => requestCoinChart(coin.symbol)}
+          />
         </CoinIcon>
         <Name>
           <div>{coin.name}</div>
@@ -144,16 +184,36 @@ export default class extends Component {
             7d
           </DeltaStat>
         </Deltas>
+        <DotBox>
+          <Dot />
+          <Dot />
+          <Dot />
+        </DotBox>
         <Controls>
           <Icon
+            as={News}
+            title={coin.symbol + " News"}
             size="large"
-            name="info circle"
-            style={{ color: theme.colors.inverted }}
+            name="newspaper"
             onMouseDown={e => e.stopPropagation()}
-            onClick={e => requestCoinInfo(coin.symbol)}
+            onClick={e =>
+              window.open(
+                `https://cryptopanic.com/news/${coin.name.toLowerCase()}`,
+                "_blank"
+              )
+            }
+          />
+          <Icon
+            as={Charts}
+            size="large"
+            title={coin.symbol + " Analysis"}
+            name="line chart"
+            onMouseDown={e => e.stopPropagation()}
+            onClick={e => requestCoinChart(coin.symbol)}
           />
           <Icon
             size="large"
+            title="Remove from Watch List"
             name="remove circle"
             style={{ color: theme.colors.red }}
             onMouseDown={e => e.stopPropagation()}

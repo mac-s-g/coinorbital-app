@@ -1,7 +1,7 @@
 import React from "react"
 import { Icon, Modal } from "semantic-ui-react"
-import Delete from "./../../Buttons/Delete"
-import Cancel from "./../../Buttons/Cancel"
+import Delete from "./../Buttons/Delete"
+import Cancel from "./../Buttons/Cancel"
 
 export default ({ closeModal, modals, editWallet, ...props }) => {
   const { wallet, transaction_id } = modals.delete_transaction

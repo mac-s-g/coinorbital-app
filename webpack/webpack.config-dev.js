@@ -14,7 +14,7 @@ const config = {
   entry: [path.join(PATHS.devServer, "js", "entry.js")],
   externals: {},
   devServer: {
-    host: "0.0.0.0",
+    host: "localhost",
     port: wds_port,
     hot: true,
     inline: true,

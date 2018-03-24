@@ -5,9 +5,9 @@ import { Button, Container, Divider, Segment } from "semantic-ui-react"
 import Header from "./Header"
 import Footer from "./Footer"
 
-import ContactMe from "./Modal/ContactMe"
-import Donate from "./Modal/Donate"
-import Roadmap from "./Modal/Roadmap"
+import ContactMe from "./../Modal/ContactMe"
+import Donate from "./../Modal/Donate"
+import Roadmap from "./../Modal/Roadmap"
 
 import { project_info, theme } from "./../../constants"
 
@@ -17,7 +17,6 @@ const SegmentContainer = Styled.div`
 const SegmentHeader = Styled.div`
   calc(2rem - .14285714em) 0 1rem;
   font-size: 2em;
-  font-weight: 700;
   color: rgba(0, 0, 0, 0.87);
 `
 const SegmentContent = Styled.div`

@@ -2,9 +2,9 @@ import React from "react"
 import Styled from "styled-components"
 import { Button, Table, Modal, Image } from "semantic-ui-react"
 
-import CoinLogo from "./../../CoinLogo/"
+import CoinLogo from "./../CoinLogo/"
 
-import { project_info } from "./../../../constants"
+import { project_info } from "./../../constants"
 
 const DonationComponent = Styled.div`
   margin: 20px 0;
