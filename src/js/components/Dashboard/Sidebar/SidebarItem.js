@@ -5,6 +5,8 @@ import { rgba } from "polished"
 
 import CoinLogo from "./../../CoinLogo/"
 
+import Pulse from "./../../Animations/Pulse"
+
 import { theme } from "./../../../constants"
 
 const SidebarButton = Styled.div`
@@ -41,6 +43,10 @@ const SidebarButton = Styled.div`
 
     & i.icon, i.image {
       opacity: 1 !important;
+    }
+    & i.image, i.icon {
+      opacity: 1 !important;
+      animation: ${Pulse} 300ms ease-out;
     }
   }
 `
