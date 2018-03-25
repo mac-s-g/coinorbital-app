@@ -42,8 +42,16 @@ export default ({ navigateTo }) => (
         as="a"
         header
         onClick={e => navigateTo("/")}
-        onMouseEnter={e => (e.target.children[0].id = "logo-pulse")}
-        onMouseLeave={e => (e.target.children[0].id = "")}
+        onMouseEnter={e => {
+          try {
+            e.target.children[0].id = "logo-pulse"
+          } catch (e) {}
+        }}
+        onMouseLeave={e => {
+          try {
+            e.target.children[0].id = ""
+          } catch (e) {}
+        }}
       >
         <Logo size={20} />
         <NavbarName>{project_info.name}</NavbarName>

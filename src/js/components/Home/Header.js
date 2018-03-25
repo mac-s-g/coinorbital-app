@@ -79,8 +79,8 @@ export default ({ navigateTo, ...props }) => (
         <HeaderContent>
           <HeaderLabel>{project_info.name}</HeaderLabel>
           <Logo
-            onMouseOver={e => (e.target.id = "logo-pulse")}
-            onMouseOut={e => (e.target.id = "")}
+            onMouseEnter={e => (e.target.id = "logo-pulse")}
+            onMouseLeave={e => (e.target.id = "")}
             size={100}
           />
         </HeaderContent>
