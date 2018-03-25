@@ -69,6 +69,7 @@ export default class extends Component {
     height: DEFAULT_HEIGHT,
     width: DEFAULT_WIDTH,
     responsive: false,
+    loader: true,
     color: theme.colors.blue,
     orientationY: "right"
   }
@@ -239,7 +240,8 @@ export default class extends Component {
       animate = false,
       timeControl = true,
       displayYAxis = true,
-      displayXAxis = true
+      displayXAxis = true,
+      loader = true
     } = props
     const { time_series, by_symbol } = coins
     const { expanded, chartType } = state
@@ -363,7 +365,11 @@ export default class extends Component {
             {tx_dots}
           </Line>
         ) : !isLoaded() ? (
-          <Loader active inline="centered" />
+          loader ? (
+            <Loader active inline="centered" />
+          ) : (
+            <div />
+          )
         ) : (
           <Message
             style={{ marginTop: "2em" }}

@@ -33,6 +33,7 @@ export default class extends Component {
             chartType="month"
             displayXAxis={false}
             displayYAxis={false}
+            loader={false}
           />
         ) : null}
       </WalletLineChart>
