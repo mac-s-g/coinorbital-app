@@ -23,8 +23,8 @@ const DEFAULT_HEIGHT = 300
 const REFERENCE_DOT_RADIUS = 5
 
 const LineChartComponent = Styled.div`
-  height: ${props => props.height}px;
-  width: ${props => props.width}px;
+  height: ${props => (props.responsive ? "100%" : `${props.height}px`)};
+  width: ${props => (props.responsive ? "100%" : `${props.width}px`)};
   position: relative;
 
   & .xAxis text.recharts-cartesian-axis-tick-value {
@@ -68,6 +68,7 @@ export default class extends Component {
   static defaultProps = {
     height: DEFAULT_HEIGHT,
     width: DEFAULT_WIDTH,
+    responsive: false,
     color: theme.colors.blue,
     orientationY: "right"
   }
@@ -75,6 +76,7 @@ export default class extends Component {
   static propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
+    responsive: PropTypes.bool,
     coins: PropTypes.object.isRequired,
     symbol: PropTypes.string.isRequired,
     fetchTimeSeries: PropTypes.func.isRequired,
@@ -83,7 +85,7 @@ export default class extends Component {
   }
 
   state = {
-    chart_type: "week"
+    chartType: "week"
   }
 
   chartTypes = {
@@ -110,7 +112,7 @@ export default class extends Component {
 
   constructor(props) {
     super(props)
-    this.init(props, this.state.chartType)
+    this.init(props, props.chartType ? props.chartType : this.state.chartType)
   }
 
   init = (props, chartType = "week") => {
@@ -227,9 +229,14 @@ export default class extends Component {
       symbol,
       width,
       height,
+      responsive,
       color,
       orientationY,
-      transactions = []
+      transactions = [],
+      animate = false,
+      timeControl = true,
+      displayYAxis = true,
+      displayXAxis = true
     } = props
     const { time_series, by_symbol } = coins
     const { expanded, chartType } = state
@@ -242,26 +249,31 @@ export default class extends Component {
     } catch (e) {}
 
     return (
-      <LineChartComponent height={height} width={width}>
-        <Button.Group as={ChartControls} size="mini" compact>
-          {Object.keys(chartTypes).map(type => (
-            <Button
-              key={type}
-              active={type === chartType}
-              onClick={() => {
-                init(props, type)
-              }}
-            >
-              {type}
-            </Button>
-          ))}
-        </Button.Group>
+      <LineChartComponent height={height} width={width} responsive={responsive}>
+        {timeControl ? (
+          <Button.Group as={ChartControls} size="mini" compact>
+            {Object.keys(chartTypes).map(type => (
+              <Button
+                key={type}
+                active={type === chartType}
+                onClick={() => {
+                  init(props, type)
+                }}
+              >
+                {type}
+              </Button>
+            ))}
+          </Button.Group>
+        ) : null}
         {!isLoaded() ? (
           <Loader active inline="centered" />
         ) : (
           <Line
             height={height}
             width={width}
+            responsive
+            displayXAxis={displayXAxis}
+            displayYAxis={displayYAxis}
             orientationY={orientationY}
             data={series}
             lines={[
@@ -270,7 +282,9 @@ export default class extends Component {
                 dataKey: "close",
                 name: "price",
                 dot: false,
-                isAnimationActive: false,
+                isAnimationActive: animate,
+                animationEasing: "ease-out",
+                animationDuration: 800,
                 stroke: color,
                 fill: color,
                 fillOpacity: 0.2,

@@ -24,6 +24,7 @@ const CoinSymbol = Styled.div`
 
 const ChartComponent = Styled.div`
   margin-top: 48px;
+  height: 240px;
 `
 
 export default class extends Component {
@@ -56,7 +57,7 @@ export default class extends Component {
     const coin = coins.by_symbol[modals.coin_chart]
 
     return coin ? (
-      <Modal basic open size="tiny" onClose={closeModal}>
+      <Modal basic open size="large" onClose={closeModal}>
         <Modal.Header>
           <CoinSymbol>
             <CoinLogo symbol={coin.symbol} />
@@ -131,20 +132,11 @@ export default class extends Component {
               coins={coins}
               symbol={coin.symbol}
               fetchTimeSeries={fetchTimeSeries}
-              width={560}
-              height={240}
+              responsive
               color={theme.colors.gold}
             />
           </ChartComponent>
         </Modal.Content>
-        <Modal.Actions>
-          <Button
-            icon="thumbs up"
-            onClick={() => {
-              closeModal()
-            }}
-          />
-        </Modal.Actions>
       </Modal>
     ) : (
       <Dimmer active page>

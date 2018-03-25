@@ -49,7 +49,8 @@ export const project_info = {
       name: "Bitcoin Cash",
       address: "14ztfbFRhitxDKi3Z5vjHoMgDhZV27ZKZK"
     }
-  }
+  },
+  description_brief: "Track your crypto portfolio like a pro."
 }
 
 export const links = {

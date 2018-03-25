@@ -53,7 +53,7 @@ export default ({ requestContactMe, requestDonate, requestRoadmap }) => (
             <Header as="h4" inverted>
               {project_info.name}
             </Header>
-            <p>Visualize your value in a volatile market.</p>
+            <p>{project_info.description_brief}</p>
           </Grid.Column>
           <Grid.Column {...grid_width.gutter} />
         </Grid.Row>

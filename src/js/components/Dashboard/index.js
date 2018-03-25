@@ -26,12 +26,12 @@ import Roadmap from "./../Modal/Roadmap"
 import parseSearch from "./../../helpers/parseSearchQuery"
 
 //value refresh
-const FETCH_COIN_INTERVAL = 5000
+const FETCH_COIN_INTERVAL = 10000
 
 export default class extends Component {
   fetchCoinInterval = false
 
-  componentDidMount() {
+  componentWillMount() {
     const { fetchCoins } = this.props
     this.fetchCoinInterval = setInterval(fetchCoins, FETCH_COIN_INTERVAL)
   }
