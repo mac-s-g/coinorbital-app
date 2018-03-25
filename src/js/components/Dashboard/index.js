@@ -8,30 +8,30 @@ import Footer from "./Footer"
 import Overview from "./Overview/"
 import WatchList from "./WatchList/"
 import Wallet from "./Wallet/"
+import FourOhFour from "./FourOhFour"
 //modals
-import AddToWatchList from "./Modal/AddToWatchList"
-import CoinInfo from "./Modal/CoinInfo"
-import CreateWallet from "./Modal/CreateWallet"
-import EditWallet from "./Modal/EditWallet"
-import DeleteWallet from "./Modal/DeleteWallet"
-import CreateTransaction from "./Modal/CreateTransaction"
-import DeleteTransaction from "./Modal/DeleteTransaction"
-import EditTransaction from "./Modal/EditTransaction"
-import TransactionNote from "./Modal/TransactionNote"
-//home modals
-import ContactMe from "./../Home/Modal/ContactMe"
-import Donate from "./../Home/Modal/Donate"
-import Roadmap from "./../Home/Modal/Roadmap"
+import AddToWatchList from "./../Modal/AddToWatchList"
+import CoinChart from "./../Modal/CoinChart"
+import CreateWallet from "./../Modal/CreateWallet"
+import EditWallet from "./../Modal/EditWallet"
+import DeleteWallet from "./../Modal/DeleteWallet"
+import CreateTransaction from "./../Modal/CreateTransaction"
+import DeleteTransaction from "./../Modal/DeleteTransaction"
+import EditTransaction from "./../Modal/EditTransaction"
+import TransactionNote from "./../Modal/TransactionNote"
+import ContactMe from "./../Modal/ContactMe"
+import Donate from "./../Modal/Donate"
+import Roadmap from "./../Modal/Roadmap"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
 //value refresh
-const FETCH_COIN_INTERVAL = 5000
+const FETCH_COIN_INTERVAL = 10000
 
 export default class extends Component {
   fetchCoinInterval = false
 
-  componentDidMount() {
+  componentWillMount() {
     const { fetchCoins } = this.props
     this.fetchCoinInterval = setInterval(fetchCoins, FETCH_COIN_INTERVAL)
   }
@@ -66,11 +66,12 @@ export default class extends Component {
               path="/dashboard/wallet"
               render={routeProps => <Wallet {...props} {...routeProps} />}
             />
+            <Route render={routeProps => <FourOhFour {...routeProps} />} />}
           </Switch>
         </Sidebar>
         <Footer {...props} />
         {props.modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
-        {props.modals.coin_info ? <CoinInfo {...props} /> : null}
+        {props.modals.coin_chart ? <CoinChart {...props} /> : null}
         {props.modals.create_wallet ? <CreateWallet {...props} /> : null}
         {props.modals.edit_wallet ? <EditWallet {...props} /> : null}
         {props.modals.delete_wallet ? <DeleteWallet {...props} /> : null}

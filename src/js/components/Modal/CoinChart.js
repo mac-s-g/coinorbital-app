@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import Styled from "styled-components"
 import {
   Button,
   Container,
@@ -9,7 +10,22 @@ import {
   Statistic
 } from "semantic-ui-react"
 
-import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+import CoinLineChart from "./../Charts/CoinLineChart"
+import CoinLogo from "./../CoinLogo"
+
+import formatNumberForDisplay from "./../../helpers/formatNumberForDisplay"
+
+import { theme } from "./../../constants"
+
+const CoinSymbol = Styled.div`
+  display: inline-block;
+  margin-right: 10px;
+`
+
+const ChartComponent = Styled.div`
+  margin-top: 48px;
+  height: 240px;
+`
 
 export default class extends Component {
   componentWillMount() {
@@ -37,38 +53,56 @@ export default class extends Component {
     }
   }
   render() {
-    const { closeModal, coins, modals } = this.props
-    const coin = coins.by_symbol[modals.coin_info]
+    const { closeModal, coins, modals, fetchTimeSeries } = this.props
+    const coin = coins.by_symbol[modals.coin_chart]
 
     return coin ? (
-      <Modal basic open size="tiny" onClose={closeModal}>
+      <Modal basic open size="large" onClose={closeModal}>
         <Modal.Header>
-          {coin ? `${coin.name} (${coin.symbol})` : null}
+          <CoinSymbol>
+            <CoinLogo symbol={coin.symbol} />
+          </CoinSymbol>
+          <span style={{ verticalAlign: "super" }}>
+            {coin.name} ({coin.symbol})
+          </span>
         </Modal.Header>
         <Modal.Content>
-          <Statistic.Group inverted horizontal>
-            <Statistic>
+          <div style={{ marginBottom: "14px" }}>
+            <Statistic inverted horizontal size="large">
               <Statistic.Value>
                 ${formatNumberForDisplay(coin.price_usd)}
               </Statistic.Value>
-              <Statistic.Label>USD</Statistic.Label>
+              <Statistic.Label>Price (USD)</Statistic.Label>
             </Statistic>
-            <Statistic>
+          </div>
+          <div>
+            <Statistic
+              inverted
+              horizontal
+              size="tiny"
+              style={{ marginBottom: "14px" }}
+            >
               <Statistic.Value>
                 ${formatNumberForDisplay(coin.market_cap_usd)}
               </Statistic.Value>
               <Statistic.Label>Market Cap</Statistic.Label>
             </Statistic>
+          </div>
+          <Statistic.Group
+            inverted
+            size="tiny"
+            style={{ marginBottom: "-1em" }}
+          >
             <Statistic
               inverted
-              color={this.calculateStatColor(coin.percent_change_1h)}
+              color={this.calculateStatColor(coin.percent_change_7d)}
               size="tiny"
             >
               <Statistic.Value>
-                <Icon name={this.calculateStatIcon(coin.percent_change_1h)} />
-                {Math.abs(coin.percent_change_1h)}%
+                <Icon name={this.calculateStatIcon(coin.percent_change_7d)} />
+                {Math.abs(coin.percent_change_7d)}%
               </Statistic.Value>
-              <Statistic.Label>1 Hour</Statistic.Label>
+              <Statistic.Label>7 Day</Statistic.Label>
             </Statistic>
             <Statistic
               inverted
@@ -83,25 +117,26 @@ export default class extends Component {
             </Statistic>
             <Statistic
               inverted
-              color={this.calculateStatColor(coin.percent_change_7d)}
+              color={this.calculateStatColor(coin.percent_change_1h)}
               size="tiny"
             >
               <Statistic.Value>
-                <Icon name={this.calculateStatIcon(coin.percent_change_7d)} />
-                {Math.abs(coin.percent_change_7d)}%
+                <Icon name={this.calculateStatIcon(coin.percent_change_1h)} />
+                {Math.abs(coin.percent_change_1h)}%
               </Statistic.Value>
-              <Statistic.Label>7 Day</Statistic.Label>
+              <Statistic.Label>1 Hour</Statistic.Label>
             </Statistic>
           </Statistic.Group>
+          <ChartComponent>
+            <CoinLineChart
+              coins={coins}
+              symbol={coin.symbol}
+              fetchTimeSeries={fetchTimeSeries}
+              responsive
+              color={theme.colors.gold}
+            />
+          </ChartComponent>
         </Modal.Content>
-        <Modal.Actions>
-          <Button
-            icon="thumbs up"
-            onClick={() => {
-              closeModal()
-            }}
-          />
-        </Modal.Actions>
       </Modal>
     ) : (
       <Dimmer active page>

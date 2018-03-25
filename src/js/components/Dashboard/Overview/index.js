@@ -41,6 +41,7 @@ export default class extends Component {
       <ContentComponent
         header="Overview"
         subHeader="Manage your assets at a glance"
+        logo
       >
         {!coins.fetched || !wallets.fetched ? (
           <Loader active />

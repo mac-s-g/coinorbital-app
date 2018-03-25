@@ -2,7 +2,7 @@ import React from "react"
 import Styled from "styled-components"
 import { Button, Header, Modal } from "semantic-ui-react"
 
-import { project_info, links } from "./../../../constants"
+import { project_info, links } from "./../../constants"
 
 const DonateLink = Styled.a`
   cursor: pointer;

@@ -1,17 +1,25 @@
 import React from "react"
 import { Dropdown } from "semantic-ui-react"
 
-export default props => (
+export default ({
+  value,
+  placeholder,
+  multiple,
+  loading,
+  options,
+  onChange
+}) => (
   <Dropdown
-    value={props.value ? props.value : null}
-    placeholder={props.placeholder}
+    value={value ? value : null}
+    placeholder={placeholder}
     fluid
+    multiple={multiple}
     search
     selection
-    loading={props.loading}
-    options={props.options}
+    loading={loading}
+    options={options}
     onChange={(e, value) => {
-      props.onChange(value.value)
+      onChange(value.value)
     }}
   />
 )

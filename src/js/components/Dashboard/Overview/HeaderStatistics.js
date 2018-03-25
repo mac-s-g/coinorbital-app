@@ -10,10 +10,7 @@ import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
 
 const StatsComponent = Styled.div`
-  margin: 0 0 3em 0;
-  & > div {
-    margin: 1.5em 0;
-  }
+  margin: 1.5em 0 2em 0;
 `
 
 export default ({ totalValue }) => (

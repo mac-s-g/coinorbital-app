@@ -12,7 +12,7 @@ import {
 } from "./../../../helpers/walletMetrics"
 
 const StatsComponent = Styled.div`
-  margin: 0 0 3em 0;
+  margin: 0 0 2.33em 0;
   & > div {
     margin: 1.5em 0;
   }
@@ -31,7 +31,7 @@ export default ({ wallet, coin }) => (
       </Statistic>
     </div>
     <div>
-      <Statistic horizontal>
+      <Statistic horizontal size="small">
         <Statistic.Value>
           {formatNumberForDisplay(calculateWalletQuantity(wallet))}
         </Statistic.Value>

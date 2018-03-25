@@ -3,13 +3,13 @@ import Styled from "styled-components"
 import { Button, Feed, Form, Header, Icon, Modal } from "semantic-ui-react"
 import moment from "moment"
 
-import Submit from "./../../Buttons/Submit"
-import Cancel from "./../../Buttons/Cancel"
-import InputLabel from "./../../Inputs/InputLabel"
+import Submit from "./../Buttons/Submit"
+import Cancel from "./../Buttons/Cancel"
+import InputLabel from "./../Inputs/InputLabel"
 
-import formatDateForDisplay from "./../../../helpers/formatDateForDisplay"
+import formatDateForDisplay from "./../../helpers/formatDateForDisplay"
 
-import { theme } from "./../../../constants"
+import { theme } from "./../../constants"
 
 const ModalInputContainer = Styled.div`
   & > * {margin-bottom: 12px;}
@@ -47,7 +47,7 @@ export default class extends Component {
     const { add_note, note_text } = this.state
 
     return (
-      <Modal open size="tiny" onClose={closeModal}>
+      <Modal open size="tiny" onClose={closeModal} closeOnEscape={false}>
         <Modal.Header>Transaction Notes</Modal.Header>
         <Modal.Content>
           <ModalInputContainer>

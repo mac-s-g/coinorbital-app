@@ -9,7 +9,7 @@ import { theme } from "./../../../constants"
 
 const SidebarButton = Styled.div`
   font-weight: ${({ actionItem }) => (actionItem ? 300 : 600)};
-  color: ${({ actionItem }) => (actionItem ? theme.colors.inverted : "#444")};
+  color: ${({ actionItem }) => (actionItem ? theme.colors.blue : "#444")};
   position: relative;
   padding: 12px 12px 12px 36px;
   cursor: pointer;
@@ -21,8 +21,8 @@ const SidebarButton = Styled.div`
   ${({ selected }) =>
     selected
       ? `
-    background-color: ${rgba(theme.colors.inverted, 0.2)};
-    border-right: 4px solid ${theme.colors.inverted};
+    background-color: ${rgba(theme.colors.blue, 0.2)};
+    border-right: 4px solid ${theme.colors.blue};
   `
       : `
     border-right: 4px solid rgba(0,0,0,0);
@@ -33,7 +33,7 @@ const SidebarButton = Styled.div`
   }
 
   &:hover {
-    background-color: ${rgba(theme.colors.inverted, 0.5)};
+    background-color: ${rgba(theme.colors.blue, 0.5)};
 
     & > div {
       color: white;
@@ -59,7 +59,7 @@ const SidebarCaret = Styled.i`
   top: 14px;
   width: 0 !important;
   opacity: ${({ selected }) => (selected ? 1 : 0)} !important;
-  color: ${theme.colors.inverted};
+  color: ${theme.colors.blue};
 `
 
 const SidebarLogo = Styled.i`

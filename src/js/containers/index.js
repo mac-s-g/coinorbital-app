@@ -6,6 +6,7 @@ import history from "./../store/history"
 
 import Home from "./../components/Home"
 import Dashboard from "./../components/Dashboard"
+import FourOhFour from "./../components/Dashboard/FourOhFour"
 
 import "semantic-ui-css/semantic.min.css"
 
@@ -27,7 +28,7 @@ import {
   closeAllModals,
   createTransactionModal,
   addToWatchListModal,
-  coinInfoModal,
+  coinChartModal,
   createWalletModal,
   editWalletModal,
   deleteWalletModal,
@@ -43,7 +44,6 @@ const mapDispatchToProps = dispatch => ({
   //router
   navigateTo: location => dispatch(push(location)),
   //coins
-  requestCoinInfo: coin => dispatch(coinInfoModal(coin)),
   fetchCoins: () => dispatch(fetchCoins()),
   fetchTimeSeries: (filters, key) => dispatch(fetchTimeSeries(filters, key)),
   //wallets
@@ -58,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
   fetchWatchList: () => dispatch(fetchWatchList()),
   reorderWatchList: order => dispatch(reorderWatchList(order)),
   //modals
+  requestCoinChart: coin => dispatch(coinChartModal(coin)),
   requestCreateTransaction: wallet => dispatch(createTransactionModal(wallet)),
   requestAddToWatchList: () => dispatch(addToWatchListModal()),
   requestCreateWallet: () => dispatch(createWalletModal()),
@@ -88,6 +89,9 @@ const index = props => (
         />
         <Route
           path="/dashboard"
+          render={routeProps => <Dashboard {...props} {...routeProps} />}
+        />
+        <Route
           render={routeProps => <Dashboard {...props} {...routeProps} />}
         />
       </Switch>

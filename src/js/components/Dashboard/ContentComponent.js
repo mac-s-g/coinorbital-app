@@ -3,6 +3,7 @@ import Styled from "styled-components"
 import { Header } from "semantic-ui-react"
 
 import CoinLogo from "./../CoinLogo/"
+import Logo from "./../Logo/Alternate"
 
 import { theme } from "./../../constants"
 
@@ -16,10 +17,11 @@ const PageContent = Styled.div`
   font-size: 1.14285714rem;
 `
 
-export default ({ header, subHeader, children, coinSymbol }) => (
+export default ({ header, subHeader, children, coinSymbol, logo }) => (
   <MainComponent>
     {header ? (
       <Header as="h1">
+        {logo ? <Logo size="45" /> : null}
         {coinSymbol ? <CoinLogo symbol={coinSymbol} size="big" /> : null}
         <Header.Content>
           {header}

@@ -2,7 +2,7 @@ import React from "react"
 import Styled from "styled-components"
 import { Button, Header, List, Modal } from "semantic-ui-react"
 
-import { project_info } from "./../../../constants"
+import { project_info } from "./../../constants"
 
 const ListContainer = Styled.div`
   margin: 26px 0 10px 0;
@@ -41,7 +41,6 @@ export default ({ close, contactMe }) => (
             Add a line chart to the overview page displaying portfolio value
             over time
           </List.Item>
-          <List.Item>Display historical value for coins on watchlist</List.Item>
           <List.Item>
             Support login from multiple devices
             <List bulleted>
@@ -51,7 +50,12 @@ export default ({ close, contactMe }) => (
               <List.Item>Support remote data storage</List.Item>
             </List>
           </List.Item>
-          <List.Item>Integrate with major exchanges</List.Item>
+          <List.Item>
+            Integrate with major exchanges
+            <List bulleted>
+              <List.Item>Support CSV transaction uploads</List.Item>
+            </List>
+          </List.Item>
           <List.Item>Audit and polish mobile experience</List.Item>
         </List>
       </ListContainer>

@@ -3,15 +3,15 @@ import Styled from "styled-components"
 import { Checkbox, Modal, Input, Statistic } from "semantic-ui-react"
 import moment from "moment"
 
-import Submit from "./../../Buttons/Submit"
-import Cancel from "./../../Buttons/Cancel"
-import CoinDropdown from "./../../Inputs/CoinDropdown"
-import ToggleSwitch from "./../../Inputs/ToggleSwitch"
+import Submit from "./../Buttons/Submit"
+import Cancel from "./../Buttons/Cancel"
+import CoinDropdown from "./../Inputs/CoinDropdown"
+import ToggleSwitch from "./../Inputs/ToggleSwitch"
 
-import round from "./../../../helpers/round"
-import formatNumberForDisplay from "./../../../helpers/formatNumberForDisplay"
+import round from "./../../helpers/round"
+import formatNumberForDisplay from "./../../helpers/formatNumberForDisplay"
 
-import { theme } from "./../../../constants"
+import { theme } from "./../../constants"
 
 const RECEIVED = "received"
 
@@ -44,6 +44,34 @@ export default class extends Component {
       ? 0
       : parseFloat(balance)
   }
+  getWalletName = () => {
+    const { name, symbol } = this.state
+    const by_name = this.props.wallets
+    if (name.trim() === "") {
+      return this.createWalletName(symbol)
+    } else {
+      return name.trim()
+    }
+  }
+  createWalletName = symbol => {
+    const { wallets, coins } = this.props
+    const coin_name = coins.by_symbol[symbol].name
+    //count offset if necessary
+    let count, wallet_name
+
+    //name wallet after coin if another doesn't exist
+    if (wallets.by_name[coin_name] === undefined) {
+      wallet_name = coin_name
+    } else {
+      //use count offset following coin name, start with offset = 2
+      count = 2
+      while (wallets.by_name[`${coin_name} ${count}`] !== undefined) {
+        count++
+      }
+      wallet_name = `${coin_name} ${count}`
+    }
+    return wallet_name
+  }
 
   render() {
     const {
@@ -56,27 +84,28 @@ export default class extends Component {
       ...props
     } = this.props
     const { name, symbol, enable_balance, balance } = this.state
+    const coin_name = symbol ? coins.by_symbol[symbol].name : false
 
     return (
-      <Modal open size="tiny" onClose={closeModal}>
+      <Modal open size="tiny" onClose={closeModal} closeOnEscape={false}>
         <Modal.Header>Track a New Wallet</Modal.Header>
         <Modal.Content>
           <Modal.Description as="p">
             A wallet lets you group transactions for a particular coin.
           </Modal.Description>
           <ModalInputContainer>
-            <Input
-              fluid
-              placeholder="Wallet Name"
-              value={name}
-              onChange={this.setName}
-            />
             <CoinDropdown
               onChange={this.setSymbol}
               placeholder="Select a Currency"
               coins={coins}
               value={symbol}
               {...props}
+            />
+            <Input
+              fluid
+              placeholder="Wallet Name (Optional)"
+              value={name}
+              onChange={this.setName}
             />
             {symbol ? (
               <div>
@@ -86,7 +115,8 @@ export default class extends Component {
                 <ToggleSwitch
                   checked={enable_balance}
                   onChange={e =>
-                    this.setState({ enable_balance: !enable_balance })}
+                    this.setState({ enable_balance: !enable_balance })
+                  }
                 />
                 {enable_balance ? (
                   <ModalInputContainer>
@@ -108,7 +138,7 @@ export default class extends Component {
                             )
                           )}
                         </Statistic.Value>
-                        <Statistic.Label>USD</Statistic.Label>
+                        <Statistic.Label>Value (USD)</Statistic.Label>
                       </Statistic>
                     </div>
                   </ModalInputContainer>
@@ -122,7 +152,7 @@ export default class extends Component {
           <Submit
             onClick={e =>
               createWallet({
-                name: name.trim(),
+                name: this.getWalletName(),
                 symbol,
                 transactions: this.parseBalance(balance)
                   ? [
@@ -140,13 +170,15 @@ export default class extends Component {
               }) &&
               closeModal() &&
               navigateTo(
-                `/dashboard/wallet?name=${encodeURIComponent(name.trim())}`
-              )}
+                `/dashboard/wallet?name=${encodeURIComponent(
+                  this.getWalletName()
+                )}`
+              )
+            }
             disabled={
               symbol === null ||
-              name.trim() === "" ||
               //make sure the name's not already taken
-              wallets.by_name[name.trim()] !== undefined
+              wallets.by_name[this.getWalletName()] !== undefined
             }
           />
         </Modal.Actions>

@@ -5,9 +5,9 @@ import { Button, Container, Divider, Segment } from "semantic-ui-react"
 import Header from "./Header"
 import Footer from "./Footer"
 
-import ContactMe from "./Modal/ContactMe"
-import Donate from "./Modal/Donate"
-import Roadmap from "./Modal/Roadmap"
+import ContactMe from "./../Modal/ContactMe"
+import Donate from "./../Modal/Donate"
+import Roadmap from "./../Modal/Roadmap"
 
 import { project_info, theme } from "./../../constants"
 
@@ -17,7 +17,6 @@ const SegmentContainer = Styled.div`
 const SegmentHeader = Styled.div`
   calc(2rem - .14285714em) 0 1rem;
   font-size: 2em;
-  font-weight: 700;
   color: rgba(0, 0, 0, 0.87);
 `
 const SegmentContent = Styled.div`
@@ -48,13 +47,13 @@ export default ({ modals, closeModal, ...props }) => (
         <SegmentHeader>Visualize Your Portfolio</SegmentHeader>
         <SegmentContent>
           Cryptocurrency trading involves hundreds of currencies and constant
-          price fluctuations. It's tough to keep up with the value of your
-          investments.
+          price fluctuations. It's not easy to keep up with the value of your
+          investments over time.
         </SegmentContent>
         <SegmentContent>
-          Track the value of your investments by logging your transactions.
-          Transactions are plotted against real-time market prices to help you
-          measure your value over time.
+          {project_info.name} lets you visualize your value in a volatile
+          market. Compare your transactions with real-time and historical market
+          prices to see what's working and what's not.
         </SegmentContent>
         <Button
           as={IndexButton}
@@ -67,10 +66,10 @@ export default ({ modals, closeModal, ...props }) => (
         <SegmentHeader>{project_info.name} is Free!</SegmentHeader>
         <SegmentContent>No Ads. No Fees. Just Free.</SegmentContent>
         <SegmentContent>
-          I'm looking for user feedback. If feedback is positive, premium
-          features may be available in the future. {project_info.name} does not
-          generate revenue outside of donations. If you like the project,
-          consider supporting development with a donation.
+          I'm looking for user feedback! If feedback is positive, more features
+          will be available in the future. {project_info.name} does not generate
+          revenue outside of donations. If you like the project, consider
+          supporting development with a donation.
         </SegmentContent>
         <Button as={IndexButton} size="large" onClick={props.requestContactMe}>
           Provide Feedback

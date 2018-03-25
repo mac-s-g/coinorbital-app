@@ -12,12 +12,13 @@ export default class extends Component {
   }
 
   render() {
-    const { coins, exclude } = this.props
+    const { coins, exclude, multiple } = this.props
     return (
       <SearchDropdown
         placeholder="Search Currencies"
         loading={this.props.coins.fetching_coins}
         options={formatCoinOptions(coins.by_symbol, exclude)}
+        multiple={multiple}
         {...this.props}
       />
     )

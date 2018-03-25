@@ -12,8 +12,10 @@ export const theme = {
     grey: "#aaa",
     gray_dark: "rgba(0,0,0,0.6)",
     grey_dark: "rgba(0,0,0,0.6)",
+    gray_table: "#f9fafb",
     red: "#dd4444",
     blue: "#335577",
+    purple: "#909",
     white: "#fff"
   },
   dash_nav_height: "4em",
@@ -47,7 +49,8 @@ export const project_info = {
       name: "Bitcoin Cash",
       address: "14ztfbFRhitxDKi3Z5vjHoMgDhZV27ZKZK"
     }
-  }
+  },
+  description_brief: "Track your crypto portfolio like a pro."
 }
 
 export const links = {
