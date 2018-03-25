@@ -42,7 +42,7 @@ export default ({ navigateTo }) => (
         as="a"
         header
         onClick={e => navigateTo("/")}
-        onMouseOver={e => (e.target.children[0].id = "logo-pulse")}
+        onMouseEnter={e => (e.target.children[0].id = "logo-pulse")}
         onMouseLeave={e => (e.target.children[0].id = "")}
       >
         <Logo size={20} />
