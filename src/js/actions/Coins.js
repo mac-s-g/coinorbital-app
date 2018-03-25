@@ -9,6 +9,10 @@ export const REQUEST_TIME_SERIES = "REQUEST_TIME_SERIES"
 export const RECEIVE_TIME_SERIES = "RECEIVE_TIME_SERIES"
 export const RECEIVE_TIME_SERIES_ERROR = "RECEIVE_TIME_SERIES_ERROR"
 
+const SYMBOL_MAP = {
+  MIOTA: "IOT"
+}
+
 const requestCoins = () => ({
   type: REQUEST_COINS
 })
@@ -67,7 +71,8 @@ export const fetchTimeSeries = (filters, query_key) => {
         createSearchQuery(
           `https://min-api.cryptocompare.com/data/histo${type}`,
           {
-            fsym: symbol,
+            //there are inconsistencies between cryptocompare and coinmarketcap api
+            fsym: !!SYMBOL_MAP[symbol] ? SYMBOL_MAP[symbol] : symbol,
             tsym: reference,
             aggregate,
             limit,

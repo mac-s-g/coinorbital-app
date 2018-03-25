@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Button, Header, Icon, Loader, List } from "semantic-ui-react"
+import { Button, Header, Icon, Loader, List, Message } from "semantic-ui-react"
 import Styled from "styled-components"
 import moment from "moment"
 import { ReferenceDot, ReferenceLine, Label } from "recharts"
@@ -150,6 +150,8 @@ export default class extends Component {
     )
   }
 
+  fetchSuccess = series => this.isLoaded() && !!series && !!series.length
+
   formatForChart = data =>
     data.map(datum => ({
       ...datum,
@@ -218,6 +220,7 @@ export default class extends Component {
       tsFilterKey,
       isLoaded,
       formatForChart,
+      fetchSuccess,
       prepareTxReferences,
       chartTypes,
       init,
@@ -240,9 +243,10 @@ export default class extends Component {
     } = props
     const { time_series, by_symbol } = coins
     const { expanded, chartType } = state
-    const { price_usd } = by_symbol[symbol]
+    const coin = by_symbol[symbol]
 
-    let series, tx_dots
+    let series = [],
+      tx_dots
     try {
       series = formatForChart(time_series[tsFilterKey].result)
       tx_dots = prepareTxReferences(series, transactions)
@@ -250,7 +254,7 @@ export default class extends Component {
 
     return (
       <LineChartComponent height={height} width={width} responsive={responsive}>
-        {timeControl ? (
+        {fetchSuccess(series) && timeControl ? (
           <Button.Group as={ChartControls} size="mini" compact>
             {Object.keys(chartTypes).map(type => (
               <Button
@@ -265,9 +269,7 @@ export default class extends Component {
             ))}
           </Button.Group>
         ) : null}
-        {!isLoaded() ? (
-          <Loader active inline="centered" />
-        ) : (
+        {fetchSuccess(series) ? (
           <Line
             height={height}
             width={width}
@@ -347,7 +349,7 @@ export default class extends Component {
           >
             {/*reference line at current price*/}
             <ReferenceLine
-              y={price_usd}
+              y={coin.price_usd}
               stroke={theme.colors.gray}
               strokeDasharray="3 3"
             >
@@ -360,6 +362,17 @@ export default class extends Component {
             {/*fill with transaction dots*/}
             {tx_dots}
           </Line>
+        ) : !isLoaded() ? (
+          <Loader active inline="centered" />
+        ) : (
+          <Message
+            style={{ marginTop: "2em" }}
+            icon="ban"
+            header="Fetch Error"
+            content={`An error occurred while loading historical ${
+              coin.name
+            } prices.`}
+          />
         )}
       </LineChartComponent>
     )

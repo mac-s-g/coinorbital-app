@@ -57,7 +57,7 @@ export default class extends Component {
     const coin = coins.by_symbol[modals.coin_chart]
 
     return coin ? (
-      <Modal basic open size="large" onClose={closeModal}>
+      <Modal basic open size="large" onClose={closeModal} closeIcon>
         <Modal.Header>
           <CoinSymbol>
             <CoinLogo symbol={coin.symbol} />
