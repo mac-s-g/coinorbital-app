@@ -4,6 +4,10 @@ import LogoSvg from "./../../../images/logo.svg"
 
 import { theme } from "./../../constants"
 
-export default ({ size }) => (
-  <img src={LogoSvg} style={{ width: `${size}px`, height: `${size}px` }} />
+export default ({ size, ...props }) => (
+  <img
+    {...props}
+    src={LogoSvg}
+    style={{ width: `${size}px`, height: `${size}px` }}
+  />
 )

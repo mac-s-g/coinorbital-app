@@ -38,7 +38,13 @@ const NavbarName = Styled.span`
 export default ({ navigateTo }) => (
   <Segment as={HeaderContainer} inverted>
     <Menu inverted secondary>
-      <Menu.Item as="a" header onClick={e => navigateTo("/")}>
+      <Menu.Item
+        as="a"
+        header
+        onClick={e => navigateTo("/")}
+        onMouseOver={e => (e.target.children[0].id = "logo-pulse")}
+        onMouseLeave={e => (e.target.children[0].id = "")}
+      >
         <Logo size={20} />
         <NavbarName>{project_info.name}</NavbarName>
       </Menu.Item>

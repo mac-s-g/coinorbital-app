@@ -22,21 +22,37 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
     <![endif]-->
     <style>
+      @keyframes logo-pulse {
+        20% {transform: scale(1);}
+        26% {transform: scale(1.2);}
+        32% {transform: scale(1);}
+        38% {transform: scale(1.2);}
+        44% {transform: scale(1);}
+      }
+      @-webkit-keyframes logo-pulse {
+        20% {-webkit-transform: scale(1);}
+        26% {-webkit-transform: scale(1.2);}
+        32% {-webkit-transform: scale(1);}
+        38% {-webkit-transform: scale(1.2);}
+        44% {-webkit-transform: scale(1);}
+      }
       #initial-page-load {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #335577;
+        background-color: rgba(51,85,119, 0.9);
       }
       #load-msg-container {
         margin-top: 6em;
         text-align: center;
       }
-      #initial-load-logo {
+      #logo-pulse {
         height: 100px;
         width: 100px;
+        animation: logo-pulse 2.4s infinite linear;
+        -webkit-animation: logo-pulse 2.4s infinite linear;
       }
       #initial-page-load-msg {
         margin-top: 0.67em;
@@ -50,7 +66,7 @@
   <div id="app-container">
     <div id="initial-page-load">
       <div id="load-msg-container">
-        <img src="./logo.svg" id="initial-load-logo" />
+        <img src="./logo.svg" id="logo-pulse" />
         <div id="initial-page-load-msg">
           <noscript>This page requires javascript to run.</noscript>
         </div>
