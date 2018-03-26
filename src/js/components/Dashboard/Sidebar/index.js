@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
-import { Divider, Grid } from "semantic-ui-react"
+import { Button, Divider, Grid } from "semantic-ui-react"
 import { rgba } from "polished"
 
 import SidebarItem from "./SidebarItem"
@@ -24,6 +24,13 @@ const Sidebar = Styled.div`
   width: 100%;
   display: inline-block;
   border-right: 1px solid ${rgba(theme.colors.inverted, 0.2)};
+
+  @media (max-width: 768px) {
+    ${({ mobileExpanded }) =>
+      mobileExpanded
+        ? "display: inline-block; margin-top: -0.33em;"
+        : "display: none !important;"}
+  }
 `
 const ContentContainer = Styled.div`
   width: 100%;
@@ -34,6 +41,16 @@ const ContentContainer = Styled.div`
     /* +1 px for border bottom */
     100vh - ${theme.dash_nav_height} - ${theme.dash_footer_height} - 1px
   ) !important;
+`
+
+const MenuToggle = Styled.div`
+  text-align: right;
+  padding: 0.33em 0;
+  border-right: 1px solid ${rgba(theme.colors.inverted, 0.2)};
+
+  @media (min-width: 768px) {
+    display: none !important;
+  }
 `
 
 const grid_width = {
@@ -52,6 +69,8 @@ const grid_width = {
 }
 
 export default class extends Component {
+  state = { mobile_expanded: false }
+
   componentWillMount() {
     this.props.fetchWallets()
   }
@@ -66,31 +85,43 @@ export default class extends Component {
       wallets,
       children,
       navigateTo,
-      requestCreateWallet
+      requestCreateWallet,
+      requestCreateTransaction
     } = this.props
+    const { mobile_expanded } = this.state
 
     return (
       <SidebarContainer>
         <Grid as={SidebarGrid}>
           <Grid.Column {...grid_width.sidebar} as={SidebarGridColumn}>
-            <Sidebar>
+            <MenuToggle>
+              <Button
+                icon="content"
+                onClick={e =>
+                  this.setState({ mobile_expanded: !mobile_expanded })
+                }
+              />
+            </MenuToggle>
+            <Sidebar mobileExpanded={mobile_expanded}>
               <SidebarItem
                 selected={this.isSelected(router, "/dashboard")}
-                onClick={e =>
+                onClick={e => {
                   !this.isSelected(router, "/dashboard")
                     ? navigateTo("/dashboard")
                     : null
-                }
+                  this.setState({ mobile_expanded: false })
+                }}
                 label="Overview"
                 icon="line chart"
               />
               <SidebarItem
                 selected={this.isSelected(router, "/dashboard/watch-list")}
-                onClick={e =>
+                onClick={e => {
                   !this.isSelected(router, "/dashboard/watch-list")
                     ? navigateTo("/dashboard/watch-list")
                     : null
-                }
+                  this.setState({ mobile_expanded: false })
+                }}
                 label="Coin Watch List"
                 icon="star"
               />
@@ -102,7 +133,7 @@ export default class extends Component {
                     router,
                     `/dashboard/wallet?name=${encodeURIComponent(name)}`
                   )}
-                  onClick={e =>
+                  onClick={e => {
                     !this.isSelected(
                       router,
                       `/dashboard/wallet?name=${encodeURIComponent(name)}`
@@ -111,9 +142,11 @@ export default class extends Component {
                           `/dashboard/wallet?name=${encodeURIComponent(name)}`
                         )
                       : null
-                  }
+                    this.setState({ mobile_expanded: false })
+                  }}
                   label={name}
-                  coinLogo={wallets.by_name[name].symbol}
+                  wallet={wallets.by_name[name]}
+                  requestCreateTransaction={requestCreateTransaction}
                 />
               ))}
               <SidebarItem

@@ -5,6 +5,8 @@ import { rgba } from "polished"
 
 import CoinLogo from "./../../CoinLogo/"
 
+import Pulse from "./../../Animations/Pulse"
+
 import round from "./../../../helpers/round"
 import formatNumber from "./../../../helpers/formatNumberForDisplay"
 import { theme } from "./../../../constants"
@@ -21,6 +23,10 @@ const ItemContainer = Styled.div`
   }
   & * {
     cursor: ${({ moveCursor }) => (moveCursor ? "move !important" : "grab")};
+  }
+
+  & img {
+    animation: ${Pulse} 300ms ease-out;
   }
 `
 
@@ -117,6 +123,7 @@ const Dot = Styled.div`
   height: 6px;
   border-radius: 6px;
   background-color: ${theme.colors.well_gray};
+  border: 1px solid ${theme.colors.gray};
 `
 
 export default class extends Component {

@@ -27,11 +27,34 @@ const ChartComponent = Styled.div`
   height: 240px;
 `
 
+const Arrows = Styled.div`
+  height: 50px;
+  margin-top: 16px;
+`
+const Arrow = Styled.i`
+  cursor: pointer;
+  display: ${({ hide }) => (hide ? "none !important" : "block")};
+  float: ${({ pull }) => pull};
+`
+
 export default class extends Component {
   componentWillMount() {
     const { fetchCoins, coins } = this.props
     if (!coins.fetching_coins && !coins.list.length) {
       fetchCoins()
+    }
+
+    window.addEventListener("keydown", this.handleKeyPress)
+  }
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.handleKeyPress)
+  }
+  handleKeyPress = e => {
+    switch (e.key) {
+      case "ArrowLeft":
+        return this.cycleLeft()
+      case "ArrowRight":
+        return this.cycleRight()
     }
   }
   calculateStatColor = val => {
@@ -52,9 +75,29 @@ export default class extends Component {
       return "ban"
     }
   }
+  cycleLeft = () => {
+    console.log("left")
+    const { symbol } = this.props.coins.by_symbol[this.props.modals.coin_chart]
+    const { ranked } = this.props.watchList
+    if (ranked[ranked.indexOf(symbol) - 1]) {
+      this.props.closeModal()
+      this.props.requestCoinChart(ranked[ranked.indexOf(symbol) - 1])
+    }
+  }
+  cycleRight = () => {
+    console.log("right")
+    const { symbol } = this.props.coins.by_symbol[this.props.modals.coin_chart]
+    const { ranked } = this.props.watchList
+    if (ranked[ranked.indexOf(symbol) + 1]) {
+      this.props.closeModal()
+      this.props.requestCoinChart(ranked[ranked.indexOf(symbol) + 1])
+    }
+  }
+
   render() {
-    const { closeModal, coins, modals, fetchTimeSeries } = this.props
+    const { closeModal, coins, modals, watchList, fetchTimeSeries } = this.props
     const coin = coins.by_symbol[modals.coin_chart]
+    const { ranked } = watchList
 
     return coin ? (
       <Modal basic open size="large" onClose={closeModal} closeIcon>
@@ -136,6 +179,25 @@ export default class extends Component {
               color={theme.colors.gold}
             />
           </ChartComponent>
+          <Arrows>
+            <input hidden onKeyPress={e => console.log("HEY")} />
+            <Icon
+              as={Arrow}
+              name="chevron left"
+              size="large"
+              pull="left"
+              hide={ranked.indexOf(coin.symbol) === 0}
+              onClick={this.cycleLeft}
+            />
+            <Icon
+              as={Arrow}
+              name="chevron right"
+              size="large"
+              pull="right"
+              hide={ranked.indexOf(coin.symbol) === ranked.length - 1}
+              onClick={this.cycleRight}
+            />
+          </Arrows>
         </Modal.Content>
       </Modal>
     ) : (

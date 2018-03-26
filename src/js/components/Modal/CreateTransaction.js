@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
-import { Header, Input, Modal, Statistic } from "semantic-ui-react"
+import { Header, Input, Loader, Modal, Statistic } from "semantic-ui-react"
 
 import Submit from "./../Buttons/Submit"
 import Cancel from "./../Buttons/Cancel"
@@ -28,12 +28,20 @@ const RECEIVED = "received"
 export default class extends Component {
   constructor(props) {
     super(props)
-    const { coin } = this.props.modals.create_transaction
+    const wallet = this.props.modals.create_transaction
     this.state = {
       time_transacted: new Date(),
       type: RECEIVED,
       quantity: "",
-      cost_per_coin_usd: coin.price_usd
+      cost_per_coin_usd: !!props.coins
+        ? props.coins.by_symbol[wallet.symbol].price_usd
+        : 0
+    }
+  }
+  componentWillMount() {
+    const { coins } = this.props
+    if (!coins.fetching_coins && !coins.fetched) {
+      fetchCoins()
     }
   }
 
@@ -67,14 +75,22 @@ export default class extends Component {
   parseFloatInput = value => parseFloat(value.toString().trim())
 
   render() {
-    const { closeModal, editWallet, modals, navigateTo } = this.props
+    const { closeModal, editWallet, modals, coins, navigateTo } = this.props
     const wallet = modals.create_transaction
-    const { coin } = modals.create_transaction
     const { time_transacted, quantity, cost_per_coin_usd, type } = this.state
     const validQuantity = this.isValidQuantity(quantity)
     const validCost = this.isValidCost(cost_per_coin_usd)
+    let coin
 
-    return (
+    try {
+      coin = coins.by_symbol[wallet.symbol]
+    } catch (e) {}
+
+    return !coin ? (
+      <Modal open size="tiny" onClose={closeModal} closeOnEscape={false}>
+        <Loader active />
+      </Modal>
+    ) : (
       <Modal open size="tiny" onClose={closeModal} closeOnEscape={false}>
         <Modal.Header>Record a Transaction</Modal.Header>
         <Modal.Content>
