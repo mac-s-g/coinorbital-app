@@ -5,15 +5,13 @@ import { rgba } from "polished"
 
 import CoinLogo from "./../../CoinLogo/"
 
-import Pulse from "./../../Animations/Pulse"
-
 import { theme } from "./../../../constants"
 
 const SidebarButton = Styled.div`
   font-weight: ${({ actionItem }) => (actionItem ? 300 : 600)};
   color: ${({ actionItem }) => (actionItem ? theme.colors.blue : "#444")};
   position: relative;
-  padding: 12px 12px 12px 36px;
+  padding: 12px 26px 12px 36px;
   cursor: pointer;
   transition: all 0s ease;
   font-size: 16px;
@@ -41,28 +39,27 @@ const SidebarButton = Styled.div`
       color: white;
     }
 
-    & i.icon, i.image {
+    & i.logo-icon {
       opacity: 1 !important;
     }
-    & i.image, i.icon {
-      opacity: 1 !important;
-      animation: ${Pulse} 300ms ease-out;
+    & i.add-tx-icon {
+      opacity: 0.5 !important;
     }
   }
 `
 
 const ItemLabel = Styled.div`
-  display: flex;
+  display: inline;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 2px 6px 2px 0;
+  padding: 2px 2px 2px 0;
 `
 
 const SidebarCaret = Styled.i`
   position: absolute;
   left: 10px;
-  top: 14px;
+  top: 12px;
   width: 0 !important;
   opacity: ${({ selected }) => (selected ? 1 : 0)} !important;
   color: ${theme.colors.blue};
@@ -77,17 +74,43 @@ const SidebarLogo = Styled.i`
   opacity: ${({ selected }) => (selected ? 1 : 0)};
 `
 
-export default ({ icon, coinLogo, selected, label, subLabel, ...props }) => (
+const AddTransactionIcon = Styled.i`
+  position: absolute;
+  right: 0px;
+  top: 13px;
+  opacity: 0 !important;
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+`
+
+export default ({ icon, wallet, selected, label, ...props }) => (
   <SidebarButton {...props} selected={selected}>
-    {!!coinLogo ? (
-      <CoinLogo as={SidebarLogo} selected={selected} symbol={coinLogo} />
+    {!!wallet ? (
+      <CoinLogo
+        class="logo-icon"
+        as={SidebarLogo}
+        selected={selected}
+        symbol={wallet.symbol}
+      />
     ) : (
       <Icon
         as={SidebarCaret}
+        class="logo-icon"
         selected={selected}
         name={!!icon ? icon : "angle right"}
       />
     )}
     <ItemLabel>{label}</ItemLabel>
+    {/*create transaction modal has a dependency on coins*/}
+    {!!wallet ? (
+      <Icon
+        class="add-tx-icon"
+        as={AddTransactionIcon}
+        selected={selected}
+        name="circle plus"
+        onClick={e => props.requestCreateTransaction(wallet)}
+      />
+    ) : null}
   </SidebarButton>
 )

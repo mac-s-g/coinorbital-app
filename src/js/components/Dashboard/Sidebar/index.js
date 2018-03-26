@@ -85,7 +85,8 @@ export default class extends Component {
       wallets,
       children,
       navigateTo,
-      requestCreateWallet
+      requestCreateWallet,
+      requestCreateTransaction
     } = this.props
     const { mobile_expanded } = this.state
 
@@ -144,7 +145,8 @@ export default class extends Component {
                     this.setState({ mobile_expanded: false })
                   }}
                   label={name}
-                  coinLogo={wallets.by_name[name].symbol}
+                  wallet={wallets.by_name[name]}
+                  requestCreateTransaction={requestCreateTransaction}
                 />
               ))}
               <SidebarItem
