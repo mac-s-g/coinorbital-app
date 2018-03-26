@@ -120,6 +120,7 @@ export default class extends Component {
       symbol: wallets[name].symbol,
       style: { cursor: "pointer" },
       onMouseEnter: () => this.hoverSelect(name),
+      onMouseLeave: () => this.hoverSelect(null),
       onClick: () => this.walletLink(name)
     }))
   }
@@ -246,7 +247,8 @@ export default class extends Component {
                 top: "20px",
                 cursor: "pointer"
               },
-              onMouseOver: ({ value }) => this.hoverSelect(value),
+              onMouseEnter: ({ value }) => this.hoverSelect(value),
+              onMouseLeave: () => this.hoverSelect(null),
               onClick: ({ value }) => this.walletLink(value)
             }}
             label={({
@@ -339,7 +341,8 @@ export default class extends Component {
                 <Table.Row
                   key={wallet.name}
                   active={!!selected && selected == wallet.name}
-                  onMouseOver={e => this.setState({ selected: wallet.name })}
+                  onMouseEnter={() => this.hoverSelect(wallet.name)}
+                  onMouseLeave={() => this.hoverSelect(null)}
                 >
                   <Table.Cell>
                     <WalletNameLink onClick={e => this.walletLink(wallet.name)}>

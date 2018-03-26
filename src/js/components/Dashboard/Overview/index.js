@@ -52,7 +52,7 @@ export default class extends Component {
                 <HeaderStatistics
                   totalValue={this.totalValue(wallets, coins)}
                 />
-                {Object.keys(non_zero_wallets).length > 1 ? (
+                {Object.keys(non_zero_wallets).length >= 1 ? (
                   <WalletsPie
                     wallets={non_zero_wallets}
                     coins={coins}
