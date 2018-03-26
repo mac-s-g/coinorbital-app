@@ -76,7 +76,6 @@ export default class extends Component {
     }
   }
   cycleLeft = () => {
-    console.log("left")
     const { symbol } = this.props.coins.by_symbol[this.props.modals.coin_chart]
     const { ranked } = this.props.watchList
     if (ranked[ranked.indexOf(symbol) - 1]) {
@@ -85,7 +84,6 @@ export default class extends Component {
     }
   }
   cycleRight = () => {
-    console.log("right")
     const { symbol } = this.props.coins.by_symbol[this.props.modals.coin_chart]
     const { ranked } = this.props.watchList
     if (ranked[ranked.indexOf(symbol) + 1]) {
