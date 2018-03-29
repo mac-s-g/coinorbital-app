@@ -43,7 +43,7 @@ export default class extends Component {
       >
         {watchList.ranked.length ? this.getSortableList() : null}
         <Button onClick={requestAddToWatchList}>
-          Add a Coin to your Watch List
+          Add Coins to your Watch List
         </Button>
       </ContentComponent>
     )
