@@ -47,6 +47,7 @@ const MenuToggle = Styled.div`
   text-align: right;
   padding: 0.33em 0;
   border-right: 1px solid ${rgba(theme.colors.inverted, 0.2)};
+  border-bottom: 1px solid ${rgba(theme.colors.well_gray, 0.2)};
 
   @media (min-width: 768px) {
     display: none !important;
@@ -92,16 +93,14 @@ export default class extends Component {
 
     return (
       <SidebarContainer>
+        <MenuToggle>
+          <Button
+            icon="content"
+            onClick={e => this.setState({ mobile_expanded: !mobile_expanded })}
+          />
+        </MenuToggle>
         <Grid as={SidebarGrid}>
           <Grid.Column {...grid_width.sidebar} as={SidebarGridColumn}>
-            <MenuToggle>
-              <Button
-                icon="content"
-                onClick={e =>
-                  this.setState({ mobile_expanded: !mobile_expanded })
-                }
-              />
-            </MenuToggle>
             <Sidebar mobileExpanded={mobile_expanded}>
               <SidebarItem
                 selected={this.isSelected(router, "/dashboard")}
@@ -151,7 +150,10 @@ export default class extends Component {
               ))}
               <SidebarItem
                 style={{ marginBottom: "0.33em" }}
-                onClick={requestCreateWallet}
+                onClick={e => {
+                  requestCreateWallet()
+                  this.setState({ mobile_expanded: false })
+                }}
                 label="Track a Wallet"
                 actionItem
                 icon="plus circle"

@@ -34,6 +34,7 @@ export default class extends Component {
             displayXAxis={false}
             displayYAxis={false}
             loader={false}
+            currentPriceLine={false}
           />
         ) : null}
       </WalletLineChart>

@@ -71,7 +71,8 @@ export default class extends Component {
     responsive: false,
     loader: true,
     color: theme.colors.blue,
-    orientationY: "right"
+    orientationY: "right",
+    currentPriceLine: true
   }
 
   static propTypes = {
@@ -82,7 +83,8 @@ export default class extends Component {
     symbol: PropTypes.string.isRequired,
     fetchTimeSeries: PropTypes.func.isRequired,
     color: PropTypes.string,
-    orientationY: PropTypes.string
+    orientationY: PropTypes.string,
+    currentPriceLine: PropTypes.bool
   }
 
   state = {
@@ -241,7 +243,8 @@ export default class extends Component {
       timeControl = true,
       displayYAxis = true,
       displayXAxis = true,
-      loader = true
+      loader = true,
+      currentPriceLine = true
     } = props
     const { time_series, by_symbol } = coins
     const { expanded, chartType } = state
@@ -350,17 +353,19 @@ export default class extends Component {
             )}
           >
             {/*reference line at current price*/}
-            <ReferenceLine
-              y={coin.price_usd}
-              stroke={theme.colors.gray}
-              strokeDasharray="3 3"
-            >
-              <Label
-                value="current price"
-                position="insideTopLeft"
-                fill={theme.colors.gray}
-              />
-            </ReferenceLine>
+            {currentPriceLine ? (
+              <ReferenceLine
+                y={coin.price_usd}
+                stroke={theme.colors.gray}
+                strokeDasharray="3 3"
+              >
+                <Label
+                  value="current price"
+                  position="insideTopLeft"
+                  fill={theme.colors.gray}
+                />
+              </ReferenceLine>
+            ) : null}
             {/*fill with transaction dots*/}
             {tx_dots}
           </Line>
