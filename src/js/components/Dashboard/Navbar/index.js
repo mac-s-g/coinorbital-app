@@ -2,18 +2,22 @@ import React from "react"
 import Styled from "styled-components"
 import { Icon, Menu, Segment } from "semantic-ui-react"
 
-import Logo from "./../Logo/"
+import Login from "./Login"
+import Logout from "./Logout"
+import Logo from "./../../Logo/"
+import HeartBeat from "./../../Animations/HeartBeat"
+import LogoName from "./../../Logo/Name"
 
-import { project_info, theme } from "./../../constants"
+import { theme } from "./../../../constants"
 
 const HeaderContainer = Styled.div`
-  background-color: ${theme.colors.inverted} !important;
+  background-color: ${theme.colors.blue} !important;
   padding: 0 !important;
   border-radius: 0px !important;
   height: ${theme.dash_nav_height};
   margin: 0px !important;
 
-  & .menu {
+  & > .menu {
     height: ${theme.dash_nav_height};
   }
 
@@ -25,37 +29,29 @@ const HeaderContainer = Styled.div`
     font-size: 18px;
     font-weight: 300 !important;
   }
-
-  & .icon {
-    margin-right: 1em !important;
-  }
 `
 
 const NavbarName = Styled.span`
   margin-left: 6px;
 `
 
-export default ({ navigateTo }) => (
+const ImgBeat = Styled.a`
+  &:hover img {
+    animation: ${HeartBeat} 2.4s infinite linear;
+  }
+`
+
+export default ({ auth, navigateTo }) => (
   <Segment as={HeaderContainer} inverted>
     <Menu inverted secondary>
-      <Menu.Item
-        as="a"
-        header
-        onClick={e => navigateTo("/")}
-        onMouseEnter={e => {
-          try {
-            e.target.children[0].id = "logo-pulse"
-          } catch (e) {}
-        }}
-        onMouseLeave={e => {
-          try {
-            e.target.children[0].id = ""
-          } catch (e) {}
-        }}
-      >
+      <Menu.Item as={ImgBeat} header onClick={e => navigateTo("/")}>
         <Logo size={20} />
-        <NavbarName>{project_info.name}</NavbarName>
+        <NavbarName>
+          <LogoName inverted />
+        </NavbarName>
       </Menu.Item>
+      {!auth.isAuthenticated() && <Login login={auth.login} />}
+      {auth.isAuthenticated() && <Logout auth={auth} />}
     </Menu>
   </Segment>
 )

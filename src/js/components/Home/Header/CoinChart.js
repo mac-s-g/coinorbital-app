@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import Styled from "styled-components"
 
-import CoinLineChart from "./../Charts/CoinLineChart"
+import CoinLineChart from "./../../Charts/CoinLineChart"
 
 //value refresh
 const FETCH_COIN_INTERVAL = 5000

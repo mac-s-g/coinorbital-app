@@ -2,6 +2,8 @@ import React from "react"
 import Styled from "styled-components"
 import { Button, Header, Modal } from "semantic-ui-react"
 
+import LogoName from "./../Logo/Name"
+
 import { project_info, links } from "./../../constants"
 
 const DonateLink = Styled.a`
@@ -14,7 +16,7 @@ export default ({ close, donate }) => (
     <Modal.Content>
       <Modal.Description as="p">
         I value positive and negative feedback from users. Please send me an
-        email if you have ideas about how {project_info.name} can improve.
+        email if you have ideas about how <LogoName /> can improve.
       </Modal.Description>
       <Modal.Description as="p">
         If you have ideas about how to generate revenue or you're interested in

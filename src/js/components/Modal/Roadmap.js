@@ -2,7 +2,7 @@ import React from "react"
 import Styled from "styled-components"
 import { Button, Header, List, Modal } from "semantic-ui-react"
 
-import { project_info } from "./../../constants"
+import LogoName from "./../Logo/Name"
 
 const ListContainer = Styled.div`
   margin: 26px 0 10px 0;
@@ -17,7 +17,7 @@ export default ({ close, contactMe }) => (
     <Modal.Header>Product Roadmap</Modal.Header>
     <Modal.Content>
       <Modal.Description as="p">
-        If you want to participate in building the {project_info.name} roadmap,{" "}
+        If you want to participate in building the <LogoName /> roadmap,{" "}
         <Link
           onClick={e => {
             close()

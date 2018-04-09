@@ -2,14 +2,15 @@ import React, { Component } from "react"
 import Styled from "styled-components"
 import { Button, Container, Divider, Segment } from "semantic-ui-react"
 
-import Header from "./Header"
+import Header from "./Header/"
 import Footer from "./Footer"
 
 import ContactMe from "./../Modal/ContactMe"
 import Donate from "./../Modal/Donate"
 import Roadmap from "./../Modal/Roadmap"
+import LogoName from "./../Logo/Name"
 
-import { project_info, theme } from "./../../constants"
+import { theme } from "./../../constants"
 
 const SegmentContainer = Styled.div`
   padding: 8em 0em 10em 0em !important;
@@ -51,9 +52,9 @@ export default ({ modals, closeModal, ...props }) => (
           investments over time.
         </SegmentContent>
         <SegmentContent>
-          {project_info.name} lets you visualize your value in a volatile
-          market. Compare your transactions with real-time and historical market
-          prices to see what's working and what's not.
+          <LogoName /> lets you visualize your value in a volatile market.
+          Compare your transactions with real-time and historical market prices
+          to see what's working and what's not.
         </SegmentContent>
         <Button
           as={IndexButton}
@@ -63,11 +64,13 @@ export default ({ modals, closeModal, ...props }) => (
           Try the Dashboard
         </Button>
         <Divider as={SegmentDivider} />
-        <SegmentHeader>{project_info.name} is Free!</SegmentHeader>
+        <SegmentHeader>
+          <LogoName /> is Free!
+        </SegmentHeader>
         <SegmentContent>No Ads. No Fees. Just Free.</SegmentContent>
         <SegmentContent>
           I'm looking for user feedback! If feedback is positive, more features
-          will be available in the future. {project_info.name} does not generate
+          will be available in the future. <LogoName /> does not generate
           revenue outside of donations. If you like the project, consider
           supporting development with a donation.
         </SegmentContent>
@@ -80,9 +83,8 @@ export default ({ modals, closeModal, ...props }) => (
         <Divider as={SegmentDivider} />
         <SegmentHeader>Protect Your Privacy</SegmentHeader>
         <SegmentContent>
-          The only one with your information should be you. {project_info.name}{" "}
-          stores everything locally. None of your data is stored or processed
-          remotely.
+          The only one with your information should be you. <LogoName /> stores
+          everything locally. None of your data is stored or processed remotely.
         </SegmentContent>
         <SegmentContent>
           <Warning>Warning:</Warning> Transaction logs are currently stored in

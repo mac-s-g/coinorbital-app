@@ -3,12 +3,20 @@ import { Route, Switch } from "react-router"
 import { Provider, connect } from "react-redux"
 import { ConnectedRouter, push } from "react-router-redux"
 import history from "./../store/history"
+import auth from "./../auth/Auth"
 
 import Home from "./../components/Home"
 import Dashboard from "./../components/Dashboard"
-import FourOhFour from "./../components/Dashboard/FourOhFour"
+import Loading from "./../components/Loading"
 
+//global semantic - todo: only use what's needed
 import "semantic-ui-css/semantic.min.css"
+
+const handleAuthentication = ({ location }) => {
+  if (/access_token|id_token|error/.test(location.hash)) {
+    auth.handleAuthentication()
+  }
+}
 
 import {
   //coins
@@ -85,14 +93,25 @@ const index = props => (
         <Route
           exact
           path="/"
-          render={routeProps => <Home {...props} {...routeProps} />}
+          render={routeProps => <Home auth={auth} {...props} {...routeProps} />}
         />
         <Route
           path="/dashboard"
-          render={routeProps => <Dashboard {...props} {...routeProps} />}
+          render={routeProps => (
+            <Dashboard auth={auth} {...props} {...routeProps} />
+          )}
         />
         <Route
-          render={routeProps => <Dashboard {...props} {...routeProps} />}
+          path="/callback"
+          render={routeProps => {
+            handleAuthentication(routeProps)
+            return <Loading auth={auth} {...props} {...routeProps} />
+          }}
+        />
+        <Route
+          render={routeProps => (
+            <Dashboard auth={auth} {...props} {...routeProps} />
+          )}
         />
       </Switch>
     </ConnectedRouter>

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Route, Switch } from "react-router"
 
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/"
 import Sidebar from "./Sidebar/"
 import Footer from "./Footer"
 //views

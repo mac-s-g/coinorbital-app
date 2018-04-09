@@ -33,6 +33,7 @@ export default class extends Component {
       coins
     } = this.props
     const { ranked, order } = this.state
+
     return (
       <List
         rowHeight={64}

@@ -2,6 +2,8 @@ import React from "react"
 import Styled from "styled-components"
 import { Container, Grid, Header, List, Segment } from "semantic-ui-react"
 
+import LogoName from "./../Logo/Name"
+
 import { project_info, theme } from "./../../constants"
 
 const grid_width = {
@@ -51,7 +53,7 @@ export default ({ requestContactMe, requestDonate, requestRoadmap }) => (
           </Grid.Column>
           <Grid.Column {...grid_width.call_to_action}>
             <Header as="h4" inverted>
-              {project_info.name}
+              <LogoName inverted />
             </Header>
             <p>{project_info.description_brief}</p>
           </Grid.Column>

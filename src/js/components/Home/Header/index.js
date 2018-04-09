@@ -3,10 +3,14 @@ import Styled from "styled-components"
 import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
 import { rgba } from "polished"
 
+import Login from "./Login"
+import Logout from "./Logout"
 import CoinChart from "./CoinChart"
-import Logo from "./../Logo/"
+import Logo from "./../../Logo/"
+import HeartBeat from "./../../Animations/HeartBeat"
+import LogoName from "./../../Logo/Name"
 
-import { project_info, theme, links } from "./../../constants"
+import { theme, links } from "./../../../constants"
 
 const HEADER_OPACITY = 0.9
 
@@ -22,10 +26,9 @@ const ChartContainer = Styled.div`
   right: 0px;
   top: 0px;
   height: calc(100vh - 4em);
-
 `
 const HeaderContent = Styled.div`
-  padding: 30vh 0em 18em 0em;
+  padding-top: calc(30vh - 4em);
 `
 const HeaderLabel = Styled.div`
   font-size: 36px;
@@ -57,7 +60,13 @@ const LearnMore = Styled.span`
   }
 `
 
-export default ({ navigateTo, ...props }) => (
+const ImgBeat = Styled.a`
+  &:hover img {
+    animation: ${HeartBeat} 2.4s infinite linear;
+  }
+`
+
+export default ({ navigateTo, auth, ...props }) => (
   <div>
     <ChartContainer>
       <CoinChart {...props} symbol="BTC" />
@@ -72,17 +81,19 @@ export default ({ navigateTo, ...props }) => (
           <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
             Dashboard
           </Menu.Item>
+          {!auth.isAuthenticated() && <Login login={auth.login} />}
+          {auth.isAuthenticated() && <Logout auth={auth} />}
         </Menu>
       </Container>
 
       <Container text>
         <HeaderContent>
-          <HeaderLabel>{project_info.name}</HeaderLabel>
-          <Logo
-            onMouseEnter={e => (e.target.id = "logo-pulse")}
-            onMouseLeave={e => (e.target.id = "")}
-            size={100}
-          />
+          <HeaderLabel>
+            <LogoName inverted />
+          </HeaderLabel>
+          <ImgBeat>
+            <Logo size={100} />
+          </ImgBeat>
         </HeaderContent>
       </Container>
 

@@ -1,0 +1,14 @@
+github
+
+aws-console
+  s3
+  api-gateway
+  route53
+  lambda
+  dynamodb
+  ses
+    custom policy for auth0
+
+auth0
+  custom hosted pages
+  custom emails

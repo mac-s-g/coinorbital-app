@@ -5,6 +5,8 @@ import { rgba } from "polished"
 
 import CoinLogo from "./../../CoinLogo/"
 
+import HeartBeat from "./../../Animations/HeartBeat"
+
 import { theme } from "./../../../constants"
 
 const SidebarButton = Styled.div`
@@ -41,6 +43,9 @@ const SidebarButton = Styled.div`
 
     & i.logo-icon {
       opacity: 1 !important;
+    }
+    & img {
+      animation: ${HeartBeat} 2.4s infinite linear;
     }
     & i.add-tx-icon {
       opacity: 0.5 !important;
