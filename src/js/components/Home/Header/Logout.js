@@ -19,6 +19,10 @@ const DropdownButton = Styled.div`
     & > .profile-name-val {
       font-size: 1.07142857rem;
     }
+
+    @media (max-width: 768px) {
+      display: none !important;
+    }
   }
 `
 
