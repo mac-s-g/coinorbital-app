@@ -1,9 +1,9 @@
 import React from "react"
-import { Container, Icon, Message, Segment } from "semantic-ui-react"
+import { Icon, Message, Segment } from "semantic-ui-react"
 
 import LogoName from "./../../Logo/Name"
 
-import { theme } from "./../../../constants"
+import { theme, project_info } from "./../../../constants"
 
 export default () => (
   <div>
@@ -19,10 +19,10 @@ export default () => (
       </div>
     </Message>
     <Segment attached>
-      <Container>
+      <div>
         <p>Looks like you're just getting started.</p>
         <p>Get the ball rolling by logging a couple of transactions.</p>
-      </Container>
+      </div>
     </Segment>
   </div>
 )

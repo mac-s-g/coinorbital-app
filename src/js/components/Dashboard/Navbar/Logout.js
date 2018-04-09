@@ -15,9 +15,12 @@ const DropdownButton = Styled.div`
       font-style: italic;
       margin-bottom: 2px;
     }
-
     & > .profile-name-val {
       font-size: 1.07142857rem;
+    }
+
+    @media (max-width: 768px) {
+      display: none !important;
     }
   }
 `
