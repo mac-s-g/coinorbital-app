@@ -10,7 +10,6 @@ export default keyframes`
 /*
 const Example = Styled.div`
     & i.icon, i.image {
-      opacity: 1 !important;
       animation: ${Pulse} 300ms ease-out;
     }
   }

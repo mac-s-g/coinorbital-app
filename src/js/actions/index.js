@@ -55,7 +55,7 @@ export {
   addToWatchList,
   removeFromWatchList,
   reorderWatchList
-} from "./WatchList"
+} from "./user/WatchList"
 
 export {
   //action constants
@@ -69,4 +69,4 @@ export {
   createWallet,
   deleteWallet,
   editWallet
-} from "./Wallets"
+} from "./user/Wallets"

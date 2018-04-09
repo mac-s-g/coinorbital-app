@@ -3,6 +3,7 @@ import Styled from "styled-components"
 import { Button, Table, Modal, Image } from "semantic-ui-react"
 
 import CoinLogo from "./../CoinLogo/"
+import LogoName from "./../Logo/Name"
 
 import { project_info } from "./../../constants"
 
@@ -19,8 +20,8 @@ export default ({ close }) => (
     <Modal.Header>Send a Donation</Modal.Header>
     <Modal.Content>
       <Modal.Description as="p">
-        {project_info.name} was written without funding and does not generate
-        revenue outside of donations.
+        <LogoName /> was written without funding and does not generate revenue
+        outside of donations.
       </Modal.Description>
       <Modal.Description as="p">
         If you'd like to see this product improve, please consider supporting

@@ -15,6 +15,7 @@ export const theme = {
     gray_table: "#f9fafb",
     red: "#dd4444",
     blue: "#335577",
+    black: "#222",
     purple: "#909",
     white: "#fff"
   },
@@ -22,12 +23,7 @@ export const theme = {
   dash_footer_height: "2.3em"
 }
 export const project_info = {
-  name: (
-    <span>
-      <strong style={{ color: theme.colors.gold }}>Coin</strong>
-      <i>Orbital</i>
-    </span>
-  ),
+  name: "CoinOrbital",
   author: {
     name: "Mac Gainor",
     email: "coinorbital@gmail.com"
@@ -55,4 +51,11 @@ export const project_info = {
 
 export const links = {
   author_avatar: "https://avatars3.githubusercontent.com/u/4097374?s=460&v=4"
+}
+
+export const authentication = {
+  domain: "coinorbital.auth0.com",
+  client_id: "2MT_mTDqLflzVfPJ54sOx5I86lFr23Ml",
+  callback_path: "/callback/",
+  redirect_path: "/dashboard/"
 }
