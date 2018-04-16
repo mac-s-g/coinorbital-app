@@ -1,7 +1,7 @@
 import { keyframes } from "styled-components"
 
 export default keyframes`
-  0% {transform: scale(1);}
+  0% {transform: scale(0.8);}
   20% {transform: scale(1.15);}
   100% {transform: scale(1);}
 `
