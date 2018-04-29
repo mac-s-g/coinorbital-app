@@ -3,13 +3,10 @@ import Styled from "styled-components"
 import { Button, Header, List, Modal } from "semantic-ui-react"
 
 import LogoName from "./../Logo/Name"
+import Link from "./../Link"
 
 const ListContainer = Styled.div`
   margin: 26px 0 10px 0;
-`
-
-const Link = Styled.a`
-  cursor: pointer;
 `
 
 export default ({ close, contactMe }) => (

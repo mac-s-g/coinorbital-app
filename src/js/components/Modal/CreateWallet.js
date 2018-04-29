@@ -88,10 +88,10 @@ export default class extends Component {
 
     return (
       <Modal open size="tiny" onClose={closeModal} closeOnEscape={false}>
-        <Modal.Header>Track a New Wallet</Modal.Header>
+        <Modal.Header>Track a New Investment</Modal.Header>
         <Modal.Content>
           <Modal.Description as="p">
-            A wallet lets you group transactions for a particular coin.
+            Monitor a group of transactions for a particular coin.
           </Modal.Description>
           <ModalInputContainer>
             <CoinDropdown
@@ -103,7 +103,7 @@ export default class extends Component {
             />
             <Input
               fluid
-              placeholder="Wallet Name (Optional)"
+              placeholder="Investment Name (Optional)"
               value={name}
               onChange={this.setName}
             />
@@ -170,7 +170,7 @@ export default class extends Component {
               }) &&
               closeModal() &&
               navigateTo(
-                `/dashboard/wallet?name=${encodeURIComponent(
+                `/dashboard/investment?name=${encodeURIComponent(
                   this.getWalletName()
                 )}`
               )

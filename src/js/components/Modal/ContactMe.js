@@ -1,14 +1,10 @@
 import React from "react"
-import Styled from "styled-components"
 import { Button, Header, Modal } from "semantic-ui-react"
 
 import LogoName from "./../Logo/Name"
+import Link from "./../Link"
 
 import { project_info, links } from "./../../constants"
-
-const DonateLink = Styled.a`
-  cursor: pointer;
-`
 
 export default ({ close, donate }) => (
   <Modal open size="tiny" onClose={close}>
@@ -30,14 +26,14 @@ export default ({ close, donate }) => (
       />
       <Modal.Description as="p">
         Additionally, consider supporting product development with a{" "}
-        <DonateLink
+        <Link
           onClick={e => {
             close()
             donate()
           }}
         >
           donation
-        </DonateLink>.
+        </Link>.
       </Modal.Description>
       <Modal.Description as="p">Thanks for your feedback!</Modal.Description>
     </Modal.Content>

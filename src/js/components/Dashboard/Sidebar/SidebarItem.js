@@ -89,7 +89,14 @@ const AddTransactionIcon = Styled.i`
   }
 `
 
-export default ({ icon, wallet, selected, label, ...props }) => (
+export default ({
+  icon,
+  wallet,
+  selected,
+  label,
+  requestCreateTransaction,
+  ...props
+}) => (
   <SidebarButton {...props} selected={selected}>
     {!!wallet ? (
       <CoinLogo
@@ -114,7 +121,7 @@ export default ({ icon, wallet, selected, label, ...props }) => (
         as={AddTransactionIcon}
         selected={selected}
         name="circle plus"
-        onClick={e => props.requestCreateTransaction(wallet)}
+        onClick={e => requestCreateTransaction(wallet)}
       />
     ) : null}
   </SidebarButton>

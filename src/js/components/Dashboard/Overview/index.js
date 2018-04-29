@@ -35,7 +35,14 @@ export default class extends Component {
     aggregateWalletsValue(wallets.by_name, coins.by_symbol)
 
   render() {
-    const { wallets, coins, navigateTo } = this.props
+    const {
+      wallets,
+      coins,
+      navigateTo,
+      createWallet,
+      requestCreateTransaction,
+      requestCreateWallet
+    } = this.props
     const non_zero_wallets = this.nonZeroWallets(wallets.by_name)
     return (
       <ContentComponent
@@ -62,7 +69,15 @@ export default class extends Component {
                 ) : null}
               </div>
             ) : (
-              <Welcome />
+              <Welcome
+                {...{
+                  wallets,
+                  navigateTo,
+                  createWallet,
+                  requestCreateTransaction,
+                  requestCreateWallet
+                }}
+              />
             )}
           </div>
         )}

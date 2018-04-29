@@ -1,11 +1,23 @@
 import React from "react"
+import Styled from "styled-components"
 import { Icon, Message, Segment } from "semantic-ui-react"
 
 import LogoName from "./../../Logo/Name"
+import Link from "./../../Link"
 
 import { theme, project_info } from "./../../../constants"
 
-export default () => (
+const MessageContent = Styled.div`
+  padding 1em 1.33em;
+`
+
+export default ({
+  wallets,
+  navigateTo,
+  createWallet,
+  requestCreateTransaction,
+  requestCreateWallet
+}) => (
   <div>
     <Message size="big" attached>
       <div>
@@ -19,10 +31,33 @@ export default () => (
       </div>
     </Message>
     <Segment attached>
-      <div>
+      <MessageContent>
         <p>Looks like you're just getting started.</p>
-        <p>Get the ball rolling by logging a couple of transactions.</p>
-      </div>
+        <p>
+          Get the ball rolling by{" "}
+          <Link onClick={() => requestCreateWallet()}>
+            tracking a new investment
+          </Link>.
+        </p>
+        <p>
+          Already have some Bitcoin? Get started by{" "}
+          <Link
+            onClick={() => {
+              let wallet
+              if (wallets.by_name.Bitcoin === undefined) {
+                wallet = { name: "Bitcoin", symbol: "BTC", transactions: [] }
+                createWallet(wallet)
+              } else {
+                wallet = wallets.by_name.Bitcoin
+              }
+              navigateTo("dashboard/investment/?name=Bitcoin")
+              requestCreateTransaction(wallet)
+            }}
+          >
+            logging your transactions
+          </Link>.
+        </p>
+      </MessageContent>
     </Segment>
   </div>
 )
