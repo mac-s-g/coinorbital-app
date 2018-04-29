@@ -35,13 +35,13 @@ export default class extends Component {
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
-        <Modal.Header>Edit your Wallet</Modal.Header>
+        <Modal.Header>Edit your Investment</Modal.Header>
         <Modal.Content>
           <ModalInputContainer>
-            <InputLabel>Wallet Name</InputLabel>
+            <InputLabel>Investment Name</InputLabel>
             <Input
               fluid
-              placeholder="Wallet Name"
+              placeholder="Investment Name"
               value={name}
               onChange={this.setName}
             />

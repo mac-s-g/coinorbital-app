@@ -5,10 +5,11 @@ import Cancel from "./../Buttons/Cancel"
 
 export default ({ closeModal, modals, deleteWallet, navigateTo, ...props }) => (
   <Modal open size="tiny" onClose={closeModal}>
-    <Modal.Header>Delete Wallet</Modal.Header>
+    <Modal.Header>Delete Investment</Modal.Header>
     <Modal.Content>
       <Modal.Description as="p">
-        Are you sure you want to delete your "{modals.delete_wallet}" wallet?
+        Are you sure you want to delete your "{modals.delete_wallet}"
+        investment?
       </Modal.Description>
     </Modal.Content>
     <Modal.Actions>

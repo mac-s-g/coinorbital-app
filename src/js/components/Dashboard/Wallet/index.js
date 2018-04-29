@@ -85,7 +85,7 @@ export default class extends Component {
               />
             </span>
           }
-          subHeader={`Your ${coin.name} Wallet`}
+          subHeader={`Your ${coin.name} Investment`}
           coinSymbol={coin.symbol}
         >
           <HeaderStatistics {...{ wallet, coin }} />

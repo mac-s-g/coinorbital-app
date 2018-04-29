@@ -8,7 +8,13 @@ import round from "./../../../helpers/round"
 import { theme } from "./../../../constants"
 
 const DeltaComponent = Styled.div`
-  margin: 2em 0;
+  margin: 1.67em 0 3em 0;
+`
+
+const StatValue = Styled.div`
+  margin-left: 0.67em !important;
+  margin-right: 0.67em !important;
+
 `
 
 export default class extends Component {
@@ -37,7 +43,10 @@ export default class extends Component {
       <DeltaComponent>
         <Statistic.Group size="tiny" widths="four">
           <Statistic>
-            <Statistic.Value style={{ color: theme.colors.blue }}>
+            <Statistic.Value
+              as={StatValue}
+              style={{ color: theme.colors.blue }}
+            >
               ${formatNumberForDisplay(round(coin.price_usd, 2))}
             </Statistic.Value>
             <Statistic.Label style={{ color: theme.colors.gray_dark }}>
@@ -45,7 +54,7 @@ export default class extends Component {
             </Statistic.Label>
           </Statistic>
           <Statistic color={this.calculateStatColor(coin.percent_change_7d)}>
-            <Statistic.Value>
+            <Statistic.Value as={StatValue}>
               <Icon name={this.calculateStatIcon(coin.percent_change_7d)} />
               {Math.abs(coin.percent_change_7d)}%
             </Statistic.Value>
@@ -54,7 +63,7 @@ export default class extends Component {
             </Statistic.Label>
           </Statistic>
           <Statistic color={this.calculateStatColor(coin.percent_change_24h)}>
-            <Statistic.Value>
+            <Statistic.Value as={StatValue}>
               <Icon name={this.calculateStatIcon(coin.percent_change_24h)} />
               {Math.abs(coin.percent_change_24h)}%
             </Statistic.Value>
@@ -63,7 +72,7 @@ export default class extends Component {
             </Statistic.Label>
           </Statistic>
           <Statistic color={this.calculateStatColor(coin.percent_change_1h)}>
-            <Statistic.Value>
+            <Statistic.Value as={StatValue}>
               <Icon name={this.calculateStatIcon(coin.percent_change_1h)} />
               {Math.abs(coin.percent_change_1h)}%
             </Statistic.Value>

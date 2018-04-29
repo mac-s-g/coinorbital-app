@@ -66,6 +66,10 @@ export default class extends Component {
               path="/dashboard/wallet"
               render={routeProps => <Wallet {...props} {...routeProps} />}
             />
+            <Route
+              path="/dashboard/investment"
+              render={routeProps => <Wallet {...props} {...routeProps} />}
+            />
             <Route render={routeProps => <FourOhFour {...routeProps} />} />}
           </Switch>
         </Sidebar>

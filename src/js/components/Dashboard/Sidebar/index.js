@@ -130,15 +130,17 @@ export default class extends Component {
                   key={name}
                   selected={this.isSelected(
                     router,
-                    `/dashboard/wallet?name=${encodeURIComponent(name)}`
+                    `/dashboard/investment?name=${encodeURIComponent(name)}`
                   )}
                   onClick={e => {
                     !this.isSelected(
                       router,
-                      `/dashboard/wallet?name=${encodeURIComponent(name)}`
+                      `/dashboard/investment?name=${encodeURIComponent(name)}`
                     )
                       ? navigateTo(
-                          `/dashboard/wallet?name=${encodeURIComponent(name)}`
+                          `/dashboard/investment?name=${encodeURIComponent(
+                            name
+                          )}`
                         )
                       : null
                     this.setState({ mobile_expanded: false })
@@ -154,7 +156,7 @@ export default class extends Component {
                   requestCreateWallet()
                   this.setState({ mobile_expanded: false })
                 }}
-                label="Track a Wallet"
+                label="Track an Investment"
                 actionItem
                 icon="plus circle"
               />
