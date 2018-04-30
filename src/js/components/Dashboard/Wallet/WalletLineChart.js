@@ -24,6 +24,7 @@ export default ({ coins, wallet, fetchTimeSeries }) => (
       fetchTimeSeries={fetchTimeSeries}
       responsive
       transactions={wallet.transactions}
+      displayYAxis={false}
     />
   </WalletLineChart>
 )

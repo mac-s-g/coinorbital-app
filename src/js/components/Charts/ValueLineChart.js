@@ -19,8 +19,7 @@ const HIST_EXPIRATION_MS = 1000 * 30 //30s
 const DEFAULT_WIDTH = 700
 const DEFAULT_HEIGHT = 300
 
-//tx dot radius
-const REFERENCE_DOT_RADIUS = 5
+const TIME_IDX_FORMAT = "YYYY-MM-DD H:mm:ss"
 
 const LineChartComponent = Styled.div`
   height: ${props => (props.responsive ? "100%" : `${props.height}px`)};
@@ -72,7 +71,7 @@ export default class extends Component {
     loader: true,
     color: theme.colors.blue,
     orientationY: "right",
-    currentPriceLine: true
+    currentPriceLine: false
   }
 
   static propTypes = {
@@ -80,18 +79,19 @@ export default class extends Component {
     height: PropTypes.number,
     responsive: PropTypes.bool,
     coins: PropTypes.object.isRequired,
-    symbol: PropTypes.string.isRequired,
+    wallets: PropTypes.object.isRequired,
     fetchTimeSeries: PropTypes.func.isRequired,
     color: PropTypes.string,
-    orientationY: PropTypes.string,
-    currentPriceLine: PropTypes.bool
+    orientationY: PropTypes.string
   }
-
-  forceUpdate = false
 
   state = {
     chartType: "week"
   }
+
+  forceUpdate = false
+  tsFilterKeys = []
+  transactions = {}
 
   chartTypes = {
     year: {
@@ -116,36 +116,74 @@ export default class extends Component {
   }
 
   constructor(props) {
+    let transactions = {}
     super(props)
+    //fetch historical coin values
     this.init(props, props.chartType ? props.chartType : this.state.chartType)
-  }
-
-  init = (props, chartType = "week") => {
-    this.state.chartType = chartType
-    const tsFilter = {
-      symbol: props.symbol,
-      aggregate: HISTO_AGGREGATE,
-      ...this.chartTypes[chartType]
+    //prepare transaction snowball
+    for (const [name, wallet] of Object.entries(props.wallets)) {
+      if (!transactions[wallet.symbol]) {
+        transactions[wallet.symbol] = wallet.transactions
+      } else {
+        transactions[wallet.symbol].concat(wallet.transactions)
+      }
     }
-    this.tsFilterKey = JSON.stringify(tsFilter)
-    this.fetchTime = Date.now()
-    props.fetchTimeSeries(tsFilter, this.tsFilterKey)
+    this.prepareTransactionSnowball(transactions)
   }
 
   componentWillReceiveProps(props) {
-    if (props.symbol !== this.props.symbol || this.isExpired()) {
+    if (this.isExpired()) {
       this.init(props, this.state.chartType)
     }
   }
 
   shouldComponentUpdate(props) {
-    const update =
-      props.symbol !== this.props.symbol ||
-      !this.isLoaded() ||
-      this.isExpired() ||
-      this.forceUpdate
+    const update = !this.isLoaded() || this.isExpired() || this.forceUpdate
     this.forceUpdate = false
     return update
+  }
+
+  init = (props, chartType = "week") => {
+    const { wallets } = props
+    this.state.chartType = chartType
+    this.tsFilterKeys = []
+    this.fetchTime = Date.now()
+    let tsFilter, tsFilterKey
+
+    for (const [name, wallet] of Object.entries(wallets)) {
+      //query for historical coin prices
+      tsFilter = {
+        symbol: wallet.symbol,
+        aggregate: HISTO_AGGREGATE,
+        ...this.chartTypes[chartType]
+      }
+      tsFilterKey = JSON.stringify(tsFilter)
+      if (this.tsFilterKeys.indexOf(tsFilterKey) === -1) {
+        this.tsFilterKeys.push(tsFilterKey)
+        props.fetchTimeSeries(tsFilter, tsFilterKey)
+      }
+    }
+  }
+
+  prepareTransactionSnowball = transactions_by_coin => {
+    for (const [symbol, txs] of Object.entries(transactions_by_coin)) {
+      let sorted = txs.sort(
+        (a, b) =>
+          new Date(!!a.time_transacted ? a.time_transacted : a.time_recorded) -
+          new Date(!!b.time_transacted ? b.time_transacted : b.time_recorded)
+      )
+
+      this.transactions[symbol] = {}
+      let aggr = 0
+      for (let tx of sorted) {
+        //store rolling aggr by time
+        let time = moment(
+          !!tx.time_transacted ? tx.time_transacted : tx.time_recorded
+        ).format(TIME_IDX_FORMAT)
+        aggr += (tx.type === "received" ? 1 : -1) * tx.quantity
+        this.transactions[symbol][time] = aggr
+      }
+    }
   }
 
   isExpired = () => {
@@ -154,83 +192,53 @@ export default class extends Component {
 
   isLoaded = () => {
     const { time_series } = this.props.coins
-    return (
-      time_series[this.tsFilterKey] && !!time_series[this.tsFilterKey].result
-    )
+    let loaded = true
+    for (let key of this.tsFilterKeys) {
+      loaded &= time_series[key] && !!time_series[key].result
+    }
+    return loaded
   }
 
   fetchSuccess = series => this.isLoaded() && !!series && !!series.length
 
-  formatForChart = data =>
-    data.map(datum => ({
-      ...datum,
-      timestamp: moment(datum.time * MS_PER_SECOND),
-      date: moment(datum.time * MS_PER_SECOND).format("MMM D"),
-      time: moment(datum.time * MS_PER_SECOND).format("h:mm a")
-    }))
-
-  prepareTxReferences = (series, transactions) => {
-    const set_size = series.length
-    const min_time = series[0].timestamp
-    const max_time = series[set_size - 1].timestamp
-
-    return transactions.reduce((acc, tx, tx_idx) => {
-      let tx_time, series_idx
-      if (
-        tx.time_transacted &&
-        tx.time_recorded &&
-        moment(tx.time_transacted) - min_time > 0
-      ) {
-        //use time_recorded if day matches time_transacted
-        tx_time = moment(tx.time_transacted)
-        if (
-          tx_time.format("MM DD YYYY") ==
-          moment(tx.time_recorded).format("MM DD YYYY")
+  formatForChart = series_set =>
+    Object.keys(series_set).reduce((acc, symbol) => {
+      let tx_times = Object.keys(this.transactions[symbol])
+      let tx_time_ptr = -1
+      return series_set[symbol].map((val, idx) => {
+        let tx_timestamp = moment(val.time * MS_PER_SECOND)
+        let tx_timestamp_idx = tx_timestamp.format(TIME_IDX_FORMAT)
+        while (
+          !!tx_times[tx_time_ptr + 1] &&
+          tx_timestamp > moment(tx_times[tx_time_ptr + 1])
         ) {
-          tx_time = moment(tx.time_recorded)
+          tx_time_ptr++
         }
-
-        series_idx = Math.floor(
-          (tx_time - min_time) / (max_time - min_time) * set_size
-        )
-
-        //recent transactions sit at right edge of chart
-        if (series_idx >= set_size) {
-          series_idx = set_size - 1
-        }
-
-        //clock tx with series
-        if (series[series_idx]) {
-          if (series[series_idx].transactions) {
-            series[series_idx].transactions.push(tx)
-          } else {
-            series[series_idx].transactions = [tx]
+        let tx_value = !!tx_times[tx_time_ptr]
+          ? this.transactions[symbol][tx_times[tx_time_ptr]] * val.close
+          : 0
+        if (acc[idx]) {
+          return {
+            ...acc[idx],
+            value: tx_value + acc[idx].value
+          }
+        } else {
+          return {
+            timestamp: tx_timestamp,
+            date: moment(val.time * MS_PER_SECOND).format("MMM D"),
+            time: moment(val.time * MS_PER_SECOND).format("h:mm a"),
+            value: tx_value
           }
         }
-
-        acc.push(
-          <ReferenceDot
-            key={tx_idx}
-            x={series_idx}
-            y={tx.cost_per_coin_usd}
-            r={REFERENCE_DOT_RADIUS}
-            fill={tx.type === "received" ? theme.colors.gold : theme.colors.red}
-            stroke={theme.colors.blue}
-            isFront
-          />
-        )
-      }
-      return acc
+      })
     }, [])
-  }
 
   render() {
     const {
-      tsFilterKey,
+      tsFilterKeys,
       isLoaded,
       formatForChart,
       fetchSuccess,
-      prepareTxReferences,
       chartTypes,
       init,
       state,
@@ -238,29 +246,34 @@ export default class extends Component {
     } = this
     const {
       coins,
-      symbol,
       width,
       height,
       responsive,
       color,
       orientationY,
-      transactions = [],
       animate = false,
       timeControl = true,
       displayYAxis = true,
       displayXAxis = true,
       loader = true,
-      currentPriceLine = true
+      wallets
     } = props
-    const { time_series, by_symbol } = coins
+    const { time_series } = coins
     const { expanded, chartType } = state
-    const coin = by_symbol[symbol]
 
-    let series = [],
-      tx_dots
+    let series
     try {
-      series = formatForChart(time_series[tsFilterKey].result)
-      tx_dots = prepareTxReferences(series, transactions)
+      series = isLoaded()
+        ? formatForChart(
+            tsFilterKeys.reduce(
+              (acc, key) => ({
+                ...acc,
+                [JSON.parse(key).symbol]: time_series[key].result
+              }),
+              {}
+            )
+          )
+        : null
     } catch (e) {}
 
     return (
@@ -293,8 +306,8 @@ export default class extends Component {
             lines={[
               {
                 type: "monotone",
-                dataKey: "close",
-                name: "price",
+                dataKey: "value",
+                name: "value",
                 dot: false,
                 isAnimationActive: animate,
                 animationEasing: "ease-out",
@@ -330,52 +343,9 @@ export default class extends Component {
                     </List.Item>
                   ))}
                 </List>
-                {payload[0] && payload[0] && payload[0].payload.transactions ? (
-                  <List>
-                    {payload[0].payload.transactions.map((tx, tx_idx) => (
-                      <List.Item key={tx_idx}>
-                        <ToolTipLabel>
-                          <span
-                            style={{
-                              color:
-                                tx.type == "received"
-                                  ? theme.colors.green
-                                  : theme.colors.red,
-                              fontWeight: "bold"
-                            }}
-                          >
-                            {tx.type}
-                          </span>{" "}
-                          <i>{tx.quantity}</i> at
-                        </ToolTipLabel>
-                        <ToolTipValue>
-                          {" "}
-                          ${formatNumberForDisplay(tx.cost_per_coin_usd)}
-                        </ToolTipValue>
-                      </List.Item>
-                    ))}
-                  </List>
-                ) : null}
               </ToolTipComponent>
             )}
-          >
-            {/*reference line at current price*/}
-            {currentPriceLine ? (
-              <ReferenceLine
-                y={coin.price_usd}
-                stroke={theme.colors.gray}
-                strokeDasharray="3 3"
-              >
-                <Label
-                  value="current price"
-                  position="insideTopLeft"
-                  fill={theme.colors.gray}
-                />
-              </ReferenceLine>
-            ) : null}
-            {/*fill with transaction dots*/}
-            {tx_dots}
-          </Line>
+          />
         ) : !isLoaded() ? (
           loader ? (
             <Loader active inline="centered" />
@@ -387,9 +357,7 @@ export default class extends Component {
             style={{ marginTop: "2em" }}
             icon="ban"
             header="Fetch Error"
-            content={`An error occurred while loading historical ${
-              coin.name
-            } prices.`}
+            content={`An error occurred while loading historical data.`}
           />
         )}
       </LineChartComponent>

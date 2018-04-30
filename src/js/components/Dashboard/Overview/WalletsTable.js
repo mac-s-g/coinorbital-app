@@ -23,45 +23,8 @@ import { theme } from "./../../../constants"
 const MIN_PERCENT_ANGLE = 3
 
 //styled components
-const WalletsPie = Styled.div`
+const TableComponent = Styled.div`
   display: block;
-`
-
-const PieComponent = Styled.div`
-  margin-bottom: 15px;
-`
-
-const ChartLabel = Styled.text`
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 11px;
-  fill: ${theme.colors.gray_dark};
-  font-weight: ${props => (props.selected ? "700" : "400")};
-  text-anchor: middle;
-  display: ${props => (props.hidden ? "none" : "block")};
-`
-
-const StatComponent = Styled.div`
-  display: inline-block;
-  vertical-align: top;
-`
-
-const StatHeader = Styled.div`
-  margin: 14px 0;
-
-  & span {
-    font-size: 24px;
-    vertical-align: middle;
-  }
-
-  & img {
-    display: inline-block !important;
-    margin-right: 6px;
-  }
-`
-
-const WalletStat = Styled.div`
-  margin-bottom: 10px;
 `
 
 const WalletsTable = Styled.table`
@@ -98,32 +61,6 @@ export default class extends Component {
   //on pie slice click
   walletLink = wallet =>
     this.props.navigateTo(`/dashboard/wallet?name=${encodeURI(wallet)}`)
-
-  //build pie chart data
-  buildChart = (wallets, coins) => {
-    const { selected } = this.state
-    return Object.keys(wallets).map((name, idx) => ({
-      name,
-      value: round(
-        calculateWalletValue(
-          wallets[name],
-          coins.by_symbol[wallets[name].symbol].price_usd
-        ),
-        2
-      ),
-      // pie piece highlighting
-      fill: name === selected ? theme.colors.gold : theme.colors.blue,
-      fillOpacity: name === selected ? 0.3 : 0.3,
-      stroke: name === selected ? theme.colors.gold : theme.colors.blue,
-      strokeWidth: 1,
-      paddingAngle: 5,
-      symbol: wallets[name].symbol,
-      style: { cursor: "pointer" },
-      onMouseEnter: () => this.hoverSelect(name),
-      onMouseLeave: () => this.hoverSelect(null),
-      onClick: () => this.walletLink(name)
-    }))
-  }
 
   handleSort = column => {
     const { sort } = this.state
@@ -214,8 +151,6 @@ export default class extends Component {
     const { wallets, coins, totalValue } = this.props
     const { selected, sort } = this.state
     const { column, direction } = sort
-    //pie_data is a list of objects with name and value props
-    const pie_data = this.buildChart(wallets, coins)
 
     let table_data = this.prepareTableData(wallets, coins, totalValue)
     table_data = this.sortTable(table_data, column, direction)
@@ -224,62 +159,7 @@ export default class extends Component {
       aggr_wallet_value = 0
 
     return (
-      <WalletsPie>
-        <PieComponent>
-          <SubHeader>Portfolio Distribution</SubHeader>
-          <Pie
-            width={380}
-            height={220}
-            outerRadius={80}
-            innerRadius={50}
-            paddingAngle={3}
-            data={pie_data}
-            animate={false}
-            tooltip
-            legend={{
-              layout: "vertical",
-              align: "right",
-              width: 160,
-              wrapperStyle: {
-                fontSize: "1.14285714rem",
-                position: "absolute",
-                right: "-15px",
-                top: "20px",
-                cursor: "pointer"
-              },
-              onMouseEnter: ({ value }) => this.hoverSelect(value),
-              onMouseLeave: () => this.hoverSelect(null),
-              onClick: ({ value }) => this.walletLink(value)
-            }}
-            label={({
-              cx,
-              cy,
-              midAngle,
-              innerRadius,
-              outerRadius,
-              percent,
-              index,
-              name
-            }) => {
-              const RADIAN = Math.PI / 180
-              const radius = innerRadius + (outerRadius - innerRadius) * 1.7
-              const x = cx + radius * Math.cos(-midAngle * RADIAN)
-              const y = cy + radius * Math.sin(-midAngle * RADIAN)
-
-              return (
-                <ChartLabel
-                  selected={name == selected}
-                  x={x}
-                  y={y}
-                  hidden={percent < MIN_PERCENT_ANGLE / 100}
-                  onClick={() => this.walletLink(name)}
-                >
-                  {`${round(percent * 100, 1)}%`}
-                </ChartLabel>
-              )
-            }}
-          />
-        </PieComponent>
+      <TableComponent>
         <Table as={WalletsTable} unstackable sortable>
           <Table.Header>
             <Table.Row>
@@ -436,7 +316,7 @@ export default class extends Component {
             </Table.Row>
           </Table.Footer>
         </Table>
-      </WalletsPie>
+      </TableComponent>
     )
   }
 }

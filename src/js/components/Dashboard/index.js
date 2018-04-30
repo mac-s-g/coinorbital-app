@@ -26,7 +26,7 @@ import Roadmap from "./../Modal/Roadmap"
 import parseSearch from "./../../helpers/parseSearchQuery"
 
 //value refresh
-const FETCH_COIN_INTERVAL = 10000
+const FETCH_COIN_INTERVAL = 5000
 
 export default class extends Component {
   fetchCoinInterval = false

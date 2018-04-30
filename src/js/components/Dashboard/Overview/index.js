@@ -4,7 +4,8 @@ import { Loader } from "semantic-ui-react"
 
 import ContentComponent from "./../ContentComponent"
 import HeaderStatistics from "./HeaderStatistics"
-import WalletsPie from "./WalletsPie"
+import ChartTabs from "./ChartTabs"
+import WalletsTable from "./WalletsTable"
 import Welcome from "./Welcome"
 
 import {
@@ -40,6 +41,7 @@ export default class extends Component {
       coins,
       navigateTo,
       createWallet,
+      fetchTimeSeries,
       requestCreateTransaction,
       requestCreateWallet
     } = this.props
@@ -60,12 +62,20 @@ export default class extends Component {
                   totalValue={this.totalValue(wallets, coins)}
                 />
                 {Object.keys(non_zero_wallets).length >= 1 ? (
-                  <WalletsPie
-                    wallets={non_zero_wallets}
-                    coins={coins}
-                    totalValue={this.totalValue(wallets, coins)}
-                    navigateTo={navigateTo}
-                  />
+                  <div>
+                    <ChartTabs
+                      wallets={non_zero_wallets}
+                      coins={coins}
+                      navigateTo={navigateTo}
+                      fetchTimeSeries={fetchTimeSeries}
+                    />
+                    <WalletsTable
+                      wallets={non_zero_wallets}
+                      coins={coins}
+                      totalValue={this.totalValue(wallets, coins)}
+                      navigateTo={navigateTo}
+                    />
+                  </div>
                 ) : null}
               </div>
             ) : (
