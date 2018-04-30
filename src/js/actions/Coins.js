@@ -28,10 +28,12 @@ const receiveCoinsError = payload => ({
 })
 
 export const fetchCoins = payload => {
+  //return everything
+  const limit = 0
   return dispatch => {
     dispatch(requestCoins())
     axios
-      .get("https://api.coinmarketcap.com/v1/ticker/")
+      .get(`https://api.coinmarketcap.com/v1/ticker/?limit=${limit}`)
       .then(response => dispatch(receiveCoins(response.data)))
       .catch(error => dispatch(receiveCoinsError(error)))
   }
