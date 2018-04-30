@@ -175,6 +175,7 @@ export default class extends Component {
               fetchTimeSeries={fetchTimeSeries}
               responsive
               color={theme.colors.gold}
+              displayYAxis={false}
             />
           </ChartComponent>
           <Arrows>

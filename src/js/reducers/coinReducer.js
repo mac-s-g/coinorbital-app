@@ -46,6 +46,7 @@ export default (state = default_state, action) => {
       return {
         ...state,
         time_series: {
+          ...state.time_series,
           [payload.query_key]: {
             fetching: true,
             fetched: false,
@@ -60,6 +61,7 @@ export default (state = default_state, action) => {
       return {
         ...state,
         time_series: {
+          ...state.time_series,
           [payload.query_key]: {
             fetching: false,
             fetched: true,
@@ -72,6 +74,7 @@ export default (state = default_state, action) => {
       return {
         ...state,
         time_series: {
+          ...state.time_series,
           [payload.query_key]: {
             fetching: false,
             fetched: true,
