@@ -14,7 +14,7 @@ import { theme } from "./../../constants"
 
 const MS_PER_SECOND = 1000
 const HISTO_AGGREGATE = 1
-const HIST_EXPIRATION_MS = 1000 * 30 //60s
+const HIST_EXPIRATION_MS = 1000 * 30 //30s
 
 const DEFAULT_WIDTH = 700
 const DEFAULT_HEIGHT = 300
