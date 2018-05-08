@@ -167,7 +167,7 @@ export default class extends Component {
                 sorted={column === "name" ? direction : null}
                 onClick={() => this.handleSort("name")}
               >
-                Wallet
+                Investment
               </Table.HeaderCell>
               <Table.HeaderCell
                 sorted={column === "market_price" ? direction : null}
@@ -191,7 +191,7 @@ export default class extends Component {
                 sorted={column === "value" ? direction : null}
                 onClick={() => this.handleSort("value")}
               >
-                Wallet Value
+                Current Value
               </Table.HeaderCell>
               <Table.HeaderCell
                 sorted={column === "capital_gain" ? direction : null}

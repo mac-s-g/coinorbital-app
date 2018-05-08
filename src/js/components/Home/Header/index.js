@@ -76,7 +76,7 @@ export default ({ navigateTo, auth, ...props }) => (
       <Container>
         <Menu inverted pointing secondary size="large" as={MenuContainer}>
           <Menu.Item as="a" active>
-            Home
+            Landing
           </Menu.Item>
           <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
             Dashboard

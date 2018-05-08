@@ -34,19 +34,7 @@ export default ({ close, contactMe }) => (
           <List.Item>
             Add line charts to wallet views displaying value over time
           </List.Item>
-          <List.Item>
-            Add a line chart to the overview page displaying portfolio value
-            over time
-          </List.Item>
-          <List.Item>
-            Support login from multiple devices
-            <List bulleted>
-              <List.Item>
-                Allow authentication via Google and Facebook
-              </List.Item>
-              <List.Item>Support remote data storage</List.Item>
-            </List>
-          </List.Item>
+          <List.Item>Support login from multiple devices</List.Item>
           <List.Item>
             Integrate with major exchanges
             <List bulleted>

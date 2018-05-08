@@ -20,7 +20,7 @@ const DEFAULT_WIDTH = 700
 const DEFAULT_HEIGHT = 300
 
 //tx dot radius
-const REFERENCE_DOT_RADIUS = 5
+const REFERENCE_DOT_MIN_RADIUS = 3
 
 const LineChartComponent = Styled.div`
   height: ${props => (props.responsive ? "100%" : `${props.height}px`)};
@@ -213,7 +213,13 @@ export default class extends Component {
             key={tx_idx}
             x={series_idx}
             y={tx.cost_per_coin_usd}
-            r={REFERENCE_DOT_RADIUS}
+            r={
+              REFERENCE_DOT_MIN_RADIUS +
+              Math.floor(
+                //fuck it, going with log base 5
+                Math.log(tx.quantity * tx.cost_per_coin_usd) / Math.log(5)
+              )
+            }
             fill={tx.type === "received" ? theme.colors.gold : theme.colors.red}
             stroke={theme.colors.blue}
             isFront
@@ -350,7 +356,11 @@ export default class extends Component {
                         </ToolTipLabel>
                         <ToolTipValue>
                           {" "}
-                          ${formatNumberForDisplay(tx.cost_per_coin_usd)}
+                          ${formatNumberForDisplay(
+                            tx.cost_per_coin_usd
+                          )} (${formatNumberForDisplay(
+                            tx.cost_per_coin_usd * tx.quantity
+                          )})
                         </ToolTipValue>
                       </List.Item>
                     ))}

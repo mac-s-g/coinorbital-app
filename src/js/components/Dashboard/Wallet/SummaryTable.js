@@ -34,7 +34,7 @@ export default ({ wallet, coin }) => {
             <Table.HeaderCell>{coin.symbol} Price</Table.HeaderCell>
             <Table.HeaderCell>Total Holding</Table.HeaderCell>
             <Table.HeaderCell>Cost Basis</Table.HeaderCell>
-            <Table.HeaderCell>Wallet Value</Table.HeaderCell>
+            <Table.HeaderCell>Current Value</Table.HeaderCell>
             <Table.HeaderCell>Capital Gain</Table.HeaderCell>
             <Table.HeaderCell>% Gain</Table.HeaderCell>
           </Table.Row>
