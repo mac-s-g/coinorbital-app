@@ -359,7 +359,7 @@ export default class extends Component {
                           ${formatNumberForDisplay(
                             tx.cost_per_coin_usd
                           )} (${formatNumberForDisplay(
-                            tx.cost_per_coin_usd * tx.quantity
+                            round(tx.cost_per_coin_usd * tx.quantity, 2)
                           )})
                         </ToolTipValue>
                       </List.Item>
