@@ -80,10 +80,10 @@ export default class extends Component {
       <WalletsPie>
         <PieComponent>
           <Pie
-            width={380}
-            height={220}
-            outerRadius={80}
-            innerRadius={50}
+            width={440}
+            height={250}
+            outerRadius={100}
+            innerRadius={60}
             paddingAngle={3}
             data={pie_data}
             animate={false}

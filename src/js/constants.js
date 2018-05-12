@@ -57,5 +57,6 @@ export const authentication = {
   domain: "coinorbital.auth0.com",
   client_id: "2MT_mTDqLflzVfPJ54sOx5I86lFr23Ml",
   callback_path: "/callback/",
-  redirect_path: "/dashboard/"
+  redirect_path: "/dashboard/",
+  audience: "https://coinorbital.com/api/authorize"
 }
