@@ -1,17 +1,19 @@
 import history from "../store/history"
 import auth0 from "auth0-js"
 import config from "./auth0-config"
-const { domain, clientId, callbackUrl, redirectPath } = config
+const { domain, clientId, callbackUrl, redirectPath, audience } = config
+
+const auth_config = {
+  domain: domain,
+  clientID: clientId,
+  redirectUri: callbackUrl,
+  audience: audience,
+  responseType: "token id_token",
+  scope: "openid profile"
+}
 
 class Auth {
-  auth0 = new auth0.WebAuth({
-    domain: domain,
-    clientID: clientId,
-    redirectUri: callbackUrl,
-    // audience: `https://${domain}/userinfo`,
-    responseType: "token id_token",
-    scope: "openid profile"
-  })
+  auth0 = new auth0.WebAuth(auth_config)
 
   constructor() {
     this.scheduleRenewal()
