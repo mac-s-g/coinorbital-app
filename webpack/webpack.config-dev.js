@@ -10,8 +10,6 @@ const PATHS = {
   devServer: path.join(__dirname, "..", "dev-server")
 }
 
-console.log(process.env.API_ENV)
-
 const config = {
   entry: [path.join(PATHS.devServer, "js", "entry.js")],
   externals: {},
