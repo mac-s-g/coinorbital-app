@@ -70,6 +70,17 @@ const IconBeat = Styled.i`
   animation: ${HeartBeat} 2.4s infinite linear;
 `
 
+const SignUp = Styled.div`
+  margin-top: 1em;
+  cursor: pointer;
+  padding: 0.3em;
+  font-size: 1.1em;
+  color: ${theme.colors.white};
+  &:hover {
+    font-weight: bold;
+  }
+`
+
 export default ({ navigateTo, clearUserState, auth, ...props }) => (
   <div>
     <ChartContainer>
@@ -79,9 +90,6 @@ export default ({ navigateTo, clearUserState, auth, ...props }) => (
     <Segment inverted textAlign="center" vertical as={HeaderContainer}>
       <Container>
         <Menu inverted pointing secondary size="large" as={MenuContainer}>
-          <Menu.Item as="a" active>
-            Landing
-          </Menu.Item>
           <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
             {!auth.isAuthenticated() ? "Demo" : null} Dashboard
           </Menu.Item>
@@ -100,6 +108,9 @@ export default ({ navigateTo, clearUserState, auth, ...props }) => (
           <ImgBeat>
             <Logo size={100} />
           </ImgBeat>
+          {!auth.isAuthenticated() && (
+            <SignUp onClick={e => auth.login()}>Sign Up</SignUp>
+          )}
         </HeaderContent>
       </Container>
 

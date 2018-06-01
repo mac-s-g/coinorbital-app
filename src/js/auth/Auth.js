@@ -29,6 +29,8 @@ class Auth {
     this.auth0.authorize()
   }
 
+  signup = () => this.login()
+
   logout = () => {
     // Clear access token and ID token from local storage
     localStorage.removeItem("access_token")
