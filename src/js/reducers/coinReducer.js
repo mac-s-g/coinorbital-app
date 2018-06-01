@@ -1,3 +1,5 @@
+import Coin from "./models/Coin"
+
 import {
   REQUEST_COINS,
   RECEIVE_COINS,
@@ -6,8 +8,6 @@ import {
   RECEIVE_TIME_SERIES,
   RECEIVE_TIME_SERIES_ERROR
 } from "./../actions"
-
-import coinsBySymbol from "./../helpers/coinsBySymbol"
 
 const default_state = {
   fetched: false,
@@ -31,8 +31,14 @@ export default (state = default_state, action) => {
       return {
         ...state,
         fetched: true,
-        list: [...payload],
-        by_symbol: coinsBySymbol(payload),
+        list: Object.keys(payload).map(key => payload[key]),
+        by_symbol: Object.keys(payload).reduce(
+          (accumulator, idx) => ({
+            ...accumulator,
+            [payload[idx].symbol]: { ...new Coin(payload[idx]) }
+          }),
+          {}
+        ),
         fetching_coins: false,
         fetch_coins_error: false
       }
