@@ -12,7 +12,7 @@ export default ({ wallets, coins, fetchTimeSeries, navigateTo }) => (
         menuItem: {
           content: "Trends",
           key: "trendstab",
-          icon: "line chart"
+          icon: <Icon name="line chart" />
         },
         render: () => (
           <PortfolioTrends

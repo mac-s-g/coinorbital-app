@@ -14,16 +14,6 @@ import {
 } from "./../../../helpers/walletMetrics"
 
 export default class extends Component {
-  componentWillMount() {
-    const { fetchWallets, fetchCoins, wallets, coins } = this.props
-    if (!wallets.fetched) {
-      fetchWallets()
-    }
-    if (!coins.fetching_coins && !coins.fetched) {
-      fetchCoins()
-    }
-  }
-
   nonZeroWallets = wallets =>
     Object.keys(wallets).reduce((acc, name) => {
       if (calculateWalletQuantity(wallets[name])) {

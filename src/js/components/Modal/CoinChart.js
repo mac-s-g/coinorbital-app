@@ -179,7 +179,6 @@ export default class extends Component {
             />
           </ChartComponent>
           <Arrows>
-            <input hidden onKeyPress={e => console.log("HEY")} />
             <Icon
               as={Arrow}
               name="chevron left"

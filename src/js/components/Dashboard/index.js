@@ -22,17 +22,26 @@ import TransactionNote from "./../Modal/TransactionNote"
 import ContactMe from "./../Modal/ContactMe"
 import Donate from "./../Modal/Donate"
 import Roadmap from "./../Modal/Roadmap"
+import DemoDash from "./../Modal/DemoDash"
 
 import parseSearch from "./../../helpers/parseSearchQuery"
 
+import { environment } from "./../../constants"
+
 //value refresh
-const FETCH_COIN_INTERVAL = 5000
+const FETCH_COIN_INTERVAL = environment == "development" ? 30000 : 10000
 
 export default class extends Component {
   fetchCoinInterval = false
 
   componentWillMount() {
-    const { fetchCoins } = this.props
+    const { fetchWallets, fetchCoins, wallets, coins } = this.props
+    if (!wallets.fetched && !wallets.fetching) {
+      fetchWallets()
+    }
+    if (!coins.fetching_coins && !coins.fetched) {
+      fetchCoins()
+    }
     this.fetchCoinInterval = setInterval(fetchCoins, FETCH_COIN_INTERVAL)
   }
 
@@ -74,29 +83,32 @@ export default class extends Component {
           </Switch>
         </Sidebar>
         <Footer {...props} />
-        {props.modals.add_to_watchlist ? <AddToWatchList {...props} /> : null}
-        {props.modals.coin_chart ? <CoinChart {...props} /> : null}
-        {props.modals.create_wallet ? <CreateWallet {...props} /> : null}
-        {props.modals.edit_wallet ? <EditWallet {...props} /> : null}
-        {props.modals.delete_wallet ? <DeleteWallet {...props} /> : null}
-        {props.modals.create_transaction ? (
-          <CreateTransaction {...props} />
-        ) : null}
-        {props.modals.delete_transaction ? (
-          <DeleteTransaction {...props} />
-        ) : null}
-        {props.modals.transaction_note ? <TransactionNote {...props} /> : null}
-        {props.modals.edit_transaction ? <EditTransaction {...props} /> : null}
-        {props.modals.contact_me ? (
+        {props.modals.add_to_watchlist && <AddToWatchList {...props} />}
+        {props.modals.coin_chart && <CoinChart {...props} />}
+        {props.modals.create_wallet && <CreateWallet {...props} />}
+        {props.modals.edit_wallet && <EditWallet {...props} />}
+        {props.modals.delete_wallet && <DeleteWallet {...props} />}
+        {props.modals.create_transaction && <CreateTransaction {...props} />}
+        {props.modals.delete_transaction && <DeleteTransaction {...props} />}
+        {props.modals.transaction_note && <TransactionNote {...props} />}
+        {props.modals.edit_transaction && <EditTransaction {...props} />}
+        {props.modals.contact_me && (
           <ContactMe donate={props.requestDonate} close={props.closeModal} />
-        ) : null}
+        )}
         {props.modals.donate ? <Donate close={props.closeModal} /> : null}
-        {props.modals.roadmap ? (
+        {props.modals.roadmap && (
           <Roadmap
             contactMe={props.requestContactMe}
             close={props.closeModal}
           />
-        ) : null}
+        )}
+        {props.modals.demo_dash && (
+          <DemoDash
+            close={props.closeModal}
+            login={props.auth.login}
+            contactMe={props.requestContactMe}
+          />
+        )}
       </div>
     )
   }

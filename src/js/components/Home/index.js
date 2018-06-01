@@ -80,17 +80,6 @@ export default ({ modals, closeModal, ...props }) => (
         <Button as={IndexButton} size="large" onClick={props.requestDonate}>
           Send a Donation
         </Button>
-        <Divider as={SegmentDivider} />
-        <SegmentHeader>Protect Your Privacy</SegmentHeader>
-        <SegmentContent>
-          The only one with your information should be you. <LogoName /> stores
-          everything locally. None of your data is stored or processed remotely.
-        </SegmentContent>
-        <SegmentContent>
-          <Warning>Warning:</Warning> Transaction logs are currently stored in
-          your browser's LocalStorage. Clearing your cache may result in data
-          loss. Support for downloading and backing up your data is coming soon.
-        </SegmentContent>
       </Container>
     </Segment>
 

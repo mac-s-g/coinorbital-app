@@ -3,6 +3,7 @@ import { Icon, Menu } from "semantic-ui-react"
 import Styled from "styled-components"
 
 import HeartBeat from "./../../Animations/HeartBeat"
+import NonMobileContent from "./../../Responsive/NonMobileContent"
 
 const IconBeat = Styled.a`
   &:hover .icon {
@@ -12,7 +13,9 @@ const IconBeat = Styled.a`
 
 export default ({ login }) => (
   <Menu.Item header position="right" onClick={login}>
+    <Icon name="google" />
+    <Icon name="facebook" />
     <Icon style={{ marginRight: "8px" }} name="user circle outline" />
-    Login
+    <NonMobileContent>Login</NonMobileContent>
   </Menu.Item>
 )

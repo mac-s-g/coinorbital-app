@@ -10,6 +10,8 @@ const PATHS = {
   devServer: path.join(__dirname, "..", "dev-server")
 }
 
+console.log(process.env.API_ENV)
+
 const config = {
   entry: [path.join(PATHS.devServer, "js", "entry.js")],
   externals: {},
@@ -30,7 +32,11 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("development")
+      "process.env.NODE_ENV": JSON.stringify("development"),
+      CO_API_HOST: JSON.stringify(
+        "https://cw0jabby0h.execute-api.us-east-1.amazonaws.com/staging/"
+        // "https://8j1ntd8sie.execute-api.us-east-1.amazonaws.com/production/"
+      )
     })
   ],
   resolve: {

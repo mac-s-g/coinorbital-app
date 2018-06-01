@@ -42,7 +42,6 @@ var getToken = function(params) {
 }
 
 module.exports.authenticate = function(params, cb) {
-    console.log(params)
     var token = getToken(params)
 
     var client = jwksClient({

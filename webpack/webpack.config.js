@@ -18,10 +18,13 @@ const config = {
     library: "crypto-portfolio",
     libraryTarget: "umd"
   },
+  optimization: { minimize: true },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("production")
+      "process.env.NODE_ENV": JSON.stringify("production"),
+      CO_API_HOST: JSON.stringify(
+        "https://8j1ntd8sie.execute-api.us-east-1.amazonaws.com/production/"
+      )
     })
   ],
   resolve: {

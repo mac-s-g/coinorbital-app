@@ -30,8 +30,10 @@ export default class extends Component {
   }
 
   render() {
-    const { closeModal, editWallet, modals, navigateTo } = this.props
+    const { closeModal, editWallet, modals, navigateTo, wallets } = this.props
+    const { edit_wallet } = modals
     const { name } = this.state
+    const wallet = wallets.by_name[edit_wallet.name]
 
     return (
       <Modal open size="tiny" onClose={closeModal}>
@@ -53,6 +55,7 @@ export default class extends Component {
             disabled={!this.validName(name)}
             onClick={e => {
               editWallet(modals.edit_wallet.name, {
+                ...wallet,
                 name: name.trim()
               })
               closeModal()

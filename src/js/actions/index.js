@@ -15,6 +15,7 @@ export {
   CONTACT_ME_MODAL,
   DONATE_MODAL,
   ROADMAP_MODAL,
+  DEMO_DASH_MODAL,
   //dispatcher calls
   closeAllModals,
   createTransactionModal,
@@ -28,7 +29,8 @@ export {
   transactionNoteModal,
   contactMeModal,
   donateModal,
-  roadmapModal
+  roadmapModal,
+  demoDashModal
 } from "./Modals"
 
 export {
@@ -47,9 +49,17 @@ export {
 export {
   //action constants
   RECEIVE_WATCH_LIST,
+  REQUEST_WATCH_LIST,
+  RECEIVE_WATCH_LIST_ERROR,
   ADD_TO_WATCH_LIST,
+  REQUEST_ADD_TO_WATCH_LIST,
+  ADD_TO_WATCH_LIST_ERROR,
   REMOVE_FROM_WATCH_LIST,
+  REQUEST_REMOVE_FROM_WATCH_LIST,
+  REMOVE_FROM_WATCH_LIST_ERROR,
   REORDER_WATCH_LIST,
+  REQUEST_REORDER_WATCH_LIST,
+  REORDER_WATCH_LIST_ERROR,
   //dispatcher calls
   fetchWatchList,
   addToWatchList,
@@ -59,14 +69,23 @@ export {
 
 export {
   //action constants
-  DELETE_WALLET,
-  RECEIVE_WALLETS,
+  REQUEST_CREATE_WALLET,
   CREATE_WALLET,
+  CREATE_WALLET_ERROR,
+  REQUEST_WALLETS,
+  RECEIVE_WALLETS,
+  RECEIVE_WALLETS_ERROR,
+  REQUEST_DELETE_WALLET,
+  DELETE_WALLET,
+  DELETE_WALLET_ERROR,
+  REQUEST_EDIT_WALLET,
   EDIT_WALLET,
-  CREATE_TRANSACTION,
+  EDIT_WALLET_ERROR,
   //dispatcher calls
   fetchWallets,
   createWallet,
   deleteWallet,
   editWallet
 } from "./user/Wallets"
+
+export { USER_LOGOUT, logout } from "./user/Logout"

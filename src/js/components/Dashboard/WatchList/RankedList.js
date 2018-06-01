@@ -9,7 +9,8 @@ const RANK_IDX_OFFSET = 1
 export default class extends Component {
   state = {
     ranked: [],
-    order: []
+    order: [],
+    pending_change: false
   }
 
   componentWillMount() {
@@ -32,20 +33,27 @@ export default class extends Component {
       requestCoinInfo,
       coins
     } = this.props
-    const { ranked, order } = this.state
+    const { ranked, order, pending_change } = this.state
 
     return (
       <List
         rowHeight={64}
         gutter={0}
         onReOrder={order => {
-          this.setState({ order: order })
-          reorderWatchList(order.map(idx => ranked[idx]))
+          this.setState({ order: order, pending_change: true })
         }}
         order={order}
       >
         {ranked.map((symbol, idx) => (
-          <List.Item key={`${symbol}.${idx}`}>
+          <List.Item
+            key={`${symbol}.${idx}`}
+            onMouseUp={e => {
+              if (pending_change) {
+                reorderWatchList(order.map(idx => ranked[idx]))
+                this.setState({ pending_change: false })
+              }
+            }}
+          >
             <ListItem
               coin={coins.by_symbol[symbol]}
               rank={order.indexOf(idx) + RANK_IDX_OFFSET}

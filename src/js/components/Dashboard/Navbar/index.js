@@ -2,10 +2,11 @@ import React from "react"
 import Styled from "styled-components"
 import { Icon, Menu, Segment } from "semantic-ui-react"
 
+import DemoDashIndicator from "./DemoDashIndicator"
+import HeartBeat from "./../../Animations/HeartBeat"
 import Login from "./Login"
 import Logout from "./Logout"
 import Logo from "./../../Logo/"
-import HeartBeat from "./../../Animations/HeartBeat"
 import LogoName from "./../../Logo/Name"
 
 import { theme } from "./../../../constants"
@@ -41,7 +42,7 @@ const ImgBeat = Styled.a`
   }
 `
 
-export default ({ auth, navigateTo }) => (
+export default ({ auth, navigateTo, clearUserState, ...props }) => (
   <Segment as={HeaderContainer} inverted>
     <Menu inverted secondary>
       <Menu.Item as={ImgBeat} header onClick={e => navigateTo("/")}>
@@ -51,7 +52,10 @@ export default ({ auth, navigateTo }) => (
         </NavbarName>
       </Menu.Item>
       {!auth.isAuthenticated() && <Login login={auth.login} />}
-      {auth.isAuthenticated() && <Logout auth={auth} />}
+      {auth.isAuthenticated() && (
+        <Logout auth={auth} clearUserState={clearUserState} />
+      )}
     </Menu>
+    {!auth.isAuthenticated() && <DemoDashIndicator {...props} />}
   </Segment>
 )
