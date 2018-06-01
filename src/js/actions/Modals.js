@@ -11,6 +11,7 @@ export const TRANSACTION_NOTE_MODAL = "TRANSACTION_NOTE_MODAL"
 export const CONTACT_ME_MODAL = "CONTACT_ME_MODAL"
 export const DONATE_MODAL = "DONATE_MODAL"
 export const ROADMAP_MODAL = "ROADMAP_MODAL"
+export const DEMO_DASH_MODAL = "DEMO_DASH_MODAL"
 
 export const addToWatchListModal = () => ({
   type: ADD_TO_WATCHLIST_MODAL
@@ -78,4 +79,8 @@ export const donateModal = () => ({
 
 export const roadmapModal = () => ({
   type: ROADMAP_MODAL
+})
+
+export const demoDashModal = () => ({
+  type: DEMO_DASH_MODAL
 })

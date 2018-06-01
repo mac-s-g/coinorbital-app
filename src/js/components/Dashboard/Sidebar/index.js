@@ -72,10 +72,6 @@ const grid_width = {
 export default class extends Component {
   state = { mobile_expanded: false }
 
-  componentWillMount() {
-    this.props.fetchWallets()
-  }
-
   isSelected = (router, path) =>
     router.location &&
     router.location.pathname + router.location.search === path

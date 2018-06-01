@@ -81,7 +81,7 @@ export default class extends Component {
         <PieComponent>
           <Pie
             width={440}
-            height={250}
+            height={260}
             outerRadius={100}
             innerRadius={60}
             paddingAngle={3}
@@ -114,7 +114,7 @@ export default class extends Component {
               name
             }) => {
               const RADIAN = Math.PI / 180
-              const radius = innerRadius + (outerRadius - innerRadius) * 1.7
+              const radius = innerRadius + (outerRadius - innerRadius) * 1.5
               const x = cx + radius * Math.cos(-midAngle * RADIAN)
               const y = cy + radius * Math.sin(-midAngle * RADIAN)
 

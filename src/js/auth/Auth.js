@@ -12,6 +12,8 @@ const auth_config = {
   scope: "openid profile"
 }
 
+const ONE_SECOND = 1000
+
 class Auth {
   auth0 = new auth0.WebAuth(auth_config)
 
@@ -73,6 +75,14 @@ class Auth {
     return accessToken
   }
 
+  getAccessToken = () => {
+    const accessToken = localStorage.getItem("access_token")
+    if (!accessToken) {
+      throw new Error("No id token found")
+    }
+    return accessToken
+  }
+
   getProfileAsync = () => {
     return new Promise(resolve => {
       let accessToken = this.getAccessToken()
@@ -95,7 +105,7 @@ class Auth {
 
   getUserId = async () => {
     const profile = await this.getProfile()
-    return profile.sub ? profile.sub : this.defaultUserId
+    return !!profile && !!profile.sub ? profile.sub : this.defaultUserId
   }
 
   isAuthenticated = () => {
@@ -119,7 +129,7 @@ class Auth {
     if (delay > 0) {
       this.tokenRenewalTimeout = setTimeout(() => {
         this.renewToken()
-      }, delay)
+      }, delay - ONE_SECOND)
     }
   }
 }

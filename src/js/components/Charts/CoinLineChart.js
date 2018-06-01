@@ -215,9 +215,10 @@ export default class extends Component {
             y={tx.cost_per_coin_usd}
             r={
               REFERENCE_DOT_MIN_RADIUS +
-              Math.floor(
+              round(
                 //fuck it, going with log base 5
-                Math.log(tx.quantity * tx.cost_per_coin_usd) / Math.log(5)
+                Math.log(tx.quantity * tx.cost_per_coin_usd) / Math.log(5),
+                2
               )
             }
             fill={tx.type === "received" ? theme.colors.gold : theme.colors.red}

@@ -3,11 +3,11 @@ import Styled from "styled-components"
 import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
 import { rgba } from "polished"
 
+import CoinChart from "./CoinChart"
+import HeartBeat from "./../../Animations/HeartBeat"
 import Login from "./Login"
 import Logout from "./Logout"
-import CoinChart from "./CoinChart"
 import Logo from "./../../Logo/"
-import HeartBeat from "./../../Animations/HeartBeat"
 import LogoName from "./../../Logo/Name"
 
 import { theme, links } from "./../../../constants"
@@ -66,7 +66,11 @@ const ImgBeat = Styled.a`
   }
 `
 
-export default ({ navigateTo, auth, ...props }) => (
+const IconBeat = Styled.i`
+  animation: ${HeartBeat} 2.4s infinite linear;
+`
+
+export default ({ navigateTo, clearUserState, auth, ...props }) => (
   <div>
     <ChartContainer>
       <CoinChart {...props} symbol="BTC" />
@@ -79,10 +83,12 @@ export default ({ navigateTo, auth, ...props }) => (
             Landing
           </Menu.Item>
           <Menu.Item as="a" onClick={e => navigateTo("/dashboard")}>
-            Dashboard
+            {!auth.isAuthenticated() ? "Demo" : null} Dashboard
           </Menu.Item>
           {!auth.isAuthenticated() && <Login login={auth.login} />}
-          {auth.isAuthenticated() && <Logout auth={auth} />}
+          {auth.isAuthenticated() && (
+            <Logout auth={auth} clearUserState={clearUserState} />
+          )}
         </Menu>
       </Container>
 
@@ -112,7 +118,7 @@ export default ({ navigateTo, auth, ...props }) => (
           }}
         >
           <span>Learn More</span>
-          <Icon name="arrow down circle" />
+          <Icon as={IconBeat} name="arrow down circle" />
         </LearnMore>
       </BottomBar>
     </Segment>

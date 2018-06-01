@@ -1,4 +1,5 @@
 import React from "react"
+import Analytics from "react-router-ga"
 import { Route, Switch } from "react-router"
 import { Provider, connect } from "react-redux"
 import { ConnectedRouter, push } from "react-router-redux"
@@ -8,6 +9,8 @@ import auth from "./../auth/Auth"
 import Home from "./../components/Home"
 import Dashboard from "./../components/Dashboard"
 import Loading from "./../components/Loading"
+
+import { ga_tracking_id, environment } from "./../constants"
 
 //global semantic - todo: only use what's needed
 import "semantic-ui-css/semantic.min.css"
@@ -45,7 +48,10 @@ import {
   editTransactionModal,
   contactMeModal,
   donateModal,
-  roadmapModal
+  roadmapModal,
+  demoDashModal,
+  //logout
+  logout
 } from "./../actions/"
 
 const mapDispatchToProps = dispatch => ({
@@ -81,7 +87,9 @@ const mapDispatchToProps = dispatch => ({
   requestContactMe: () => dispatch(contactMeModal()),
   requestDonate: () => dispatch(donateModal()),
   requestRoadmap: () => dispatch(roadmapModal()),
-  closeModal: () => dispatch(closeAllModals())
+  requestDemoDash: () => dispatch(demoDashModal()),
+  closeModal: () => dispatch(closeAllModals()),
+  clearUserState: () => dispatch(logout())
 })
 
 const mapStateToProps = state => ({ ...state })
@@ -89,31 +97,38 @@ const mapStateToProps = state => ({ ...state })
 const index = props => (
   <Provider store={props.store}>
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={routeProps => <Home auth={auth} {...props} {...routeProps} />}
-        />
-        <Route
-          path="/dashboard"
-          render={routeProps => (
-            <Dashboard auth={auth} {...props} {...routeProps} />
-          )}
-        />
-        <Route
-          path="/callback"
-          render={routeProps => {
-            handleAuthentication(routeProps)
-            return <Loading auth={auth} {...props} {...routeProps} />
-          }}
-        />
-        <Route
-          render={routeProps => (
-            <Dashboard auth={auth} {...props} {...routeProps} />
-          )}
-        />
-      </Switch>
+      <Analytics
+        id={ga_tracking_id}
+        debug={environment == "production" ? false : true}
+      >
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={routeProps => (
+              <Home auth={auth} {...props} {...routeProps} />
+            )}
+          />
+          <Route
+            path="/dashboard"
+            render={routeProps => (
+              <Dashboard auth={auth} {...props} {...routeProps} />
+            )}
+          />
+          <Route
+            path="/callback"
+            render={routeProps => {
+              handleAuthentication(routeProps)
+              return <Loading auth={auth} {...props} {...routeProps} />
+            }}
+          />
+          <Route
+            render={routeProps => (
+              <Dashboard auth={auth} {...props} {...routeProps} />
+            )}
+          />
+        </Switch>
+      </Analytics>
     </ConnectedRouter>
   </Provider>
 )

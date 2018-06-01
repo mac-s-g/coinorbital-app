@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Styled from "styled-components"
-import { Button, Loader } from "semantic-ui-react"
+import { Button, Icon, Loader } from "semantic-ui-react"
 
 import RankedList from "./RankedList"
 import ContentComponent from "./../ContentComponent"
@@ -8,6 +8,8 @@ import CoinDropdown from "./../../Inputs/CoinDropdown"
 
 const ListContainer = Styled.div`
   margin: 1.67em 0 1.67em 0;
+  position: relative;
+  min-height: 3em;
 `
 
 export default class extends Component {
@@ -20,14 +22,21 @@ export default class extends Component {
   }
 
   getSortableList = () => {
-    const { list } = this.props.coins
+    const { coins, watchList } = this.props
 
     return (
       <ListContainer>
-        {list.length ? (
-          <RankedList {...this.props} />
+        {!watchList.fetching && coins.list.length ? (
+          watchList.ranked.length ? (
+            <RankedList {...this.props} />
+          ) : (
+            <div>
+              <Icon name="meh" size="big" />
+              Your Watch List is empty
+            </div>
+          )
         ) : (
-          <Loader inline active />
+          <Loader active />
         )}
       </ListContainer>
     )
@@ -41,7 +50,7 @@ export default class extends Component {
         subHeader="Monitor coins that catch your eye"
         logo
       >
-        {watchList.ranked.length ? this.getSortableList() : null}
+        {this.getSortableList()}
         <Button onClick={requestAddToWatchList}>
           Add Coins to your Watch List
         </Button>

@@ -1,5 +1,9 @@
 import React from "react"
 
+export const environment = process.env.NODE_ENV
+  ? process.env.NODE_ENV
+  : "production"
+
 export const theme = {
   colors: {
     inverted: "#335577",
@@ -60,3 +64,15 @@ export const authentication = {
   redirect_path: "/dashboard/",
   audience: "https://coinorbital.com/api/authorize"
 }
+
+export const api = {
+  domain: CO_API_HOST,
+  paths: {
+    user: "user/",
+    investment: "user/investments/",
+    watchlist: "user/watchlist/"
+  }
+}
+
+export const local_user = "local-user"
+export const ga_tracking_id = "UA-120202558-1"

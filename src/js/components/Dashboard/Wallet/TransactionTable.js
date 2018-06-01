@@ -391,7 +391,7 @@ export default class extends Component {
                         </Table.Cell>
                         <Table.Cell>
                           {/*actions*/}
-                          {!!tx.notes.length ? (
+                          {!!tx.notes && !!tx.notes.length ? (
                             <NoteLabel
                               hoverColor={theme.colors.gold}
                               circular

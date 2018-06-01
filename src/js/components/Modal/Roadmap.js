@@ -30,11 +30,9 @@ export default ({ close, contactMe }) => (
       <ListContainer>
         <Header as="h4" content="Roadmap:" />
         <List bulleted>
-          <List.Item>Allow users to backup transaction data</List.Item>
           <List.Item>
             Add line charts to wallet views displaying value over time
           </List.Item>
-          <List.Item>Support login from multiple devices</List.Item>
           <List.Item>
             Integrate with major exchanges
             <List bulleted>

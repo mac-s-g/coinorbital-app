@@ -35,16 +35,6 @@ const RemoveWalletIcon = Styled.i`
 `
 
 export default class extends Component {
-  componentWillMount() {
-    const { fetchWallets, fetchCoins, wallets, coins } = this.props
-    if (!wallets.fetched) {
-      fetchWallets()
-    }
-    if (!coins.fetching_coins && !coins.fetched) {
-      fetchCoins()
-    }
-  }
-
   walletName = () => parseSearchQuery(this.props.location.search).name
   tab = () => parseSearchQuery(this.props.location.search).tab
 

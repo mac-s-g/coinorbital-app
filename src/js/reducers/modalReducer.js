@@ -11,7 +11,8 @@ import {
   TRANSACTION_NOTE_MODAL,
   CONTACT_ME_MODAL,
   DONATE_MODAL,
-  ROADMAP_MODAL
+  ROADMAP_MODAL,
+  DEMO_DASH_MODAL
 } from "./../actions"
 
 const default_state = {
@@ -26,7 +27,8 @@ const default_state = {
   transaction_note: false,
   contact_me: false,
   donate: false,
-  roadmap: false
+  roadmap: false,
+  demo_dash: false
 }
 
 export default (state = default_state, { type, payload }) => {
@@ -45,7 +47,8 @@ export default (state = default_state, { type, payload }) => {
         transaction_note: false,
         contact_me: false,
         donate: false,
-        roadmap: false
+        roadmap: false,
+        demo_dash: false
       }
     case CREATE_TRANSACTION_MODAL:
       return {
@@ -106,6 +109,11 @@ export default (state = default_state, { type, payload }) => {
       return {
         ...state,
         roadmap: true
+      }
+    case DEMO_DASH_MODAL:
+      return {
+        ...state,
+        demo_dash: true
       }
     default:
       return state

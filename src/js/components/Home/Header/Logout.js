@@ -40,7 +40,7 @@ export default class extends Component {
   }
 
   render() {
-    const { auth, onClick } = this.props
+    const { auth, clearUserState, onClick } = this.props
     const { profile } = this.state
 
     return (
@@ -63,7 +63,10 @@ export default class extends Component {
             <Dropdown.Item
               icon="log out"
               content="Log Out"
-              onClick={auth.logout}
+              onClick={() => {
+                clearUserState()
+                auth.logout()
+              }}
             />
           </Dropdown.Menu>
         </Dropdown>
