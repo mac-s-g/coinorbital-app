@@ -7,7 +7,7 @@ import ContentComponent from "./../ContentComponent"
 import CoinDropdown from "./../../Inputs/CoinDropdown"
 
 const ListContainer = Styled.div`
-  margin: 1.67em 0 1.67em 0;
+  margin: 1.67em 0 2.33em 0;
   position: relative;
   min-height: 3em;
 `
@@ -26,7 +26,9 @@ export default class extends Component {
 
     return (
       <ListContainer>
-        {!watchList.fetching && coins.list.length ? (
+        {(watchList.fetching && !watchList.ranked.length) || !coins.list.length ? (
+          <Loader active />
+        ) : (
           watchList.ranked.length ? (
             <RankedList {...this.props} />
           ) : (
@@ -35,8 +37,6 @@ export default class extends Component {
               Your Watch List is empty
             </div>
           )
-        ) : (
-          <Loader active />
         )}
       </ListContainer>
     )

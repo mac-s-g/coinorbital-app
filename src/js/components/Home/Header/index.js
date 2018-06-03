@@ -61,9 +61,9 @@ const LearnMore = Styled.span`
 `
 
 const ImgBeat = Styled.a`
-  &:hover img {
+  /*&:hover img {
     animation: ${HeartBeat} 2.4s infinite linear;
-  }
+  }*/
 `
 
 const IconBeat = Styled.i`
