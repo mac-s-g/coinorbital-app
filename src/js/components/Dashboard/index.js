@@ -29,7 +29,7 @@ import parseSearch from "./../../helpers/parseSearchQuery"
 import { environment } from "./../../constants"
 
 //value refresh
-const FETCH_COIN_INTERVAL = environment == "development" ? 30000 : 10000
+const FETCH_COIN_INTERVAL = environment == "development" ? 60000 : 30000
 
 export default class extends Component {
   fetchCoinInterval = false

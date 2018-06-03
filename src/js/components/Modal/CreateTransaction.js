@@ -67,7 +67,7 @@ export default class extends Component {
       this.parseFloatInput(quantity) <
         calculateWalletQuantity(this.props.modals.create_transaction))
   isValidCost = cost =>
-    cost.trim() != "" &&
+    cost.toString().trim() != "" &&
     this.isValidFloat(cost) &&
     this.parseFloatInput(cost) > 0
   isValidFloat = value =>

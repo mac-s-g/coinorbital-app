@@ -17,9 +17,9 @@ const requestCoins = () => ({
   type: REQUEST_COINS
 })
 
-const receiveCoins = response => ({
+const receiveCoins = payload => ({
   type: RECEIVE_COINS,
-  payload: response
+  payload
 })
 
 const receiveCoinsError = payload => ({
@@ -31,8 +31,8 @@ export const fetchCoins = payload => {
   return dispatch => {
     dispatch(requestCoins())
     axios
-      .get("https://api.coinmarketcap.com/v1/ticker/")
-      .then(response => dispatch(receiveCoins(response.data)))
+      .get("https://api.coinmarketcap.com/v2/ticker/")
+      .then(response => dispatch(receiveCoins(response.data.data)))
       .catch(error => dispatch(receiveCoinsError(error)))
   }
 }
