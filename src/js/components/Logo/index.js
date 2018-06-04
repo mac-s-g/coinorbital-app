@@ -1,13 +1,17 @@
 import React from "react"
 
-import LogoSvg from "./../../../images/logo.svg"
+import Logo from "./Logo"
 
 import { theme } from "./../../constants"
 
-export default ({ size, ...props }) => (
-  <img
+export default ({
+  primaryColor = theme.colors.gold,
+  backgroundColor = theme.colors.inverted,
+  ...props
+}) => (
+  <Logo
+    primaryColor={primaryColor}
+    backgroundColor={backgroundColor}
     {...props}
-    src={LogoSvg}
-    style={{ width: `${size}px`, height: `${size}px` }}
   />
 )

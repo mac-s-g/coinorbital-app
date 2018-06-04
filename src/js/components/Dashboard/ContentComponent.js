@@ -17,11 +17,20 @@ const PageContent = Styled.div`
   font-size: 1.14285714rem;
 `
 
+const LogoComponent = Styled.div`
+  margin: 6px 10px 0 0;
+  display: inline-block;
+`
+
 export default ({ header, subHeader, children, coinSymbol, logo }) => (
   <MainComponent>
     {header ? (
       <Header as="h1">
-        {logo ? <Logo size="45" /> : null}
+        {logo ? (
+          <LogoComponent>
+            <Logo size="45px" />
+          </LogoComponent>
+        ) : null}
         {coinSymbol ? <CoinLogo symbol={coinSymbol} size="big" /> : null}
         <Header.Content>
           {header}

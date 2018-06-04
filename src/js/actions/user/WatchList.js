@@ -72,7 +72,10 @@ export const addToWatchList = symbols => dispatch => {
   } else {
     dispatch(
       addToWatchListSuccess(
-        Cabinet.get(watchlist_key, default_watch_list).concat(symbols)
+        Cabinet.set(
+          watchlist_key,
+          Cabinet.get(watchlist_key, default_watch_list).concat(symbols)
+        )
       )
     )
   }
@@ -103,9 +106,7 @@ export const removeFromWatchList = symbol => dispatch => {
   } else {
     Cabinet.set(
       watchlist_key,
-      Cabinet.get(watchlist_key, default_watch_list).filter(
-        s => s != symbol
-      )
+      Cabinet.get(watchlist_key, default_watch_list).filter(s => s != symbol)
     )
     dispatch(requestRemoveFromWatchList(symbol))
   }

@@ -1,13 +1,17 @@
 import React from "react"
 
-import LogoSvgAlt from "./../../../images/logo-alt.svg"
+import Logo from "./Logo"
 
 import { theme } from "./../../constants"
 
-export default ({ size, ...props }) => (
-  <img
+export default ({
+  primaryColor = theme.colors.inverted,
+  backgroundColor = theme.colors.well_gray,
+  ...props
+}) => (
+  <Logo
+    primaryColor={primaryColor}
+    backgroundColor={backgroundColor}
     {...props}
-    src={LogoSvgAlt}
-    style={{ width: `${size}px`, height: `${size}px` }}
   />
 )
