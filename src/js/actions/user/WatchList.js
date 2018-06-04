@@ -101,16 +101,13 @@ export const removeFromWatchList = symbol => dispatch => {
       )
       .catch(error => dispatch(removeFromWatchListError(error)))
   } else {
-    dispatch(
-      removeFromWatchListSuccess(
-        Cabinet.set(
-          watchlist_key,
-          Cabinet.get(watchlist_key, default_watch_list).filter(
-            symbol => symbol != remove_symbol
-          )
-        )
+    Cabinet.set(
+      watchlist_key,
+      Cabinet.get(watchlist_key, default_watch_list).filter(
+        s => s != symbol
       )
     )
+    dispatch(requestRemoveFromWatchList(symbol))
   }
 }
 

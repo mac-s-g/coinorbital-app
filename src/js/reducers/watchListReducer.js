@@ -56,11 +56,11 @@ export default (state = default_state, { type, payload }) => {
           )
         ]
       }
-    case REMOVE_FROM_WATCH_LIST:
-      return {
-        ...state,
-        ranked: [...payload]
-      }
+    // case REMOVE_FROM_WATCH_LIST:
+    //   return {
+    //     ...state,
+    //     ranked: [...payload]
+    //   }
     case REORDER_WATCH_LIST:
       return {
         ...state,
