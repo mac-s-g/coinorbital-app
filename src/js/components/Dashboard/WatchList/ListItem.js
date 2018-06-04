@@ -42,6 +42,7 @@ const Name = Styled.div`
   width: 150px;
   margin-right: 0.67em;
   & :first-child {
+    cursor: pointer;
     height: 22px;
     font-size: 1.5rem;
     overflow: hidden;
@@ -49,6 +50,7 @@ const Name = Styled.div`
     text-overflow: ellipsis;
   }
   & :nth-child(2) {
+    cursor: pointer;
     font-weight: bold;
     font-size: 10px;
     color: ${theme.colors.gray};
@@ -57,6 +59,9 @@ const Name = Styled.div`
 
 const CoinIcon = Styled.div`
   width: 44px;
+  & img {
+    cursor: pointer;
+  }
 `
 
 const Price = Styled.div`
@@ -160,12 +165,14 @@ export default class extends Component {
         <CoinIcon>
           <CoinLogo
             symbol={coin.symbol}
-            style={{ cursor: "pointer" }}
             onMouseDown={e => e.stopPropagation()}
             onClick={e => requestCoinChart(coin.symbol)}
           />
         </CoinIcon>
-        <Name>
+        <Name
+          onClick={e => requestCoinChart(coin.symbol)}
+          onMouseDown={e => e.stopPropagation()}
+        >
           <div>{coin.name}</div>
           <div>{coin.symbol}</div>
         </Name>

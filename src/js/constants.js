@@ -6,7 +6,8 @@ export const environment = process.env.NODE_ENV
 
 export const theme = {
   colors: {
-    inverted: "#335577",
+    inverted: "#044d6e",
+    blue: "#044d6e",
     well_gray: "#f5f5f5",
     well_border: "#bbb",
     logo: "#FAA916",
@@ -18,9 +19,8 @@ export const theme = {
     grey_dark: "rgba(0,0,0,0.6)",
     gray_table: "#f9fafb",
     red: "#dd4444",
-    blue: "#335577",
     black: "#222",
-    purple: "#909",
+    purple: "#335577",
     white: "#fff"
   },
   dash_nav_height: "4em",

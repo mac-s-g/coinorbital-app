@@ -106,7 +106,7 @@ export default ({ navigateTo, clearUserState, auth, ...props }) => (
             <LogoName inverted />
           </HeaderLabel>
           <ImgBeat>
-            <Logo size={100} />
+            <Logo size="100px" />
           </ImgBeat>
           {!auth.isAuthenticated() && (
             <SignUp onClick={e => auth.login()}>Sign Up</SignUp>
