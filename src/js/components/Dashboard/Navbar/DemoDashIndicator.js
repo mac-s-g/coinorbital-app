@@ -10,8 +10,8 @@ const DemoItem = Styled.div``
 
 const DemoDashIndicator = Styled.div`
   position:fixed;
-  bottom: 1.33em;
-  right: 1.33em;
+  bottom: 2em;
+  right: 2em;
   background-color: ${theme.colors.red};
   color: ${theme.colors.white};
   padding: 0.5em 1em;
