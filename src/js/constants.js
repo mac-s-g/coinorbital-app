@@ -54,7 +54,7 @@ export const project_info = {
 }
 
 export const links = {
-  author_avatar: "https://avatars3.githubusercontent.com/u/4097374?s=460&v=4"
+  author_avatar: "https://s3.amazonaws.com/www.coinorbital.com/logo-150-150.png"
 }
 
 export const authentication = {

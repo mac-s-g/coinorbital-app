@@ -11,8 +11,8 @@ export default ({ close, donate }) => (
     <Modal.Header>Contact Me</Modal.Header>
     <Modal.Content>
       <Modal.Description as="p">
-        I value positive and negative feedback from users. Please send me an
-        email if you have ideas about how <LogoName /> can improve.
+        I value positive and negative feedback from users. Send me an email if
+        you have ideas to improve <LogoName />.
       </Modal.Description>
       <Modal.Description as="p">
         If you have ideas about how to generate revenue or you're interested in
@@ -20,7 +20,11 @@ export default ({ close, donate }) => (
       </Modal.Description>
       <Header
         as="h3"
-        content={project_info.author.name}
+        content={
+          <Link target="_blank" href="https://github.com/mac-s-g/">
+            {project_info.author.name}
+          </Link>
+        }
         subheader={`e: ${project_info.author.email}`}
         image={links.author_avatar}
       />
