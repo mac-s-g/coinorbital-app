@@ -101,7 +101,7 @@ export default class extends Component {
     },
     month: {
       type: "hour",
-      limit: 24 * 30 / 4,
+      limit: (24 * 30) / 4,
       aggregate: 4
     },
     week: {
@@ -110,7 +110,7 @@ export default class extends Component {
     },
     day: {
       type: "minute",
-      limit: 60 * 24 / 10,
+      limit: (60 * 24) / 10,
       aggregate: 10
     }
   }
@@ -191,7 +191,7 @@ export default class extends Component {
         }
 
         series_idx = Math.floor(
-          (tx_time - min_time) / (max_time - min_time) * set_size
+          ((tx_time - min_time) / (max_time - min_time)) * set_size
         )
 
         //recent transactions sit at right edge of chart

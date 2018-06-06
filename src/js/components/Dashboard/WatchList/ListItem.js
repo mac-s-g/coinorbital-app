@@ -4,6 +4,7 @@ import { Container, Icon, Image, Statistic } from "semantic-ui-react"
 import { rgba } from "polished"
 
 import CoinLogo from "./../../CoinLogo/"
+import Link from "./../../Link"
 
 import Pulse from "./../../Animations/Pulse"
 
@@ -50,7 +51,6 @@ const Name = Styled.div`
     text-overflow: ellipsis;
   }
   & :nth-child(2) {
-    cursor: pointer;
     font-weight: bold;
     font-size: 10px;
     color: ${theme.colors.gray};
@@ -169,11 +169,13 @@ export default class extends Component {
             onClick={e => requestCoinChart(coin.symbol)}
           />
         </CoinIcon>
-        <Name
-          onClick={e => requestCoinChart(coin.symbol)}
-          onMouseDown={e => e.stopPropagation()}
-        >
-          <div>{coin.name}</div>
+        <Name>
+          <Link
+            onClick={e => requestCoinChart(coin.symbol)}
+            onMouseDown={e => e.stopPropagation()}
+          >
+            {coin.name}
+          </Link>
           <div>{coin.symbol}</div>
         </Name>
         <Price>

@@ -10,7 +10,7 @@ export default ({ wallets, coins, fetchTimeSeries, navigateTo }) => (
     panes={[
       {
         menuItem: {
-          content: "Trends",
+          content: "Total Value",
           key: "trendstab",
           icon: <Icon name="line chart" />
         },
