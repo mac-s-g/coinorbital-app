@@ -3,6 +3,7 @@ import { Icon, Menu } from "semantic-ui-react"
 import Styled from "styled-components"
 
 import HeartBeat from "./../../Animations/HeartBeat"
+import MobileOnly from "./../../Responsive/MobileOnly"
 import NonMobileContent from "./../../Responsive/NonMobileContent"
 
 const IconBeat = Styled.a`
@@ -12,9 +13,12 @@ const IconBeat = Styled.a`
 `
 
 export default ({ login }) => (
-  <Menu.Item header position="right" onClick={login}>
-    <Icon name="google" />
-    <Icon name="facebook" />
-    <NonMobileContent>Login</NonMobileContent>
-  </Menu.Item>
+    <Menu.Item header position="right" onClick={login}>
+        <Icon name="google" />
+        <Icon name="facebook" />
+        <MobileOnly>
+            <Icon name="user circle outline" />
+        </MobileOnly>
+        <NonMobileContent>Login</NonMobileContent>
+    </Menu.Item>
 )

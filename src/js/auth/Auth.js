@@ -46,12 +46,7 @@ class Auth {
         this.setSession(authResult)
         history.replace(redirectPath)
       }
-      /* this is being triggered twice and throwing an error */
-      // else if (err) {
-      //   history.replace(redirectPath)
-      //   console.log(err)
-      //   alert(`Error: ${err.error}. Check the console for further details.`)
-      // }
+      //todo: error handling
     })
   }
 

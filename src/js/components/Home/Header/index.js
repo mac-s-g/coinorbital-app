@@ -1,6 +1,6 @@
 import React from "react"
 import Styled from "styled-components"
-import { Container, Header, Icon, Menu, Segment } from "semantic-ui-react"
+import { Container, Header, Icon, List, Menu, Segment } from "semantic-ui-react"
 import { rgba } from "polished"
 
 import CoinChart from "./CoinChart"
@@ -46,18 +46,7 @@ const BottomBar = Styled.div`
   bottom: 0px;
   height: 4em;
   background-color: ${theme.colors.well_gray};
-`
-
-const LearnMore = Styled.span`
-  position: absolute;
-  right: 5px;
-  font-size: 18px;
-  color: ${theme.colors.blue};
-  top: 18px;
-  cursor: pointer;
-  & span {
-    margin-right: 6px;
-  }
+  padding-top: 1.3em;
 `
 
 const ImgBeat = Styled.a`
@@ -81,7 +70,15 @@ const SignUp = Styled.div`
   }
 `
 
-export default ({ navigateTo, clearUserState, auth, ...props }) => (
+export default ({
+  navigateTo,
+  clearUserState,
+  auth,
+  requestContactMe,
+  requestDonate,
+  requestRoadmap,
+  ...props
+}) => (
   <div>
     <ChartContainer>
       <CoinChart {...props} symbol="BTC" />
@@ -115,22 +112,33 @@ export default ({ navigateTo, clearUserState, auth, ...props }) => (
       </Container>
 
       <BottomBar>
-        <LearnMore
-          onClick={e => {
-            const issueListDOMComponent = document.querySelector(
-              ".index-content"
-            )
-            if (issueListDOMComponent) {
-              issueListDOMComponent.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-              })
-            }
-          }}
-        >
-          <span>Learn More</span>
-          <Icon as={IconBeat} name="arrow down circle" />
-        </LearnMore>
+        <List horizontal divided link>
+          <List.Item
+            as="a"
+            onClick={e => {
+              const issueListDOMComponent = document.querySelector(
+                ".index-content"
+              )
+              if (issueListDOMComponent) {
+                issueListDOMComponent.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start"
+                })
+              }
+            }}
+          >
+            About
+          </List.Item>
+          <List.Item as="a" onClick={requestContactMe}>
+            Contact
+          </List.Item>
+          <List.Item as="a" onClick={requestDonate}>
+            Donate
+          </List.Item>
+          <List.Item as="a" onClick={requestRoadmap}>
+            Roadmap
+          </List.Item>
+        </List>
       </BottomBar>
     </Segment>
   </div>
