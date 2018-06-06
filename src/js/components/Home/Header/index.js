@@ -135,9 +135,6 @@ export default ({
           <List.Item as="a" onClick={requestDonate}>
             Donate
           </List.Item>
-          <List.Item as="a" onClick={requestRoadmap}>
-            Roadmap
-          </List.Item>
         </List>
       </BottomBar>
     </Segment>

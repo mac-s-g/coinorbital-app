@@ -16,7 +16,7 @@ import SampleTransactions from "./SampleTransactions"
 import { theme } from "./../../constants"
 
 const SegmentContainer = Styled.div`
-  padding: 8em 0em 10em 0em !important;
+  padding: 4em 0em 8em 0em !important;
 `
 const SegmentHeader = Styled.div`
   calc(2rem - .14285714em) 0 1rem;
@@ -59,6 +59,7 @@ export default ({ modals, closeModal, ...props }) => (
   <div>
     <Header {...props} />
 
+    {/* index-content class is for scroll function reference */}
     <Segment as={SegmentContainer} vertical class="index-content">
       <Container text>
         <SegmentHeader>Visualize Your Portfolio</SegmentHeader>
